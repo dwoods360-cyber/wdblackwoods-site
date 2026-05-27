@@ -11,10 +11,27 @@ export default function BeginPage() {
       </nav>
 
       <section>
-        <h1>Begin Here — The Archive of What Coffee Demands</h1>
-        <p className="meta">
-          This is a guided entry sequence. It is not a catalog.
-        </p>
+            <h1>Begin Here — The Archive of What Coffee Demands</h1>
+            <p className="meta">This is a guided entry sequence. It is not a catalog.</p>
+            <div className="start-here">
+              <p>
+                This is not a blog. It is a record of how a world gets built—slowly,
+                in fragments, the way a woman sews gold coins into the lining of a cloak,
+                one seam at a time, so the weight does not betray itself to a casual hand.
+              </p>
+              <p>
+                What Coffee Demands is a historical fiction trilogy set in the Abyssinian
+                highlands in the final decades of the nineteenth century. It follows a
+                bankrupt English family, the four women who serve them, and the people
+                whose land they have come to cultivate—into a country that does not forgive
+                ignorance and never has.
+              </p>
+              <p>
+                The publication appears in fragments: excerpts, character studies,
+                historical roots, narrative records, and maps of a world still being assembled.
+              </p>
+              <p className="meta">If you are new here, a suggested start: The Vine Crown → The Arithmetic on the Wall → Caravanserai Incident → Founding Entry.</p>
+            </div>
       </section>
 
       <section className="entry-block primary-entry">
