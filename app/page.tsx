@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main>
+    <main className="home">
       <section>
         <h1>W.D. Blackwoods</h1>
         <p className="meta">Cinematic historical fiction from the What Coffee Demands universe</p>

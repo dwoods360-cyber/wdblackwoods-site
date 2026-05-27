@@ -166,6 +166,11 @@ ol {
   margin: 0;
 }
 
+/* Homepage specific: center-justify the main content for the threshold experience */
+.home {
+  text-align: center;
+}
+
 .secondary-links {
   display: flex;
   justify-content: center;
