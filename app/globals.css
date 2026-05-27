@@ -189,6 +189,24 @@ ol {
   line-height: 1.75;
 }
 
+.entry-block {
+  margin-top: var(--space-xxl);
+}
+
+.entry-block h2 {
+  margin-bottom: var(--space-xs);
+}
+
+.entry-block.primary-entry {
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.entry-block .story-link {
+  display: inline-block;
+  margin-top: var(--space-sm);
+}
+
 .suggested-order {
   margin-top: var(--space-lg);
   color: var(--text-secondary);
