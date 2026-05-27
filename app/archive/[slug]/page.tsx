@@ -27,9 +27,9 @@ export default function ArchiveEntryPage({ params }: { params: { slug: string } 
   }
 
   return (
-    <main style={{ maxWidth: "760px", margin: "0 auto", padding: "48px 24px" }}>
+    <main>
       <h1>{entry.title}</h1>
-      <p style={{ marginTop: "24px", lineHeight: 1.8 }}>{entry.description}</p>
+      <p>{entry.description}</p>
     </main>
   );
 }

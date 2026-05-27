@@ -2,23 +2,21 @@ import Link from "next/link";
 
 export default function BeginPage() {
   return (
-    <main style={{ maxWidth: "760px", margin: "0 auto", padding: "48px 24px" }}>
+    <main>
       <h1>Begin Here — The Archive of What Coffee Demands</h1>
 
-      <p style={{ marginTop: "24px", lineHeight: 1.8 }}>
+      <p>
         This is a literary archive of interconnected narrative fragments about empire,
         labor, and memory. Each entry is a restrained invitation into the world of
         What Coffee Demands.
       </p>
 
-      <div style={{ marginTop: "32px", color: "#555", fontSize: "15px", lineHeight: 1.7 }}>
+      <div className="suggested-order">
         <strong>Suggested Order:</strong>
-        <ol style={{ marginTop: "12px", paddingLeft: "20px", marginBottom: "0" }}>
-          <li style={{ marginBottom: "8px" }}>
-            <div style={{ fontSize: "14px", color: "#777", marginBottom: "4px" }}>
-              Recommended first entry
-            </div>
-            <span style={{ fontWeight: 600, fontSize: "16px" }}>The Vine Crown</span>
+        <ol>
+          <li className="primary">
+            <div>Recommended first entry</div>
+            The Vine Crown
           </li>
           <li>Caravanserai Incident — Massawa</li>
           <li>The Arithmetic on the Wall</li>
@@ -26,54 +24,54 @@ export default function BeginPage() {
         </ol>
       </div>
 
-      <p style={{ marginTop: "24px", color: "#555", fontSize: "15px", lineHeight: 1.7 }}>
+      <p>
         Most readers begin here without realizing why.
       </p>
 
-      <section style={{ marginTop: "40px" }}>
+      <section>
         <h2>Start Here</h2>
 
-        <ul style={{ listStyle: "none", padding: 0, marginTop: "24px", display: "grid", gap: "24px" }}>
+        <ul className="story-list">
           <li>
-            <Link href="/archive/vine-crown" style={{ fontSize: "18px", textDecoration: "none" }}>
+            <Link href="/archive/vine-crown" className="story-link">
               The Vine Crown
             </Link>
-            <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
+            <p className="story-description">
               A private domestic fracture, where intimacy collides with a discovery that should not exist.
             </p>
           </li>
 
           <li>
-            <Link href="/archive/caravanserai-incident-massawa" style={{ fontSize: "18px", textDecoration: "none" }}>
+            <Link href="/archive/caravanserai-incident-massawa" className="story-link">
               Caravanserai Incident — Massawa
             </Link>
-            <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
+            <p className="story-description">
               A scene where systems and hierarchy are revealed through movement, duty, and unseen rules.
             </p>
           </li>
 
           <li>
-            <Link href="/archive/the-arithmetic-on-the-wall" style={{ fontSize: "18px", textDecoration: "none" }}>
+            <Link href="/archive/the-arithmetic-on-the-wall" className="story-link">
               The Arithmetic on the Wall
             </Link>
-            <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
+            <p className="story-description">
               Structural abstraction arrives as economic calculus written on a surface of control.
             </p>
           </li>
 
           <li>
-            <Link href="/archive/founding-entry-what-coffee-demands" style={{ fontSize: "18px", textDecoration: "none" }}>
+            <Link href="/archive/founding-entry-what-coffee-demands" className="story-link">
               Founding Entry: What Coffee Demands
             </Link>
-            <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
+            <p className="story-description">
               A meta framing of the archive, setting the worldview and the forces that shape it.
             </p>
           </li>
         </ul>
       </section>
 
-      <p style={{ marginTop: "48px", fontStyle: "italic" }}>
-        Each entry reveals a different layer of the same system.
+      <p>
+        <em>Each entry reveals a different layer of the same system.</em>
       </p>
     </main>
   );

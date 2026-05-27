@@ -2,222 +2,102 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main
-      style={{
-        maxWidth: "760px",
-        margin: "0 auto",
-        padding: "96px 24px",
-        fontFamily: "Georgia, serif",
-        color: "#111",
-        background: "#f8f6f2",
-        minHeight: "100vh",
-      }}
-    >
-      <nav style={{ marginBottom: "40px" }}>
+    <main>
+      <nav>
         <Link href="/">Home</Link>
-        {" | "}
         <Link href="/begin">Begin</Link>
-        {" | "}
         <Link href="/archive">Archive</Link>
-        {" | "}
         <Link href="/about">About</Link>
       </nav>
 
-      {/* HEADER */}
       <section>
-        <h1
-          style={{
-            fontSize: "52px",
-            fontWeight: 600,
-            letterSpacing: "-1px",
-            marginBottom: "24px",
-          }}
-        >
-          W.D. Blackwoods
-        </h1>
+        <h1>W.D. Blackwoods</h1>
 
-        {/* FIX: no nested <p> tags */}
-        <p
-          style={{
-            fontSize: "20px",
-            lineHeight: 1.8,
-            color: "#333",
-            maxWidth: "680px",
-            marginBottom: "18px",
-          }}
-        >
+        <p>
           Historical fiction, systems-driven storytelling, and cinematic
           narratives built around empire, labor, and the invisible structures
           beneath power.
         </p>
 
-        <p
-          style={{
-            fontSize: "20px",
-            lineHeight: 1.8,
-            color: "#111",
-            maxWidth: "680px",
-            fontStyle: "italic",
-          }}
-        >
-          Empires rise on ledgers, roads, and harvests — and the silent
-          assumption that some lives are worth less than others.
+        <p>
+          <em>
+            Empires rise on ledgers, roads, and harvests — and the silent
+            assumption that some lives are worth less than others.
+          </em>
         </p>
       </section>
 
-      {/* DIVIDER */}
-      <hr
-        style={{
-          margin: "56px 0",
-          border: "none",
-          borderTop: "1px solid #d6d1c7",
-        }}
-      />
+      <hr />
 
-      {/* PHILOSOPHY */}
       <section>
-        <p
-          style={{
-            fontSize: "17px",
-            lineHeight: 1.9,
-            marginBottom: "20px",
-          }}
-        >
+        <p className="meta">Philosophy</p>
+
+        <p>
           These stories operate as systems under pressure: trade routes, labor
           economies, imperial logistics, and the mathematics of survival.
         </p>
 
-        <p
-          style={{
-            fontSize: "17px",
-            lineHeight: 1.9,
-          }}
-        >
+        <p>
           Characters are not isolated individuals. They are shaped by distance,
           extraction, and the invisible accounting systems of empire.
         </p>
       </section>
 
-      {/* CURRENT PROJECT */}
-      <section style={{ marginTop: "80px" }}>
-        <p
-          style={{
-            fontSize: "12px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#777",
-            marginBottom: "16px",
-          }}
-        >
-          Current Project
-        </p>
+      <section>
+        <p className="meta">Current Project</p>
 
-        <h2 style={{ fontSize: "38px", marginBottom: "20px" }}>
-          What Coffee Demands
-        </h2>
+        <h2>What Coffee Demands</h2>
 
-        <p
-          style={{
-            fontSize: "18px",
-            lineHeight: 1.8,
-            color: "#333",
-            maxWidth: "680px",
-          }}
-        >
+        <p>
           A historical adventure trilogy set in a composite 19th-century
           Abyssinia, tracing coffee, capital, violence, and survival through
           trade routes and collapsing empires.
         </p>
 
-        <div style={{ marginTop: "28px" }}>
-          <Link
-            href="/begin"
-            style={{
-              textDecoration: "none",
-              color: "#111",
-              fontSize: "16px",
-              borderBottom: "1px solid #111",
-              paddingBottom: "2px",
-            }}
-          >
+        <div>
+          <Link href="/begin" className="read-more">
             Enter the system →
           </Link>
         </div>
       </section>
 
-      {/* FIELD NOTES */}
-      <section style={{ marginTop: "100px" }}>
-        <p
-          style={{
-            fontSize: "12px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#777",
-            marginBottom: "24px",
-          }}
-        >
-          Field Notes
-        </p>
+      <section>
+        <p className="meta">Field Notes</p>
 
-        <article style={{ marginBottom: "48px" }}>
-          <h3 style={{ fontSize: "28px", marginBottom: "12px" }}>
-            The Arithmetic on the Wall
-          </h3>
-
-          <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#333" }}>
+        <article>
+          <h3>The Arithmetic on the Wall</h3>
+          <p>
             Routes are not geography. They are control. Prices are not economics.
             They are distance made visible.
           </p>
         </article>
 
         <article>
-          <h3 style={{ fontSize: "28px", marginBottom: "12px" }}>
-            Caravanserai Incident — Massawa
-          </h3>
-
-          <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#333" }}>
+          <h3>Caravanserai Incident — Massawa</h3>
+          <p>
             Inside the caravanserai, hierarchy reveals itself before language does.
           </p>
         </article>
       </section>
 
-      {/* SUBSCRIBE */}
-      <section style={{ marginTop: "100px" }}>
-        <p
-          style={{
-            fontSize: "12px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#777",
-            marginBottom: "20px",
-          }}
-        >
-          Stay Connected
-        </p>
+      <section>
+        <p className="meta">Stay Connected</p>
 
-        <p
-          style={{
-            fontSize: "17px",
-            lineHeight: 1.8,
-            color: "#333",
-            marginBottom: "24px",
-          }}
-        >
-          Occasional dispatches: essays, system maps, and early excerpts.
-        </p>
+        <p>Occasional dispatches: essays, system maps, and early excerpts.</p>
 
-        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-          <input
-            type="email"
-            placeholder="Email address"
-            style={{
-              padding: "14px 16px",
-              border: "1px solid #ccc",
-              background: "#fff",
-              minWidth: "260px",
-              fontSize: "15px",
-            }}
-          />
+        <div className="form-row">
+          <input type="email" placeholder="Email address" />
+          <button type="button" className="button">
+            Subscribe
+          </button>
+        </div>
+      </section>
+
+      <footer>© 2026 W.D. Blackwoods</footer>
+    </main>
+  );
+}
+
 
           <button
             style={{
