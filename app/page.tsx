@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main
@@ -11,6 +13,16 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
+      <nav style={{ marginBottom: "40px" }}>
+        <Link href="/">Home</Link>
+        {" | "}
+        <Link href="/begin">Begin</Link>
+        {" | "}
+        <Link href="/archive">Archive</Link>
+        {" | "}
+        <Link href="/about">About</Link>
+      </nav>
+
       {/* HEADER */}
       <section>
         <h1
@@ -118,8 +130,8 @@ export default function Home() {
         </p>
 
         <div style={{ marginTop: "28px" }}>
-          <a
-            href="#"
+          <Link
+            href="/begin"
             style={{
               textDecoration: "none",
               color: "#111",
@@ -129,7 +141,7 @@ export default function Home() {
             }}
           >
             Enter the system →
-          </a>
+          </Link>
         </div>
       </section>
 
