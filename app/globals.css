@@ -212,6 +212,65 @@ ol {
   margin-top: var(--space-sm);
 }
 
+.system-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.system-section {
+  padding-top: var(--space-xxl);
+  padding-bottom: var(--space-lg);
+  border-top: 1px solid var(--border-muted);
+}
+
+.system-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.system-layer-label {
+  display: inline-block;
+  margin: 0 0 var(--space-sm) 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-variant: small-caps;
+}
+
+.system-section h1 {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  margin-bottom: var(--space-sm);
+  line-height: 1.1;
+  font-family: var(--font-heading);
+}
+
+.system-section p {
+  margin-bottom: var(--space-md);
+  max-width: 100%;
+}
+
+.system-link {
+  display: inline-block;
+  color: var(--link-color);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  font-size: 1.05rem;
+}
+
+.system-link:hover {
+  border-bottom-color: var(--link-color);
+}
+
+.system-cta {
+  margin-top: var(--space-xxl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border-muted);
+  text-align: center;
+}
+
 .suggested-order {
   margin-top: var(--space-lg);
   color: var(--text-secondary);

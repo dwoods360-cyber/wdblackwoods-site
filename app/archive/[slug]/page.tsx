@@ -28,7 +28,7 @@ const entries: Record<string, {
       "Sarah’s sudden interest in Amharic phrases. The afternoons she vanished between Alice’s rounds and supper. The way she had stopped asking permission to go outside and simply went. The careful, almost diplomatic language she used when speaking of the village — Berihun’s family, the workers’ children, never a specific name.",
       "\"How long?\" Katherine asked.",
       "\"Since they were seven, Mrs. Cartier. I have monitored the situation.\"",
-      "\"\"Monitored.\" Katherine’s voice was flat. \"You knew, and you did not tell me.\"\n",
+      "\"Monitored.\" Katherine’s voice was flat. \"You knew, and you did not tell me.",
       "\"I judged it to be a childhood friendship. Harmless, and in many ways beneficial — Sarah was learning the land, the language, the culture of this place. I would have intervened if I had seen cause.\"",
       "\"And now? She is twelve years old. He is twelve years old. At what point does your monitoring become negligence?\"",
       "The word hung between them. Alice absorbed it without visible reaction, though a muscle tightened in her jaw.",
