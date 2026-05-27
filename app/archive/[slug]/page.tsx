@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const entries: Record<string, { title: string; description: string }> = {
@@ -28,6 +29,13 @@ export default function ArchiveEntryPage({ params }: { params: { slug: string } 
 
   return (
     <main>
+      <nav>
+        <Link href="/">Home</Link>
+        <Link href="/begin">Begin</Link>
+        <Link href="/archive">Archive</Link>
+        <Link href="/about">About</Link>
+      </nav>
+
       <section>
         <h1>{entry.title}</h1>
         <p>{entry.description}</p>

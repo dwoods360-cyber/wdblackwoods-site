@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7efe1;
-  --foreground: #1f1a16;
-  --text-primary: #1f1a16;
-  --text-secondary: #55504a;
-  --text-muted: #7d7368;
-  --link-color: #1f1a16;
+  --background: #f6f3ee;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --text-muted: #777777;
+  --border-muted: #ddd6cc;
+  --link-color: #111111;
   --font-body: Georgia, Cambria, "Times New Roman", Times, serif;
   --font-heading: Georgia, serif;
   --space-xxs: 0.5rem;
   --space-xs: 0.75rem;
   --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2.25rem;
-  --space-xl: 3.5rem;
+  --space-md: 1.25rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-xxl: 6rem;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -38,13 +39,13 @@ body {
   background: var(--background);
   color: var(--text-primary);
   font-family: var(--font-body);
-  line-height: 1.75;
+  line-height: 1.8;
 }
 
 main {
-  max-width: 760px;
+  max-width: 780px;
   margin: 0 auto;
-  padding: 64px 24px;
+  padding: 80px 24px;
   min-height: 100vh;
 }
 
@@ -53,7 +54,7 @@ section {
 }
 
 section + section {
-  margin-top: var(--space-xl);
+  margin-top: var(--space-xxl);
 }
 
 h1,
@@ -65,36 +66,45 @@ h6 {
   margin: 0 0 var(--space-sm) 0;
   color: var(--text-primary);
   font-family: var(--font-heading);
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 h1 {
-  font-size: clamp(2.75rem, 4vw, 4rem);
+  font-size: clamp(3rem, 4vw, 3.5rem);
+  font-weight: 500;
 }
 
 h2 {
-  font-size: clamp(2rem, 2.5vw, 2.5rem);
+  font-size: clamp(2rem, 3vw, 2.4rem);
+  font-weight: 500;
 }
 
 h3 {
-  font-size: clamp(1.5rem, 2vw, 1.85rem);
+  font-size: clamp(1.55rem, 2vw, 1.75rem);
+  font-weight: 500;
 }
 
 p,
 li,
 dd {
   color: var(--text-secondary);
-  margin: 0 0 var(--space-md) 0;
+  margin: 0 0 1.25rem 0;
+  font-size: 1.1rem;
 }
 
 nav {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-xxl);
   color: var(--text-secondary);
 }
 
 nav a {
   color: inherit;
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+nav a:hover {
+  border-bottom-color: var(--text-primary);
 }
 
 nav a + a::before {
@@ -112,7 +122,7 @@ ol {
 .story-list {
   list-style: none;
   display: grid;
-  gap: var(--space-lg);
+  gap: 1rem;
   margin: 0;
   padding: 0;
 }
@@ -122,11 +132,17 @@ ol {
   font-size: 1.125rem;
   text-decoration: none;
   color: var(--link-color);
+  border-bottom: 1px solid transparent;
+}
+
+.story-link:hover,
+.read-more:hover {
+  border-bottom-color: var(--link-color);
 }
 
 .story-description {
-  margin: var(--space-xs) 0 0 0;
-  line-height: 1.65;
+  margin: 0.75rem 0 0 0;
+  line-height: 1.75;
 }
 
 .suggested-order {
@@ -140,15 +156,15 @@ ol {
 }
 
 .suggested-order .primary {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1rem;
   color: var(--text-primary);
 }
 
 .meta {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-bottom: var(--space-sm);
 }
@@ -161,32 +177,32 @@ ol {
 
 input[type="email"] {
   padding: 14px 16px;
-  border: 1px solid #ccc;
-  background: #fff;
+  border: 1px solid var(--border-muted);
+  background: #ffffff;
   min-width: 260px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-family: var(--font-body);
 }
 
 .button,
 button {
   padding: 14px 22px;
-  background: #111;
-  color: #fff;
-  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-family: var(--font-body);
 }
 
 hr {
-  margin: var(--space-xl) 0;
+  margin: var(--space-xxl) 0;
   border: none;
-  border-top: 1px solid #d6cdbf;
+  border-top: 1px solid var(--border-muted);
 }
 
 footer {
-  margin-top: var(--space-xl);
+  margin-top: var(--space-xxl);
   font-size: 0.9rem;
   color: var(--text-muted);
 }

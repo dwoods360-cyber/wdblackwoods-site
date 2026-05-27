@@ -27,8 +27,6 @@ export default function Home() {
         </p>
       </section>
 
-      <hr />
-
       <section>
         <p className="meta">Philosophy</p>
 
@@ -94,36 +92,6 @@ export default function Home() {
       </section>
 
       <footer>© 2026 W.D. Blackwoods</footer>
-    </main>
-  );
-}
-
-
-          <button
-            style={{
-              padding: "14px 22px",
-              background: "#111",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "15px",
-            }}
-          >
-            Subscribe
-          </button>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer
-        style={{
-          marginTop: "120px",
-          fontSize: "14px",
-          color: "#777",
-        }}
-      >
-        © 2026 W.D. Blackwoods
-      </footer>
     </main>
   );
 }
