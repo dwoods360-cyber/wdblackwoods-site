@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function BeginPage() {
   return (
     <main style={{ maxWidth: "760px", margin: "0 auto", padding: "48px 24px" }}>
@@ -33,36 +35,36 @@ export default function BeginPage() {
 
         <ul style={{ listStyle: "none", padding: 0, marginTop: "24px", display: "grid", gap: "24px" }}>
           <li>
-            <a href="#vine-crown" style={{ fontSize: "18px", textDecoration: "none" }}>
+            <Link href="/archive/vine-crown" style={{ fontSize: "18px", textDecoration: "none" }}>
               The Vine Crown
-            </a>
+            </Link>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
               A private domestic fracture, where intimacy collides with a discovery that should not exist.
             </p>
           </li>
 
           <li>
-            <a href="#caravanserai" style={{ fontSize: "18px", textDecoration: "none" }}>
+            <Link href="/archive/caravanserai-incident-massawa" style={{ fontSize: "18px", textDecoration: "none" }}>
               Caravanserai Incident — Massawa
-            </a>
+            </Link>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
               A scene where systems and hierarchy are revealed through movement, duty, and unseen rules.
             </p>
           </li>
 
           <li>
-            <a href="#arithmetic" style={{ fontSize: "18px", textDecoration: "none" }}>
+            <Link href="/archive/the-arithmetic-on-the-wall" style={{ fontSize: "18px", textDecoration: "none" }}>
               The Arithmetic on the Wall
-            </a>
+            </Link>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
               Structural abstraction arrives as economic calculus written on a surface of control.
             </p>
           </li>
 
           <li>
-            <a href="#founding-entry" style={{ fontSize: "18px", textDecoration: "none" }}>
+            <Link href="/archive/founding-entry-what-coffee-demands" style={{ fontSize: "18px", textDecoration: "none" }}>
               Founding Entry: What Coffee Demands
-            </a>
+            </Link>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
               A meta framing of the archive, setting the worldview and the forces that shape it.
             </p>
