@@ -1,101 +1,258 @@
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-black">
-      <div className="max-w-2xl mx-auto px-6 py-24">
+    <main
+      style={{
+        maxWidth: "760px",
+        margin: "0 auto",
+        padding: "96px 24px",
+        fontFamily: "Georgia, serif",
+        color: "#111",
+        background: "#f8f6f2",
+        minHeight: "100vh",
+      }}
+    >
+      {/* HEADER */}
+      <section>
+        <h1
+          style={{
+            fontSize: "52px",
+            fontWeight: 600,
+            letterSpacing: "-1px",
+            marginBottom: "24px",
+          }}
+        >
+          W.D. Blackwoods
+        </h1>
 
-        {/* IDENTITY */}
-        <header>
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
-            W.D. Blackwoods
-          </h1>
+        <p
+          style={{
+            fontSize: "20px",
+            lineHeight: 1.8,
+            color: "#333",
+            maxWidth: "680px",
+          }}
+        >
+          Historical fiction, systems-driven storytelling, and cinematic
+          narratives built around empire, labor, and the invisible structures
+          beneath power.
+        </p>
+      </section>
 
-          <p className="mt-6 text-lg leading-relaxed text-neutral-700">
-            Historical fiction, systems-driven storytelling, and cinematic narratives
-            built around empire, labor, and the invisible structures beneath power.
-          </p>
-        </header>
+      {/* DIVIDER */}
+      <hr
+        style={{
+          margin: "56px 0",
+          border: "none",
+          borderTop: "1px solid #d6d1c7",
+        }}
+      />
 
-        {/* CORE IDEA */}
-        <section className="mt-14">
-          <p className="text-base leading-relaxed text-neutral-800">
-            These stories are not about individuals.
-          </p>
+      {/* PHILOSOPHY */}
+      <section>
+        <p
+          style={{
+            fontSize: "17px",
+            lineHeight: 1.9,
+            marginBottom: "20px",
+          }}
+        >
+          These stories operate as systems under pressure: trade routes, labor
+          economies, imperial logistics, and the mathematics of survival.
+        </p>
 
-          <p className="mt-4 text-base leading-relaxed text-neutral-800">
-            They are about the systems that move before people do:
-            trade routes, extraction economies, imperial logistics,
-            and the quiet mathematics of survival.
-          </p>
+        <p
+          style={{
+            fontSize: "17px",
+            lineHeight: 1.9,
+          }}
+        >
+          Characters are not isolated individuals. They are shaped by distance,
+          extraction, and the invisible accounting systems of empire.
+        </p>
+      </section>
 
-          <p className="mt-4 text-base leading-relaxed text-neutral-800">
-            If you understand the system, the story becomes inevitable.
-            If you do not, you will still feel it.
-          </p>
-        </section>
+      {/* CURRENT PROJECT */}
+      <section style={{ marginTop: "80px" }}>
+        <p
+          style={{
+            fontSize: "12px",
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            color: "#777",
+            marginBottom: "16px",
+          }}
+        >
+          Current Project
+        </p>
 
-        {/* PRIMARY ACTION */}
-        <section className="mt-16 border border-neutral-200 p-8">
-          <h2 className="text-sm uppercase tracking-widest text-neutral-500">
-            New Writing
-          </h2>
+        <h2
+          style={{
+            fontSize: "38px",
+            marginBottom: "20px",
+          }}
+        >
+          What Coffee Demands
+        </h2>
 
-          <p className="mt-4 text-lg font-medium">
-            Receive new excerpts from What Coffee Demands
-          </p>
+        <p
+          style={{
+            fontSize: "18px",
+            lineHeight: 1.8,
+            color: "#333",
+            maxWidth: "680px",
+          }}
+        >
+          A historical adventure trilogy set in a composite 19th-century
+          Abyssinia, tracing coffee, capital, violence, and survival through
+          trade routes and collapsing empires.
+        </p>
 
-          <p className="mt-3 text-neutral-600 leading-relaxed">
-            Early chapters, systems essays, and unpublished scenes from the trilogy
-            as it develops.
-          </p>
-
+        <div style={{ marginTop: "28px" }}>
           <a
-            href="https://wdblackwoods.substack.com"
-            className="inline-block mt-6 bg-black text-white px-6 py-3 hover:bg-neutral-800 transition"
+            href="#"
+            style={{
+              textDecoration: "none",
+              color: "#111",
+              fontSize: "16px",
+              borderBottom: "1px solid #111",
+              paddingBottom: "2px",
+            }}
+          >
+            Enter the system →
+          </a>
+        </div>
+      </section>
+
+      {/* FIELD NOTES */}
+      <section style={{ marginTop: "100px" }}>
+        <p
+          style={{
+            fontSize: "12px",
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            color: "#777",
+            marginBottom: "24px",
+          }}
+        >
+          Field Notes
+        </p>
+
+        {/* NOTE 1 */}
+        <article style={{ marginBottom: "48px" }}>
+          <h3
+            style={{
+              fontSize: "28px",
+              marginBottom: "12px",
+            }}
+          >
+            The Arithmetic on the Wall
+          </h3>
+
+          <p
+            style={{
+              fontSize: "17px",
+              lineHeight: 1.8,
+              color: "#333",
+            }}
+          >
+            Routes are not geography. They are control. Prices are not
+            economics. They are distance made visible.
+          </p>
+        </article>
+
+        {/* NOTE 2 */}
+        <article>
+          <h3
+            style={{
+              fontSize: "28px",
+              marginBottom: "12px",
+            }}
+          >
+            Caravanserai Incident — Massawa
+          </h3>
+
+          <p
+            style={{
+              fontSize: "17px",
+              lineHeight: 1.8,
+              color: "#333",
+            }}
+          >
+            A merchant loses his sense of orientation inside a controlled trade
+            space where power reveals itself in increments.
+          </p>
+        </article>
+      </section>
+
+      {/* SUBSCRIBE */}
+      <section style={{ marginTop: "100px" }}>
+        <p
+          style={{
+            fontSize: "12px",
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            color: "#777",
+            marginBottom: "20px",
+          }}
+        >
+          Stay Connected
+        </p>
+
+        <p
+          style={{
+            fontSize: "17px",
+            lineHeight: 1.8,
+            color: "#333",
+            marginBottom: "24px",
+          }}
+        >
+          Occasional dispatches: essays, system maps, and early excerpts.
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+            flexWrap: "wrap",
+          }}
+        >
+          <input
+            type="email"
+            placeholder="Email address"
+            style={{
+              padding: "14px 16px",
+              border: "1px solid #ccc",
+              background: "#fff",
+              minWidth: "260px",
+              fontSize: "15px",
+            }}
+          />
+
+          <button
+            style={{
+              padding: "14px 22px",
+              background: "#111",
+              color: "#fff",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "15px",
+            }}
           >
             Subscribe
-          </a>
-        </section>
+          </button>
+        </div>
+      </section>
 
-        {/* SECONDARY CONTEXT (SUBDUED) */}
-        <section className="mt-16">
-          <h2 className="text-sm uppercase tracking-widest text-neutral-400">
-            Featured Work
-          </h2>
-
-          <div className="mt-6 border border-neutral-200 p-6">
-            <h3 className="text-xl font-medium">
-              What Coffee Demands
-            </h3>
-
-            <p className="mt-3 text-neutral-700 leading-relaxed">
-              A historical fiction trilogy set along imperial trade routes in late
-              19th-century Abyssinia. Coffee becomes the visible surface of deeper systems:
-              labor, movement, control, and consequence.
-            </p>
-
-            <p className="mt-4 text-neutral-500 text-sm">
-              Book I — Hold the Earth<br />
-              Book II — The Crown and the Bean<br />
-              Book III — The Price
-            </p>
-
-            <a
-              href="https://whatcoffeedemands.com"
-              className="inline-block mt-5 text-sm underline text-neutral-700 hover:text-black"
-            >
-              Explore the trilogy →
-            </a>
-          </div>
-        </section>
-
-        {/* FOOTER */}
-        <footer className="mt-20 border-t border-neutral-200 pt-8 text-sm text-neutral-500">
-          <p>
-            W.D. Blackwoods — systems, narrative, and the architecture of consequence.
-          </p>
-        </footer>
-
-      </div>
+      {/* FOOTER */}
+      <footer
+        style={{
+          marginTop: "120px",
+          fontSize: "14px",
+          color: "#777",
+        }}
+      >
+        © 2026 W.D. Blackwoods
+      </footer>
     </main>
   );
 }
