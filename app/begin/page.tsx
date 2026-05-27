@@ -9,6 +9,16 @@ export default function BeginPage() {
         What Coffee Demands.
       </p>
 
+      <div style={{ marginTop: "32px", color: "#555", fontSize: "15px", lineHeight: 1.7 }}>
+        <strong>Suggested Order:</strong>
+        <ol style={{ marginTop: "12px", paddingLeft: "20px", marginBottom: "0" }}>
+          <li>The Vine Crown</li>
+          <li>Caravanserai Incident — Massawa</li>
+          <li>The Arithmetic on the Wall</li>
+          <li>Founding Entry: What Coffee Demands</li>
+        </ol>
+      </div>
+
       <section style={{ marginTop: "40px" }}>
         <h2>Start Here</h2>
 
@@ -18,7 +28,7 @@ export default function BeginPage() {
               The Vine Crown
             </a>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
-              A quiet chronicle of a title earned and the market forces rippling beneath it.
+              An intimate domestic fracture where a title and the household around it begin to split.
             </p>
           </li>
 
@@ -27,7 +37,7 @@ export default function BeginPage() {
               Caravanserai Incident — Massawa
             </a>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
-              A fragmentary scene where distance, duty, and violence meet at a harbor outpost.
+              A scene where systems and hierarchy are revealed through movement, duty, and unseen rules.
             </p>
           </li>
 
@@ -36,7 +46,7 @@ export default function BeginPage() {
               The Arithmetic on the Wall
             </a>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
-              The ledger of control is rendered in chalk and silence, revealing unseen priorities.
+              Structural abstraction arrives as economic calculus written on a surface of control.
             </p>
           </li>
 
@@ -45,14 +55,14 @@ export default function BeginPage() {
               Founding Entry: What Coffee Demands
             </a>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
-              The original dispatch that anchors the archive in a landscape of trade and loss.
+              A meta framing of the archive, setting the worldview and the forces that shape it.
             </p>
           </li>
         </ul>
       </section>
 
       <p style={{ marginTop: "48px", fontStyle: "italic" }}>
-        Read in order, or follow the fractures.
+        Each entry reveals a different layer of the same system.
       </p>
     </main>
   );
