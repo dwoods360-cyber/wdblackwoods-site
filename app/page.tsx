@@ -26,86 +26,79 @@ export default function Home() {
     <main
       style={{
         fontFamily: "Georgia, serif",
-        maxWidth: 900,
+        maxWidth: 820,
         margin: "0 auto",
-        padding: "120px 24px",
-        minHeight: "100vh",
-        background: "#f6f4ef",   // ✅ FIX: consistent page surface
+        padding: "110px 24px",
+        background: "#f6f4ef",
         color: "#111",
       }}
     >
-      {/* IDENTITY */}
+      {/* HERO — RESTORED STORY LEAD */}
       <section style={{ marginBottom: 80 }}>
-        <h1 style={{ fontSize: 60, letterSpacing: "-1px" }}>
+        <p style={{ fontSize: 20, lineHeight: 1.9, color: "#222" }}>
+          Inside the caravanserai, hierarchy reveals itself before language does.
+        </p>
+      </section>
+
+      {/* IDENTITY */}
+      <section style={{ marginBottom: 70 }}>
+        <h1 style={{ fontSize: 52, letterSpacing: "-1px" }}>
           W.D. Blackwoods
         </h1>
 
-        <p style={{ fontSize: 20, lineHeight: 1.8, color: "#333" }}>
+        <p style={{ fontSize: 18, lineHeight: 1.8, color: "#333" }}>
           Historical fiction built as a system of extraction, movement, and power.
         </p>
       </section>
 
-      {/* THREAD SELECTOR */}
+      {/* FIELD CONTEXT (light, not dominant) */}
+      <section style={{ marginBottom: 70 }}>
+        <p style={{ fontSize: 12, letterSpacing: 2, color: "#777" }}>
+          FIELD INCIDENT
+        </p>
+
+        <h2 style={{ fontSize: 28 }}>
+          Caravanserai Incident — Massawa
+        </h2>
+
+        <p style={{ fontSize: 18, lineHeight: 1.8, color: "#333" }}>
+          A controlled trade space where power reveals itself in increments.
+        </p>
+      </section>
+
+      {/* SYSTEM (kept, but secondary) */}
       <section style={{ marginBottom: 80 }}>
         <p style={{ fontSize: 12, letterSpacing: 2, color: "#777" }}>
           ACTIVE THREAD
         </p>
 
-        <h2 style={{ fontSize: 36, marginTop: 10 }}>
+        <h3 style={{ fontSize: 26, marginTop: 10 }}>
           {THREADS[activeThread].title}
-        </h2>
+        </h3>
 
-        <p style={{ fontSize: 18, color: "#333", lineHeight: 1.8 }}>
+        <p style={{ fontSize: 16, color: "#333", lineHeight: 1.7 }}>
           {THREADS[activeThread].desc}
         </p>
 
-        <div style={{ marginTop: 20, display: "flex", gap: 10 }}>
-          {Object.entries(THREADS).map(([key]) => (
+        <div style={{ marginTop: 18, display: "flex", gap: 10 }}>
+          {Object.keys(THREADS).map((key) => (
             <button
               key={key}
               onClick={() => setActiveThread(key as Thread)}
               style={{
-                padding: "10px 14px",
+                padding: "8px 12px",
                 border:
                   activeThread === key ? "2px solid #111" : "1px solid #bbb",
                 background: activeThread === key ? "#111" : "#fff",
                 color: activeThread === key ? "#fff" : "#111",
                 cursor: "pointer",
-                transition: "all 0.2s ease",
+                fontSize: 14,
               }}
             >
               {key}
             </button>
           ))}
         </div>
-      </section>
-
-      {/* SYSTEM VIEW */}
-      <section style={{ marginBottom: 80 }}>
-        <p style={{ fontSize: 12, letterSpacing: 2, color: "#777" }}>
-          SYSTEM STATE
-        </p>
-
-        <p style={{ fontSize: 18, lineHeight: 1.9, color: "#333" }}>
-          The narrative system is currently simulating the{" "}
-          <strong>{activeThread}</strong> thread. Field nodes and excerpts will
-          resolve dynamically in v3.1.
-        </p>
-      </section>
-
-      {/* FIELD NODE PREVIEW */}
-      <section>
-        <p style={{ fontSize: 12, letterSpacing: 2, color: "#777" }}>
-          FIELD NODE
-        </p>
-
-        <h3 style={{ fontSize: 28 }}>
-          Caravanserai Incident — Massawa
-        </h3>
-
-        <p style={{ fontSize: 18, lineHeight: 1.8, color: "#333" }}>
-          Inside the caravanserai, hierarchy reveals itself before language does.
-        </p>
       </section>
 
       <footer style={{ marginTop: 100, color: "#777", fontSize: 14 }}>
