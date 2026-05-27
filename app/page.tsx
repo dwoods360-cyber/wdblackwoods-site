@@ -1,6 +1,27 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0 },
+};
+
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.14,
+    },
+  },
+};
+
 export default function Home() {
   return (
-    <main
+    <motion.main
+      variants={container}
+      initial="hidden"
+      animate="show"
       style={{
         maxWidth: "780px",
         margin: "0 auto",
@@ -12,15 +33,8 @@ export default function Home() {
       }}
     >
       {/* SCENE 1 — IDENTITY */}
-      <section style={{ marginBottom: "120px" }}>
-        <h1
-          style={{
-            fontSize: "58px",
-            fontWeight: 600,
-            letterSpacing: "-1px",
-            marginBottom: "22px",
-          }}
-        >
+      <motion.section variants={fadeUp} style={{ marginBottom: "120px" }}>
+        <h1 style={{ fontSize: "58px", fontWeight: 600, letterSpacing: "-1px" }}>
           W.D. Blackwoods
         </h1>
 
@@ -29,21 +43,14 @@ export default function Home() {
           built around empire, labor, and the invisible structures beneath power.
         </p>
 
-        <p
-          style={{
-            fontSize: "21px",
-            lineHeight: 1.9,
-            color: "#333",
-            marginTop: "18px",
-          }}
-        >
+        <p style={{ fontSize: "21px", lineHeight: 1.9, color: "#333", marginTop: "18px" }}>
           Empires rise on ledgers, roads, and harvests — and the silent assumption
           that some lives are worth less than others.
         </p>
-      </section>
+      </motion.section>
 
       {/* SCENE 2 — SYSTEM LENS */}
-      <section style={{ marginBottom: "140px" }}>
+      <motion.section variants={fadeUp} style={{ marginBottom: "140px" }}>
         <p style={{ fontSize: "18px", lineHeight: 2, color: "#333" }}>
           These stories operate as systems under pressure: trade routes, labor economies,
           imperial logistics, and the mathematics of survival.
@@ -53,19 +60,11 @@ export default function Home() {
           Characters are not isolated individuals. They are shaped by distance,
           extraction, and the invisible accounting systems of empire.
         </p>
-      </section>
+      </motion.section>
 
-      {/* SCENE 3 — PROJECT REVEAL */}
-      <section style={{ marginBottom: "160px" }}>
-        <p
-          style={{
-            fontSize: "12px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#777",
-            marginBottom: "14px",
-          }}
-        >
+      {/* SCENE 3 — PROJECT */}
+      <motion.section variants={fadeUp} style={{ marginBottom: "160px" }}>
+        <p style={{ fontSize: "12px", letterSpacing: "2px", color: "#777" }}>
           Current Project
         </p>
 
@@ -79,40 +78,29 @@ export default function Home() {
           collapsing empires.
         </p>
 
-        <div style={{ marginTop: "26px" }}>
-          <a
-            href="#"
-            style={{
-              fontSize: "16px",
-              color: "#111",
-              textDecoration: "none",
-              borderBottom: "1px solid #111",
-              paddingBottom: "3px",
-            }}
-          >
-            Enter the system →
-          </a>
-        </div>
-      </section>
-
-      {/* SCENE 4 — FIELD NOTES (ARCHIVAL FEEL) */}
-      <section style={{ marginBottom: "160px" }}>
-        <p
+        <a
+          href="#"
           style={{
-            fontSize: "12px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#777",
-            marginBottom: "28px",
+            display: "inline-block",
+            marginTop: "22px",
+            fontSize: "16px",
+            color: "#111",
+            textDecoration: "none",
+            borderBottom: "1px solid #111",
           }}
         >
+          Enter the system →
+        </a>
+      </motion.section>
+
+      {/* SCENE 4 — FIELD NOTES */}
+      <motion.section variants={fadeUp} style={{ marginBottom: "160px" }}>
+        <p style={{ fontSize: "12px", letterSpacing: "2px", color: "#777" }}>
           Field Notes
         </p>
 
-        <article style={{ marginBottom: "56px" }}>
-          <h3 style={{ fontSize: "28px", marginBottom: "10px" }}>
-            The Arithmetic on the Wall
-          </h3>
+        <article style={{ marginTop: "26px", marginBottom: "56px" }}>
+          <h3 style={{ fontSize: "28px" }}>The Arithmetic on the Wall</h3>
           <p style={{ fontSize: "18px", lineHeight: 1.9, color: "#333" }}>
             Routes are not geography. They are control. Prices are not economics.
             They are distance made visible.
@@ -120,26 +108,16 @@ export default function Home() {
         </article>
 
         <article>
-          <h3 style={{ fontSize: "28px", marginBottom: "10px" }}>
-            Caravanserai Incident — Massawa
-          </h3>
+          <h3 style={{ fontSize: "28px" }}>Caravanserai Incident — Massawa</h3>
           <p style={{ fontSize: "18px", lineHeight: 1.9, color: "#333" }}>
             Inside the caravanserai, hierarchy reveals itself before language does.
           </p>
         </article>
-      </section>
+      </motion.section>
 
-      {/* SCENE 5 — SUBSCRIPTION (QUIET EXIT) */}
-      <section style={{ marginBottom: "120px" }}>
-        <p
-          style={{
-            fontSize: "12px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#777",
-            marginBottom: "18px",
-          }}
-        >
+      {/* SCENE 5 — SUBSCRIBE */}
+      <motion.section variants={fadeUp} style={{ marginBottom: "120px" }}>
+        <p style={{ fontSize: "12px", letterSpacing: "2px", color: "#777" }}>
           Stay Connected
         </p>
 
@@ -174,19 +152,18 @@ export default function Home() {
             Subscribe
           </button>
         </div>
-      </section>
+      </motion.section>
 
-      {/* END MARK */}
       <footer
         style={{
           fontSize: "14px",
           color: "#777",
-          paddingTop: "40px",
           borderTop: "1px solid #ddd",
+          paddingTop: "40px",
         }}
       >
         © 2026 W.D. Blackwoods
       </footer>
-    </main>
+    </motion.main>
   );
 }
