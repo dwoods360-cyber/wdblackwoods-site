@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const fade = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0 },
 };
 
@@ -18,22 +18,22 @@ const container = {
 
 export default function Home() {
   return (
-    <div style={{ background: "#f4f1ea", minHeight: "100vh" }}>
+    <div style={{ background: "#f3efe7", minHeight: "100vh" }}>
       <motion.main
         variants={container}
         initial="hidden"
         animate="show"
         style={{
-          maxWidth: "820px",
+          maxWidth: "860px",
           margin: "0 auto",
           padding: "140px 24px",
           fontFamily: "Georgia, serif",
           color: "#111",
         }}
       >
-        {/* SYSTEM IDENTITY */}
+        {/* LAYER 1 — IDENTITY */}
         <motion.section variants={fade} style={{ marginBottom: "120px" }}>
-          <h1 style={{ fontSize: "60px", letterSpacing: "-1px" }}>
+          <h1 style={{ fontSize: "62px", letterSpacing: "-1px" }}>
             W.D. Blackwoods
           </h1>
 
@@ -48,8 +48,8 @@ export default function Home() {
           </p>
         </motion.section>
 
-        {/* CURRENT NARRATIVE STATE (ENGINE CORE) */}
-        <motion.section variants={fade} style={{ marginBottom: "160px" }}>
+        {/* LAYER 2 — ACTIVE THREAD */}
+        <motion.section variants={fade} style={{ marginBottom: "140px" }}>
           <p
             style={{
               fontSize: "12px",
@@ -67,27 +67,26 @@ export default function Home() {
           </h2>
 
           <p style={{ fontSize: "19px", lineHeight: 1.9, color: "#333" }}>
-            A historical adventure trilogy set in a composite 19th-century Abyssinia,
-            tracing coffee, capital, violence, and survival through trade routes and
-            collapsing empires.
+            A historical adventure trilogy tracing coffee, capital, violence, and survival
+            through trade routes and collapsing imperial systems in 19th-century Abyssinia.
           </p>
 
-          <div style={{ marginTop: "22px" }}>
-            <a
-              href="#"
-              style={{
-                fontSize: "16px",
-                color: "#111",
-                borderBottom: "1px solid #111",
-                textDecoration: "none",
-              }}
-            >
-              Enter active narrative →
-            </a>
-          </div>
+          <a
+            href="#"
+            style={{
+              display: "inline-block",
+              marginTop: "22px",
+              fontSize: "16px",
+              color: "#111",
+              textDecoration: "none",
+              borderBottom: "1px solid #111",
+            }}
+          >
+            Enter active thread →
+          </a>
         </motion.section>
 
-        {/* FIELD NOTE ENGINE (SCALABLE SYSTEM) */}
+        {/* LAYER 3 — FIELD NODES (SYSTEM OUTPUT) */}
         <motion.section variants={fade} style={{ marginBottom: "160px" }}>
           <p
             style={{
@@ -98,7 +97,7 @@ export default function Home() {
               marginBottom: "28px",
             }}
           >
-            Field Note System
+            Field Node Registry
           </p>
 
           <article style={{ marginBottom: "60px" }}>
@@ -121,7 +120,31 @@ export default function Home() {
           </article>
         </motion.section>
 
-        {/* SYSTEM FOOTER (STATE SIGNAL) */}
+        {/* LAYER 4 — SYSTEM RULESET */}
+        <motion.section variants={fade} style={{ marginBottom: "140px" }}>
+          <p
+            style={{
+              fontSize: "12px",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              color: "#777",
+              marginBottom: "18px",
+            }}
+          >
+            System Ruleset
+          </p>
+
+          <p style={{ fontSize: "17px", lineHeight: 1.9, color: "#333" }}>
+            Narrative units are structured by extraction, distance, and economic pressure.
+            Characters exist as outputs of systems, not as isolated psychological units.
+          </p>
+
+          <p style={{ fontSize: "17px", lineHeight: 1.9, color: "#333", marginTop: "14px" }}>
+            Every scene must reflect a system: trade, labor, logistics, empire, or survival mathematics.
+          </p>
+        </motion.section>
+
+        {/* LAYER 5 — OUTPUT / EXIT */}
         <motion.section variants={fade}>
           <p
             style={{
@@ -132,24 +155,52 @@ export default function Home() {
               marginBottom: "18px",
             }}
           >
-            System Status
+            Output Interface
           </p>
 
-          <p style={{ fontSize: "16px", lineHeight: 1.8, color: "#333" }}>
-            Narrative engine active. Publishing pipeline stable.
+          <p style={{ fontSize: "18px", lineHeight: 1.9, color: "#333" }}>
+            Subscribe to system outputs: essays, field notes, and narrative expansions.
           </p>
+
+          <input
+            placeholder="Email address"
+            style={{
+              marginTop: "18px",
+              padding: "14px 16px",
+              border: "1px solid #ccc",
+              fontSize: "15px",
+              width: "100%",
+              maxWidth: "340px",
+            }}
+          />
+
+          <button
+            style={{
+              marginTop: "12px",
+              padding: "12px 18px",
+              background: "#111",
+              color: "#fff",
+              border: "none",
+              fontSize: "15px",
+              cursor: "pointer",
+              display: "block",
+            }}
+          >
+            Subscribe
+          </button>
         </motion.section>
 
+        {/* FOOTER */}
         <footer
           style={{
-            marginTop: "80px",
+            marginTop: "90px",
             fontSize: "14px",
             color: "#777",
             borderTop: "1px solid #ddd",
             paddingTop: "40px",
           }}
         >
-          © 2026 W.D. Blackwoods
+          © 2026 W.D. Blackwoods — Narrative OS v1
         </footer>
       </motion.main>
     </div>
