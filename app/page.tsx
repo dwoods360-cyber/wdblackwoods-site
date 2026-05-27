@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const fade = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 18 },
   show: { opacity: 1, y: 0 },
 };
 
@@ -11,28 +11,28 @@ const container = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.12,
+      staggerChildren: 0.1,
     },
   },
 };
 
 export default function Home() {
   return (
-    <div style={{ background: "#f3efe7", minHeight: "100vh" }}>
+    <div style={{ background: "#f2efe6", minHeight: "100vh" }}>
       <motion.main
         variants={container}
         initial="hidden"
         animate="show"
         style={{
-          maxWidth: "860px",
+          maxWidth: "900px",
           margin: "0 auto",
           padding: "140px 24px",
           fontFamily: "Georgia, serif",
           color: "#111",
         }}
       >
-        {/* LAYER 1 — IDENTITY */}
-        <motion.section variants={fade} style={{ marginBottom: "120px" }}>
+        {/* IDENTITY LAYER */}
+        <motion.section variants={fade} style={{ marginBottom: "110px" }}>
           <h1 style={{ fontSize: "62px", letterSpacing: "-1px" }}>
             W.D. Blackwoods
           </h1>
@@ -41,86 +41,9 @@ export default function Home() {
             Historical fiction, systems-driven storytelling, and cinematic narratives
             built around empire, labor, and the invisible structures beneath power.
           </p>
-
-          <p style={{ fontSize: "21px", lineHeight: 1.9, color: "#333", marginTop: "18px" }}>
-            Empires rise on ledgers, roads, and harvests — and the silent assumption
-            that some lives are worth less than others.
-          </p>
         </motion.section>
 
-        {/* LAYER 2 — ACTIVE THREAD */}
-        <motion.section variants={fade} style={{ marginBottom: "140px" }}>
-          <p
-            style={{
-              fontSize: "12px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              color: "#777",
-              marginBottom: "14px",
-            }}
-          >
-            Active Narrative Thread
-          </p>
-
-          <h2 style={{ fontSize: "44px", marginBottom: "16px" }}>
-            What Coffee Demands
-          </h2>
-
-          <p style={{ fontSize: "19px", lineHeight: 1.9, color: "#333" }}>
-            A historical adventure trilogy tracing coffee, capital, violence, and survival
-            through trade routes and collapsing imperial systems in 19th-century Abyssinia.
-          </p>
-
-          <a
-            href="#"
-            style={{
-              display: "inline-block",
-              marginTop: "22px",
-              fontSize: "16px",
-              color: "#111",
-              textDecoration: "none",
-              borderBottom: "1px solid #111",
-            }}
-          >
-            Enter active thread →
-          </a>
-        </motion.section>
-
-        {/* LAYER 3 — FIELD NODES (SYSTEM OUTPUT) */}
-        <motion.section variants={fade} style={{ marginBottom: "160px" }}>
-          <p
-            style={{
-              fontSize: "12px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              color: "#777",
-              marginBottom: "28px",
-            }}
-          >
-            Field Node Registry
-          </p>
-
-          <article style={{ marginBottom: "60px" }}>
-            <h3 style={{ fontSize: "28px" }}>
-              The Arithmetic on the Wall
-            </h3>
-            <p style={{ fontSize: "18px", lineHeight: 1.9, color: "#333" }}>
-              Routes are not geography. They are control. Prices are not economics.
-              They are distance made visible.
-            </p>
-          </article>
-
-          <article>
-            <h3 style={{ fontSize: "28px" }}>
-              Caravanserai Incident — Massawa
-            </h3>
-            <p style={{ fontSize: "18px", lineHeight: 1.9, color: "#333" }}>
-              Inside the caravanserai, hierarchy reveals itself before language does.
-            </p>
-          </article>
-        </motion.section>
-
-        {/* LAYER 4 — SYSTEM RULESET */}
+        {/* THREAD ROUTER */}
         <motion.section variants={fade} style={{ marginBottom: "140px" }}>
           <p
             style={{
@@ -131,20 +54,127 @@ export default function Home() {
               marginBottom: "18px",
             }}
           >
-            System Ruleset
+            Active Narrative Threads
+          </p>
+
+          {/* THREAD 1 */}
+          <div style={{ marginBottom: "42px" }}>
+            <h2 style={{ fontSize: "34px", marginBottom: "8px" }}>
+              What Coffee Demands
+            </h2>
+            <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#333" }}>
+              Empire-scale logistics, extraction economies, and trade-route violence.
+            </p>
+            <a
+              href="#"
+              style={{
+                fontSize: "15px",
+                color: "#111",
+                borderBottom: "1px solid #111",
+                textDecoration: "none",
+              }}
+            >
+              Enter thread →
+            </a>
+          </div>
+
+          {/* THREAD 2 */}
+          <div style={{ marginBottom: "42px" }}>
+            <h2 style={{ fontSize: "34px", marginBottom: "8px" }}>
+              Southern Expedition
+            </h2>
+            <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#333" }}>
+              Personal pursuit, fractured identity, and pursuit across unstable terrain.
+            </p>
+            <a
+              href="#"
+              style={{
+                fontSize: "15px",
+                color: "#111",
+                borderBottom: "1px solid #111",
+                textDecoration: "none",
+              }}
+            >
+              Enter thread →
+            </a>
+          </div>
+
+          {/* THREAD 3 */}
+          <div>
+            <h2 style={{ fontSize: "34px", marginBottom: "8px" }}>
+              Caravan Network Logs
+            </h2>
+            <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#333" }}>
+              Movement systems, military corridors, and controlled geography.
+            </p>
+            <a
+              href="#"
+              style={{
+                fontSize: "15px",
+                color: "#111",
+                borderBottom: "1px solid #111",
+                textDecoration: "none",
+              }}
+            >
+              Enter thread →
+            </a>
+          </div>
+        </motion.section>
+
+        {/* SHARED FIELD SYSTEM */}
+        <motion.section variants={fade} style={{ marginBottom: "150px" }}>
+          <p
+            style={{
+              fontSize: "12px",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              color: "#777",
+              marginBottom: "26px",
+            }}
+          >
+            Shared Field Nodes
+          </p>
+
+          <article style={{ marginBottom: "60px" }}>
+            <h3 style={{ fontSize: "28px" }}>
+              The Arithmetic on the Wall
+            </h3>
+            <p style={{ fontSize: "18px", lineHeight: 1.9, color: "#333" }}>
+              Appears across all threads: trade logic, distance pricing, imperial accounting.
+            </p>
+          </article>
+
+          <article>
+            <h3 style={{ fontSize: "28px" }}>
+              Caravanserai Incident — Massawa
+            </h3>
+            <p style={{ fontSize: "18px", lineHeight: 1.9, color: "#333" }}>
+              A convergence point where all narrative threads intersect under control systems.
+            </p>
+          </article>
+        </motion.section>
+
+        {/* SYSTEM LAYER */}
+        <motion.section variants={fade} style={{ marginBottom: "120px" }}>
+          <p
+            style={{
+              fontSize: "12px",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              color: "#777",
+              marginBottom: "14px",
+            }}
+          >
+            System Layer
           </p>
 
           <p style={{ fontSize: "17px", lineHeight: 1.9, color: "#333" }}>
-            Narrative units are structured by extraction, distance, and economic pressure.
-            Characters exist as outputs of systems, not as isolated psychological units.
-          </p>
-
-          <p style={{ fontSize: "17px", lineHeight: 1.9, color: "#333", marginTop: "14px" }}>
-            Every scene must reflect a system: trade, labor, logistics, empire, or survival mathematics.
+            All narratives operate under shared constraints: extraction, movement,
+            scarcity, and institutional control. Stories diverge in perspective, not in physics.
           </p>
         </motion.section>
 
-        {/* LAYER 5 — OUTPUT / EXIT */}
+        {/* OUTPUT LAYER */}
         <motion.section variants={fade}>
           <p
             style={{
@@ -159,7 +189,7 @@ export default function Home() {
           </p>
 
           <p style={{ fontSize: "18px", lineHeight: 1.9, color: "#333" }}>
-            Subscribe to system outputs: essays, field notes, and narrative expansions.
+            Subscribe to multi-thread narrative dispatches.
           </p>
 
           <input
@@ -190,7 +220,6 @@ export default function Home() {
           </button>
         </motion.section>
 
-        {/* FOOTER */}
         <footer
           style={{
             marginTop: "90px",
@@ -200,7 +229,7 @@ export default function Home() {
             paddingTop: "40px",
           }}
         >
-          © 2026 W.D. Blackwoods — Narrative OS v1
+          © 2026 W.D. Blackwoods — Narrative OS v2 (Multi-Threaded)
         </footer>
       </motion.main>
     </div>
