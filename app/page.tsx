@@ -35,6 +35,8 @@ export default function Home() {
           Historical fiction, systems-driven storytelling, and cinematic
           narratives built around empire, labor, and the invisible structures
           beneath power.
+          <br>Empires rise on ledgers, roads, and harvests — and the silent 
+          assumption that some lives are worth less than others.</br>
         </p>
       </section>
 
