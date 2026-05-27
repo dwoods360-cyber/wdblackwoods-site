@@ -12,12 +12,21 @@ export default function BeginPage() {
       <div style={{ marginTop: "32px", color: "#555", fontSize: "15px", lineHeight: 1.7 }}>
         <strong>Suggested Order:</strong>
         <ol style={{ marginTop: "12px", paddingLeft: "20px", marginBottom: "0" }}>
-          <li>The Vine Crown</li>
+          <li style={{ marginBottom: "8px" }}>
+            <div style={{ fontSize: "14px", color: "#777", marginBottom: "4px" }}>
+              Recommended first entry
+            </div>
+            <span style={{ fontWeight: 600, fontSize: "16px" }}>The Vine Crown</span>
+          </li>
           <li>Caravanserai Incident — Massawa</li>
           <li>The Arithmetic on the Wall</li>
           <li>Founding Entry: What Coffee Demands</li>
         </ol>
       </div>
+
+      <p style={{ marginTop: "24px", color: "#555", fontSize: "15px", lineHeight: 1.7 }}>
+        Most readers begin here without realizing why.
+      </p>
 
       <section style={{ marginTop: "40px" }}>
         <h2>Start Here</h2>
@@ -28,7 +37,7 @@ export default function BeginPage() {
               The Vine Crown
             </a>
             <p style={{ margin: "8px 0 0", lineHeight: 1.6 }}>
-              An intimate domestic fracture where a title and the household around it begin to split.
+              A private domestic fracture, where intimacy collides with a discovery that should not exist.
             </p>
           </li>
 
