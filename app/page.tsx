@@ -1,136 +1,96 @@
 export default function Home() {
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col">
+    <main className="min-h-screen bg-white text-black">
+      <div className="max-w-3xl mx-auto px-6 py-20">
 
-      {/* HERO */}
-      <header className="max-w-5xl mx-auto px-6 pt-24 pb-16">
-        <h1 className="text-4xl md:text-6xl font-light tracking-wide">
-          W.D. Blackwoods
-        </h1>
+        {/* HEADER / IDENTITY */}
+        <header className="mb-20">
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
+            W.D. Blackwoods
+          </h1>
 
-        <p className="mt-6 text-lg md:text-xl text-neutral-300 leading-relaxed max-w-2xl">
-          Historical fiction, systems-driven storytelling, and cinematic narratives built around
-          empire, labor, and the invisible structures beneath power.
-        </p>
+          <p className="mt-6 text-lg leading-relaxed text-neutral-700">
+            Historical fiction, systems-driven storytelling, and cinematic narratives
+            built around empire, labor, and the invisible structures beneath power.
+          </p>
+        </header>
 
-        <div className="mt-10 flex gap-4 flex-wrap">
-          <a
-            href="https://whatcoffeedemands.com"
-            className="px-5 py-3 bg-neutral-100 text-neutral-900 rounded-md text-sm tracking-wide"
-          >
-            Explore What Coffee Demands
-          </a>
+        {/* PRINCIPLE STATEMENT */}
+        <section className="mb-16">
+          <p className="text-base leading-relaxed text-neutral-800">
+            These stories do not treat history as backdrop.
+            They treat it as infrastructure.
+          </p>
 
-          <a
-            href="#latest"
-            className="px-5 py-3 border border-neutral-700 rounded-md text-sm tracking-wide"
-          >
-            Read Latest Work
-          </a>
-        </div>
-      </header>
+          <p className="mt-4 text-base leading-relaxed text-neutral-800">
+            Trade routes, labor economies, imperial logistics, and private decisions
+            form the architecture beneath every human consequence.
+          </p>
+        </section>
 
-      <div className="border-t border-neutral-800" />
+        {/* FEATURED WORK */}
+        <section className="mb-16">
+          <h2 className="text-sm uppercase tracking-widest text-neutral-500 mb-6">
+            Featured Work
+          </h2>
 
-      {/* ABOUT */}
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <h2 className="text-xl tracking-widest uppercase text-neutral-400">
-          The Work
-        </h2>
+          <div className="border border-neutral-200 p-6">
+            <h3 className="text-2xl font-medium">
+              What Coffee Demands
+            </h3>
 
-        <p className="mt-6 text-neutral-300 leading-relaxed max-w-3xl">
-          These stories operate as systems under pressure: trade routes, labor economies,
-          imperial logistics, and the mathematics of survival.
-        </p>
-
-        <p className="mt-4 text-neutral-300 leading-relaxed max-w-3xl">
-          Characters are not isolated individuals. They are shaped by distance, extraction,
-          and the invisible accounting systems of empire.
-        </p>
-      </section>
-
-      <div className="border-t border-neutral-800" />
-
-      {/* PROJECT */}
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <h2 className="text-xl tracking-widest uppercase text-neutral-400">
-          Current Project
-        </h2>
-
-        <h3 className="mt-6 text-2xl md:text-3xl font-light">
-          What Coffee Demands
-        </h3>
-
-        <p className="mt-4 text-neutral-300 max-w-3xl leading-relaxed">
-          A historical adventure trilogy set in a composite 19th-century Abyssinia,
-          tracing coffee, capital, and violence through trade routes and collapsing empires.
-        </p>
-
-        <a
-          href="https://whatcoffeedemands.com"
-          className="inline-block mt-6 underline underline-offset-4"
-        >
-          Enter the system →
-        </a>
-      </section>
-
-      <div className="border-t border-neutral-800" />
-
-      {/* LATEST */}
-      <section id="latest" className="max-w-5xl mx-auto px-6 py-20">
-        <h2 className="text-xl tracking-widest uppercase text-neutral-400">
-          Latest Field Notes
-        </h2>
-
-        <div className="mt-8 space-y-8">
-
-          <article className="border-l border-neutral-700 pl-4">
-            <h3 className="text-lg">The Arithmetic on the Wall</h3>
-            <p className="mt-2 text-neutral-400">
-              Routes are not geography. They are control. Prices are not economics.
-              They are distance made visible.
+            <p className="mt-3 text-neutral-700 leading-relaxed">
+              A historical fiction trilogy set across imperial trade routes in late 19th-century Abyssinia.
+              It follows the movement of coffee, capital, and violence through systems that reshape lives
+              long before individuals understand their role within them.
             </p>
-          </article>
 
-          <article className="border-l border-neutral-700 pl-4">
-            <h3 className="text-lg">Caravanserai Incident — Massawa</h3>
-            <p className="mt-2 text-neutral-400">
-              A merchant loses his sense of orientation inside a controlled trade space
-              where power reveals itself in increments.
+            <p className="mt-4 text-neutral-600">
+              Book I: Hold the Earth<br />
+              Book II: The Crown and the Bean<br />
+              Book III: The Price
             </p>
-          </article>
+          </div>
+        </section>
 
-        </div>
-      </section>
+        {/* ACTIONS */}
+        <section className="mb-20">
+          <h2 className="text-sm uppercase tracking-widest text-neutral-500 mb-6">
+            Enter the Work
+          </h2>
 
-      <div className="border-t border-neutral-800" />
+          <div className="space-y-4">
+            <a
+              href="https://read.wdblackwoods.com"
+              className="block border border-black px-5 py-4 hover:bg-black hover:text-white transition"
+            >
+              Read selected chapters
+            </a>
 
-      {/* SUBSCRIBE */}
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <h2 className="text-xl tracking-widest uppercase text-neutral-400">
-          Stay Connected
-        </h2>
+            <a
+              href="https://whatcoffeedemands.com"
+              className="block border border-neutral-300 px-5 py-4 hover:border-black transition"
+            >
+              Explore What Coffee Demands
+            </a>
 
-        <p className="mt-4 text-neutral-300 max-w-2xl">
-          Occasional dispatches: essays, system maps, and early excerpts.
-        </p>
+            <a
+              href="https://wdblackwoods.substack.com"
+              className="block border border-neutral-300 px-5 py-4 hover:border-black transition"
+            >
+              Subscribe for new writing
+            </a>
+          </div>
+        </section>
 
-        <form className="mt-6 flex flex-col sm:flex-row gap-3 max-w-lg">
-          <input
-            type="email"
-            placeholder="Email address"
-            className="flex-1 px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-md"
-          />
-          <button className="px-5 py-3 bg-neutral-100 text-neutral-900 rounded-md">
-            Subscribe
-          </button>
-        </form>
-      </section>
+        {/* FOOTER NOTE */}
+        <footer className="border-t border-neutral-200 pt-10 text-sm text-neutral-500">
+          <p>
+            W.D. Blackwoods — systems, narrative, and the architecture of consequence.
+          </p>
+        </footer>
 
-      <footer className="border-t border-neutral-800 py-10 px-6 text-center text-neutral-500 text-sm">
-        © {new Date().getFullYear()} W.D. Blackwoods
-      </footer>
-
-    </div>
+      </div>
+    </main>
   );
 }
