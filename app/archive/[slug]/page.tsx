@@ -28,8 +28,10 @@ export default function ArchiveEntryPage({ params }: { params: { slug: string } 
 
   return (
     <main>
-      <h1>{entry.title}</h1>
-      <p>{entry.description}</p>
+      <section>
+        <h1>{entry.title}</h1>
+        <p>{entry.description}</p>
+      </section>
     </main>
   );
 }

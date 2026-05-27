@@ -9,6 +9,12 @@
   --link-color: #1f1a16;
   --font-body: Georgia, Cambria, "Times New Roman", Times, serif;
   --font-heading: Georgia, serif;
+  --space-xxs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.25rem;
+  --space-xl: 3.5rem;
 }
 
 @theme inline {
@@ -38,8 +44,16 @@ body {
 main {
   max-width: 760px;
   margin: 0 auto;
-  padding: 72px 24px;
+  padding: 64px 24px;
   min-height: 100vh;
+}
+
+section {
+  margin: 0;
+}
+
+section + section {
+  margin-top: var(--space-xl);
 }
 
 h1,
@@ -48,7 +62,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 var(--space-sm) 0;
   color: var(--text-primary);
   font-family: var(--font-heading);
   line-height: 1.15;
@@ -70,11 +84,11 @@ p,
 li,
 dd {
   color: var(--text-secondary);
-  margin: 0 0 1.25rem 0;
+  margin: 0 0 var(--space-md) 0;
 }
 
 nav {
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--space-xl);
   color: var(--text-secondary);
 }
 
@@ -86,11 +100,7 @@ nav a {
 nav a + a::before {
   content: " | ";
   color: var(--text-muted);
-  margin: 0 0.75rem 0 0;
-}
-
-section + section {
-  margin-top: 3rem;
+  margin: 0 var(--space-xxs) 0 0;
 }
 
 ul,
@@ -102,7 +112,7 @@ ol {
 .story-list {
   list-style: none;
   display: grid;
-  gap: 1.5rem;
+  gap: var(--space-lg);
   margin: 0;
   padding: 0;
 }
@@ -115,18 +125,18 @@ ol {
 }
 
 .story-description {
-  margin: 0.5rem 0 0 0;
+  margin: var(--space-xs) 0 0 0;
   line-height: 1.65;
 }
 
 .suggested-order {
-  margin-top: 2rem;
+  margin-top: var(--space-lg);
   color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
 .suggested-order li {
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-xs);
 }
 
 .suggested-order .primary {
@@ -140,7 +150,7 @@ ol {
   font-size: 0.9rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-sm);
 }
 
 .form-row {
@@ -170,13 +180,13 @@ button {
 }
 
 hr {
-  margin: 3.5rem 0;
+  margin: var(--space-xl) 0;
   border: none;
   border-top: 1px solid #d6cdbf;
 }
 
 footer {
-  margin-top: 7.5rem;
+  margin-top: var(--space-xl);
   font-size: 0.9rem;
   color: var(--text-muted);
 }

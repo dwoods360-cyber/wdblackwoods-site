@@ -3,30 +3,32 @@ import Link from "next/link";
 export default function BeginPage() {
   return (
     <main>
-      <h1>Begin Here — The Archive of What Coffee Demands</h1>
+      <section>
+        <h1>Begin Here — The Archive of What Coffee Demands</h1>
 
-      <p>
-        This is a literary archive of interconnected narrative fragments about empire,
-        labor, and memory. Each entry is a restrained invitation into the world of
-        What Coffee Demands.
-      </p>
+        <p>
+          This is a literary archive of interconnected narrative fragments about empire,
+          labor, and memory. Each entry is a restrained invitation into the world of
+          What Coffee Demands.
+        </p>
 
-      <div className="suggested-order">
-        <strong>Suggested Order:</strong>
-        <ol>
-          <li className="primary">
-            <div>Recommended first entry</div>
-            The Vine Crown
-          </li>
-          <li>Caravanserai Incident — Massawa</li>
-          <li>The Arithmetic on the Wall</li>
-          <li>Founding Entry: What Coffee Demands</li>
-        </ol>
-      </div>
+        <div className="suggested-order">
+          <strong>Suggested Order:</strong>
+          <ol>
+            <li className="primary">
+              <div>Recommended first entry</div>
+              The Vine Crown
+            </li>
+            <li>Caravanserai Incident — Massawa</li>
+            <li>The Arithmetic on the Wall</li>
+            <li>Founding Entry: What Coffee Demands</li>
+          </ol>
+        </div>
 
-      <p>
-        Most readers begin here without realizing why.
-      </p>
+        <p>
+          Most readers begin here without realizing why.
+        </p>
+      </section>
 
       <section>
         <h2>Start Here</h2>
@@ -70,9 +72,11 @@ export default function BeginPage() {
         </ul>
       </section>
 
-      <p>
-        <em>Each entry reveals a different layer of the same system.</em>
-      </p>
+      <section>
+        <p>
+          <em>Each entry reveals a different layer of the same system.</em>
+        </p>
+      </section>
     </main>
   );
 }
