@@ -1,108 +1,236 @@
-"use client";
-
-import { useState } from "react";
-
-type Thread = "empire" | "expedition" | "logistics";
-
-const THREADS = {
-  empire: {
-    title: "What Coffee Demands",
-    desc: "Empire-scale extraction, trade, and economic violence.",
-  },
-  expedition: {
-    title: "Southern Expedition",
-    desc: "Personal pursuit across unstable terrain.",
-  },
-  logistics: {
-    title: "Caravan Network Logs",
-    desc: "Movement systems, routes, controlled geography.",
-  },
-};
-
 export default function Home() {
-  const [activeThread, setActiveThread] = useState<Thread>("empire");
-
   return (
     <main
       style={{
-        fontFamily: "Georgia, serif",
-        maxWidth: 820,
+        maxWidth: "760px",
         margin: "0 auto",
-        padding: "110px 24px",
-        background: "#f6f4ef",
+        padding: "96px 24px",
+        fontFamily: "Georgia, serif",
         color: "#111",
+        background: "#f8f6f2",
+        minHeight: "100vh",
       }}
     >
-      {/* HERO — RESTORED STORY LEAD */}
-      <section style={{ marginBottom: 80 }}>
-        <p style={{ fontSize: 20, lineHeight: 1.9, color: "#222" }}>
-          Inside the caravanserai, hierarchy reveals itself before language does.
-        </p>
-      </section>
-
-      {/* IDENTITY */}
-      <section style={{ marginBottom: 70 }}>
-        <h1 style={{ fontSize: 52, letterSpacing: "-1px" }}>
+      {/* HEADER */}
+      <section>
+        <h1
+          style={{
+            fontSize: "52px",
+            fontWeight: 600,
+            letterSpacing: "-1px",
+            marginBottom: "24px",
+          }}
+        >
           W.D. Blackwoods
         </h1>
 
-        <p style={{ fontSize: 18, lineHeight: 1.8, color: "#333" }}>
-          Historical fiction built as a system of extraction, movement, and power.
+        {/* FIX: no nested <p> tags */}
+        <p
+          style={{
+            fontSize: "20px",
+            lineHeight: 1.8,
+            color: "#333",
+            maxWidth: "680px",
+            marginBottom: "18px",
+          }}
+        >
+          Historical fiction, systems-driven storytelling, and cinematic
+          narratives built around empire, labor, and the invisible structures
+          beneath power.
+        </p>
+
+        <p
+          style={{
+            fontSize: "20px",
+            lineHeight: 1.8,
+            color: "#111",
+            maxWidth: "680px",
+            fontStyle: "italic",
+          }}
+        >
+          Empires rise on ledgers, roads, and harvests — and the silent
+          assumption that some lives are worth less than others.
         </p>
       </section>
 
-      {/* FIELD CONTEXT (light, not dominant) */}
-      <section style={{ marginBottom: 70 }}>
-        <p style={{ fontSize: 12, letterSpacing: 2, color: "#777" }}>
-          FIELD INCIDENT
+      {/* DIVIDER */}
+      <hr
+        style={{
+          margin: "56px 0",
+          border: "none",
+          borderTop: "1px solid #d6d1c7",
+        }}
+      />
+
+      {/* PHILOSOPHY */}
+      <section>
+        <p
+          style={{
+            fontSize: "17px",
+            lineHeight: 1.9,
+            marginBottom: "20px",
+          }}
+        >
+          These stories operate as systems under pressure: trade routes, labor
+          economies, imperial logistics, and the mathematics of survival.
         </p>
 
-        <h2 style={{ fontSize: 28 }}>
-          Caravanserai Incident — Massawa
+        <p
+          style={{
+            fontSize: "17px",
+            lineHeight: 1.9,
+          }}
+        >
+          Characters are not isolated individuals. They are shaped by distance,
+          extraction, and the invisible accounting systems of empire.
+        </p>
+      </section>
+
+      {/* CURRENT PROJECT */}
+      <section style={{ marginTop: "80px" }}>
+        <p
+          style={{
+            fontSize: "12px",
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            color: "#777",
+            marginBottom: "16px",
+          }}
+        >
+          Current Project
+        </p>
+
+        <h2 style={{ fontSize: "38px", marginBottom: "20px" }}>
+          What Coffee Demands
         </h2>
 
-        <p style={{ fontSize: 18, lineHeight: 1.8, color: "#333" }}>
-          A controlled trade space where power reveals itself in increments.
-        </p>
-      </section>
-
-      {/* SYSTEM (kept, but secondary) */}
-      <section style={{ marginBottom: 80 }}>
-        <p style={{ fontSize: 12, letterSpacing: 2, color: "#777" }}>
-          ACTIVE THREAD
-        </p>
-
-        <h3 style={{ fontSize: 26, marginTop: 10 }}>
-          {THREADS[activeThread].title}
-        </h3>
-
-        <p style={{ fontSize: 16, color: "#333", lineHeight: 1.7 }}>
-          {THREADS[activeThread].desc}
+        <p
+          style={{
+            fontSize: "18px",
+            lineHeight: 1.8,
+            color: "#333",
+            maxWidth: "680px",
+          }}
+        >
+          A historical adventure trilogy set in a composite 19th-century
+          Abyssinia, tracing coffee, capital, violence, and survival through
+          trade routes and collapsing empires.
         </p>
 
-        <div style={{ marginTop: 18, display: "flex", gap: 10 }}>
-          {Object.keys(THREADS).map((key) => (
-            <button
-              key={key}
-              onClick={() => setActiveThread(key as Thread)}
-              style={{
-                padding: "8px 12px",
-                border:
-                  activeThread === key ? "2px solid #111" : "1px solid #bbb",
-                background: activeThread === key ? "#111" : "#fff",
-                color: activeThread === key ? "#fff" : "#111",
-                cursor: "pointer",
-                fontSize: 14,
-              }}
-            >
-              {key}
-            </button>
-          ))}
+        <div style={{ marginTop: "28px" }}>
+          <a
+            href="#"
+            style={{
+              textDecoration: "none",
+              color: "#111",
+              fontSize: "16px",
+              borderBottom: "1px solid #111",
+              paddingBottom: "2px",
+            }}
+          >
+            Enter the system →
+          </a>
         </div>
       </section>
 
-      <footer style={{ marginTop: 100, color: "#777", fontSize: 14 }}>
-        © 2026 W.D. Blackwoods — Narrative OS v3
+      {/* FIELD NOTES */}
+      <section style={{ marginTop: "100px" }}>
+        <p
+          style={{
+            fontSize: "12px",
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            color: "#777",
+            marginBottom: "24px",
+          }}
+        >
+          Field Notes
+        </p>
+
+        <article style={{ marginBottom: "48px" }}>
+          <h3 style={{ fontSize: "28px", marginBottom: "12px" }}>
+            The Arithmetic on the Wall
+          </h3>
+
+          <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#333" }}>
+            Routes are not geography. They are control. Prices are not economics.
+            They are distance made visible.
+          </p>
+        </article>
+
+        <article>
+          <h3 style={{ fontSize: "28px", marginBottom: "12px" }}>
+            Caravanserai Incident — Massawa
+          </h3>
+
+          <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#333" }}>
+            Inside the caravanserai, hierarchy reveals itself before language does.
+          </p>
+        </article>
+      </section>
+
+      {/* SUBSCRIBE */}
+      <section style={{ marginTop: "100px" }}>
+        <p
+          style={{
+            fontSize: "12px",
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            color: "#777",
+            marginBottom: "20px",
+          }}
+        >
+          Stay Connected
+        </p>
+
+        <p
+          style={{
+            fontSize: "17px",
+            lineHeight: 1.8,
+            color: "#333",
+            marginBottom: "24px",
+          }}
+        >
+          Occasional dispatches: essays, system maps, and early excerpts.
+        </p>
+
+        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+          <input
+            type="email"
+            placeholder="Email address"
+            style={{
+              padding: "14px 16px",
+              border: "1px solid #ccc",
+              background: "#fff",
+              minWidth: "260px",
+              fontSize: "15px",
+            }}
+          />
+
+          <button
+            style={{
+              padding: "14px 22px",
+              background: "#111",
+              color: "#fff",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "15px",
+            }}
+          >
+            Subscribe
+          </button>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer
+        style={{
+          marginTop: "120px",
+          fontSize: "14px",
+          color: "#777",
+        }}
+      >
+        © 2026 W.D. Blackwoods
       </footer>
     </main>
   );
