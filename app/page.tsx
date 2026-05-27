@@ -178,8 +178,7 @@ export default function Home() {
               color: "#333",
             }}
           >
-            A merchant loses his sense of orientation inside a controlled trade
-            space where power reveals itself in increments.
+            Inside the caravanserai, hierarchy reveals itself before language does.
           </p>
         </article>
       </section>
