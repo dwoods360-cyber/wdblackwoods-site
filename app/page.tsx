@@ -11,14 +11,14 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
-      {/* HEADER */}
+      {/* IDENTITY */}
       <section>
         <h1
           style={{
             fontSize: "52px",
             fontWeight: 600,
             letterSpacing: "-1px",
-            marginBottom: "24px",
+            marginBottom: "18px",
           }}
         >
           W.D. Blackwoods
@@ -30,34 +30,37 @@ export default function Home() {
             lineHeight: 1.8,
             color: "#333",
             maxWidth: "680px",
+            marginBottom: "28px",
           }}
         >
           Historical fiction, systems-driven storytelling, and cinematic
           narratives built around empire, labor, and the invisible structures
           beneath power.
-          <p>
-          Empires rise on ledgers, roads, and harvests — and the silent 
+        </p>
+
+        {/* THESIS (PRIMARY HOOK) */}
+        <p
+          style={{
+            fontSize: "20px",
+            lineHeight: 1.8,
+            fontStyle: "italic",
+            color: "#111",
+            maxWidth: "680px",
+            marginBottom: "40px",
+          }}
+        >
+          Empires rise on ledgers, roads, and harvests — and the silent
           assumption that some lives are worth less than others.
-          </p>
         </p>
       </section>
 
-      {/* DIVIDER */}
-      <hr
-        style={{
-          margin: "56px 0",
-          border: "none",
-          borderTop: "1px solid #d6d1c7",
-        }}
-      />
-
-      {/* PHILOSOPHY */}
+      {/* SYSTEM FRAME */}
       <section>
         <p
           style={{
             fontSize: "17px",
             lineHeight: 1.9,
-            marginBottom: "20px",
+            marginBottom: "18px",
           }}
         >
           These stories operate as systems under pressure: trade routes, labor
@@ -75,26 +78,30 @@ export default function Home() {
         </p>
       </section>
 
+      {/* DIVIDER */}
+      <hr
+        style={{
+          margin: "56px 0",
+          border: "none",
+          borderTop: "1px solid #d6d1c7",
+        }}
+      />
+
       {/* CURRENT PROJECT */}
-      <section style={{ marginTop: "80px" }}>
+      <section>
         <p
           style={{
             fontSize: "12px",
             letterSpacing: "2px",
             textTransform: "uppercase",
             color: "#777",
-            marginBottom: "16px",
+            marginBottom: "14px",
           }}
         >
           Current Project
         </p>
 
-        <h2
-          style={{
-            fontSize: "38px",
-            marginBottom: "20px",
-          }}
-        >
+        <h2 style={{ fontSize: "38px", marginBottom: "16px" }}>
           What Coffee Demands
         </h2>
 
@@ -111,7 +118,7 @@ export default function Home() {
           trade routes and collapsing empires.
         </p>
 
-        <div style={{ marginTop: "28px" }}>
+        <div style={{ marginTop: "22px" }}>
           <a
             href="#"
             style={{
@@ -127,64 +134,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FIELD NOTES */}
-      <section style={{ marginTop: "100px" }}>
+      {/* FIELD NOTE (SINGLE STRONG ENTRY) */}
+      <section style={{ marginTop: "80px" }}>
         <p
           style={{
             fontSize: "12px",
             letterSpacing: "2px",
             textTransform: "uppercase",
             color: "#777",
-            marginBottom: "24px",
+            marginBottom: "20px",
           }}
         >
-          Field Notes
+          Field Note
         </p>
 
-        {/* NOTE 1 */}
-        <article style={{ marginBottom: "48px" }}>
-          <h3
-            style={{
-              fontSize: "28px",
-              marginBottom: "12px",
-            }}
-          >
-            The Arithmetic on the Wall
-          </h3>
+        <h3 style={{ fontSize: "28px", marginBottom: "12px" }}>
+          Caravanserai Incident — Massawa
+        </h3>
 
-          <p
-            style={{
-              fontSize: "17px",
-              lineHeight: 1.8,
-              color: "#333",
-            }}
-          >
-            Routes are not geography. They are control. Prices are not
-            economics. They are distance made visible.
-          </p>
-        </article>
-
-        {/* NOTE 2 */}
-        <article>
-          <h3
-            style={{
-              fontSize: "28px",
-              marginBottom: "12px",
-            }}
-          >
-            Caravanserai Incident — Massawa
-          </h3>
-
-          <p
-            style={{
-              fontSize: "17px",
-              lineHeight: 1.8,
-              color: "#333",
-            }}
-          >
-            Inside the caravanserai, hierarchy reveals itself before language does.
-          </p>
-        </article>
+        <p
+          style={{
+            fontSize: "17px",
+            lineHeight: 1.8,
+            color: "#333",
+          }}
+        >
+          Inside the caravanserai, hierarchy reveals itself before language does.
+        </p>
       </section>
 
       {/* SUBSCRIBE */}
@@ -195,7 +171,7 @@ export default function Home() {
             letterSpacing: "2px",
             textTransform: "uppercase",
             color: "#777",
-            marginBottom: "20px",
+            marginBottom: "18px",
           }}
         >
           Stay Connected
@@ -206,19 +182,13 @@ export default function Home() {
             fontSize: "17px",
             lineHeight: 1.8,
             color: "#333",
-            marginBottom: "24px",
+            marginBottom: "20px",
           }}
         >
           Occasional dispatches: essays, system maps, and early excerpts.
         </p>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "12px",
-            flexWrap: "wrap",
-          }}
-        >
+        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
           <input
             type="email"
             placeholder="Email address"
@@ -249,7 +219,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer
         style={{
-          marginTop: "120px",
+          marginTop: "110px",
           fontSize: "14px",
           color: "#777",
         }}
