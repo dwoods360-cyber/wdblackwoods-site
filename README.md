@@ -33,4 +33,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
+This repository includes a GitHub Actions gate at `.github/workflows/validate-and-build.yml` that:
+
+- validates archive registry integrity
+- validates route generation and static params
+- builds the app successfully
+- verifies live production archive routes and invalid slug handling
+
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

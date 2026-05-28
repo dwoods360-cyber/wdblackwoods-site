@@ -9,8 +9,21 @@ const archiveIndexPath = path.resolve(root, "../app/archive/page.tsx");
 
 const source = await readFile(archivePath, "utf8");
 
+const requiredExports = [
+  /export const archiveEntries\b/,
+  /export const archiveSlugs\b/,
+  /export const archiveCardMeta\b/,
+  /export function getArchiveEntry\b/,
+];
+
+for (const regex of requiredExports) {
+  if (!regex.test(source)) {
+    throw new Error(`content/archive.ts must export ${regex.source.replace(/export const |export function |\\b/g, "").trim()}.`);
+  }
+}
+
 const entrySlugRegex = /^\s*"([^"]+)":\s*\{/gm;
-const cardSlugRegex = /^\s*slug:\s*'([^']+)'/gm;
+const cardSlugRegex = /^\s*slug:\s*['"]([^'"]+)['"]/gm;
 
 const archiveSlugs = Array.from(source.matchAll(entrySlugRegex), (match) => match[1]);
 const archiveCardSlugs = Array.from(source.matchAll(cardSlugRegex), (match) => match[1]);
@@ -48,10 +61,25 @@ if (!/export const dynamicParams = false/.test(slugPageSource)) {
 if (!/export function generateStaticParams\(/.test(slugPageSource)) {
   throw new Error("app/archive/[slug]/page.tsx must export generateStaticParams().");
 }
+if (!/export default async function/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must export a default async function.");
+}
+if (!/await params/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must await params before using route parameters.");
+}
+if (!/import \{\s*notFound\s*\} from ['"]next\/navigation['"]/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must import notFound from next/navigation.");
+}
+if (!/import \{\s*getArchiveEntry\s*,\s*archiveSlugs\s*\} from ['"](?:\.\.\/){3}content\/archive['"]/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must import getArchiveEntry and archiveSlugs from ../../../content/archive.");
+}
 
 const archiveIndexSource = await readFile(archiveIndexPath, "utf8");
-if (!/import \{ archiveCardMeta \} from "\.\.\/\.\.\/content\/archive"/.test(archiveIndexSource)) {
+if (!/import \{\s*archiveCardMeta\s*\} from ['"](?:\.\.\/){2}content\/archive['"]/.test(archiveIndexSource)) {
   throw new Error("app/archive/page.tsx must import archiveCardMeta from ../../content/archive.");
+}
+if (!/archiveCardMeta\.map\(/.test(archiveIndexSource)) {
+  throw new Error("app/archive/page.tsx must derive archive links from archiveCardMeta only.");
 }
 
 console.log("✅ Archive route validation passed.");
