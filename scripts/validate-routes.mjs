@@ -78,7 +78,7 @@ const archiveIndexSource = await readFile(archiveIndexPath, "utf8");
 if (!/import \{\s*archiveCardMeta\s*\} from ['"](?:\.\.\/){2}content\/archive['"]/.test(archiveIndexSource)) {
   throw new Error("app/archive/page.tsx must import archiveCardMeta from ../../content/archive.");
 }
-if (!/archiveCardMeta\.map\(/.test(archiveIndexSource)) {
+if (!/archiveCardMeta\s*\.\s*(?:map|filter)\(/.test(archiveIndexSource)) {
   throw new Error("app/archive/page.tsx must derive archive links from archiveCardMeta only.");
 }
 

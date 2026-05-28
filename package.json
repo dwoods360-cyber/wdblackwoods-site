@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "validate:routes": "node scripts/validate-routes.mjs",
+    "verify:production": "node scripts/verify-production-routes.mjs",
     "build": "npm run validate:routes && next build",
     "start": "next start",
     "lint": "eslint"
