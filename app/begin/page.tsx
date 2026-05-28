@@ -16,8 +16,10 @@ export default function BeginPage() {
         </p>
         <h1>The Vine Crown</h1>
         <p className="gateway-lead">
-          This is the dominant entry point: a quiet, decisive movement from
-          observation into the first interior scene of the archive.
+          A quiet domestic fracture inside the plantation household.
+        </p>
+        <p className="gateway-lead">
+          Katherine found the vine crown on a Tuesday.
         </p>
         <Link href="/archive/vine-crown" className="primary-cta">
           Continue into the archive →

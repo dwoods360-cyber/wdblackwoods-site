@@ -5,7 +5,7 @@ export default function Home() {
     <main className="home">
       <section>
         <h1>W.D. Blackwoods</h1>
-        <p className="meta">Cinematic historical fiction from the What Coffee Demands universe</p>
+        <p className="meta">From the archive of What Coffee Demands.</p>
       </section>
 
       <section className="threshold">
