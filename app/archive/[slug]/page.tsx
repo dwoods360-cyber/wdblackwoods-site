@@ -18,8 +18,11 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
     return notFound()
   }
 
+  const bodyParagraphs =
+    entry.body[0] === entry.hook ? entry.body.slice(1) : entry.body
+
   return (
-    <main className="document-page">
+    <main className="document-page archive-document-page">
       <nav>
         <Link href="/">Home</Link>
         <Link href="/begin">Begin</Link>
@@ -33,8 +36,8 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
         <p className="meta">{entry.subline}</p>
         <p>{entry.hook}</p>
         <p className="meta">{entry.context}</p>
-        {entry.body.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+        {bodyParagraphs.map((paragraph, index) => (
+          <p key={`${index}-${paragraph}`}>{paragraph}</p>
         ))}
         <p className="meta">End of extracted field record</p>
       </section>
