@@ -1,10 +1,12 @@
+import type { PostHog } from "posthog-js";
+
 type AnalyticsMode = "off" | "basic" | "full";
 
 const mode = (process.env.NEXT_PUBLIC_ANALYTICS_MODE ?? "off").toLowerCase() as AnalyticsMode;
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 
-let posthog: any = null;
+let posthog: PostHog | null = null;
 let initialized = false;
 let initPromise: Promise<void> | null = null;
 const queuedEvents: Array<{ event: string; props?: Record<string, unknown>; isExit?: boolean }> = [];

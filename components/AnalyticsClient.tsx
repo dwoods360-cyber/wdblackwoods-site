@@ -57,7 +57,7 @@ function getScrollDepth(scrollTop: number, totalHeight: number) {
 export default function AnalyticsClient() {
   const pathname = usePathname();
   const analyticsMode = getAnalyticsMode();
-  const startTimeRef = useRef(Date.now());
+  const startTimeRef = useRef(0);
   const lastScrollRef = useRef(0);
   const thresholdSentRef = useRef(new Set<number>());
   const timerIdsRef = useRef<number[]>([]);
