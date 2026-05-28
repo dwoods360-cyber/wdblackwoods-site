@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "validate:routes": "node scripts/validate-routes.mjs",
+    "build": "npm run validate:routes && next build",
     "start": "next start",
     "lint": "eslint"
   },
