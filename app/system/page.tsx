@@ -1,4 +1,12 @@
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/siteMetadata";
+
+export const metadata = createPageMetadata({
+  title: "System — What Coffee Demands",
+  description:
+    "The structural layer of the archive: entry points, narrative records, and the system beneath the visible passages.",
+  path: "/system",
+});
 
 export default function SystemPage() {
   return (

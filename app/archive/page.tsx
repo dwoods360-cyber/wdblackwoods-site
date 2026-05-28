@@ -1,5 +1,13 @@
 import Link from "next/link"
+import { createPageMetadata } from "@/lib/siteMetadata"
 import { archiveCardMeta } from "../../content/archive"
+
+export const metadata = createPageMetadata({
+  title: "Archive — What Coffee Demands",
+  description:
+    "A curated archive of excerpts, structural records, and narrative passages from What Coffee Demands.",
+  path: "/archive",
+})
 
 export default function ArchivePage() {
   const featuredEntry = archiveCardMeta.find((item) => item.slug === "vine-crown")

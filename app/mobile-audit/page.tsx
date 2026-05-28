@@ -1,4 +1,18 @@
 import Link from "next/link"
+import { createPageMetadata } from "@/lib/siteMetadata"
+
+export const metadata = {
+  ...createPageMetadata({
+    title: "Mobile Audit — Internal Typography Calibration",
+    description:
+      "An internal route for inspecting responsive typography and reading rhythm.",
+    path: "/mobile-audit",
+  }),
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 const proseParagraphs = [
   "This route exists to test whether the archive can hold a long line without becoming ornamental, cramped, or brittle at smaller widths.",

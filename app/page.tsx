@@ -1,4 +1,12 @@
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/siteMetadata";
+
+export const metadata = createPageMetadata({
+  title: "W.D. Blackwoods",
+  description:
+    "A restrained archive for What Coffee Demands: narrative records, fragments, and structural notes from an unfolding literary world.",
+  path: "/",
+});
 
 export default function Home() {
   return (

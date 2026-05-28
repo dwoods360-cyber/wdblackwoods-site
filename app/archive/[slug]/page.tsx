@@ -1,11 +1,36 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { createPageMetadata } from "@/lib/siteMetadata"
 import { getArchiveEntry, archiveSlugs } from "../../../content/archive"
 
 export const dynamicParams = false
 
 export function generateStaticParams() {
   return archiveSlugs.map((slug) => ({ slug }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug?: string }> }): Promise<Metadata> {
+  const resolvedParams = await params
+  const rawSlug = resolvedParams?.slug
+  const slug = typeof rawSlug === "string" ? decodeURIComponent(rawSlug) : undefined
+  const entry = slug ? getArchiveEntry(slug) : undefined
+
+  if (!entry || !slug) {
+    return createPageMetadata({
+      title: "Archive Entry — What Coffee Demands Archive",
+      description: "An archive record from What Coffee Demands.",
+      path: "/archive",
+      type: "article",
+    })
+  }
+
+  return createPageMetadata({
+    title: `${entry.title} — What Coffee Demands Archive`,
+    description: entry.hook,
+    path: `/archive/${slug}`,
+    type: "article",
+  })
 }
 
 export default async function ArchiveEntryPage({ params }: { params: Promise<{ slug?: string }> }) {

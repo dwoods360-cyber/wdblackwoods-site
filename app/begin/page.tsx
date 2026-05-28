@@ -1,4 +1,12 @@
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/siteMetadata";
+
+export const metadata = createPageMetadata({
+  title: "Begin — What Coffee Demands",
+  description:
+    "A threshold into the archive, beginning with The Vine Crown and the first quiet fracture of the record.",
+  path: "/begin",
+});
 
 export default function BeginPage() {
   return (
