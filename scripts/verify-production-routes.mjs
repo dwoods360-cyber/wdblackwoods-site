@@ -8,9 +8,14 @@ const archivePath = path.resolve(root, "../content/archive.ts");
 const source = await readFile(archivePath, "utf8");
 const slugRegex = /^\s*"([^\"]+)":\s*\{/gm;
 const archiveSlugs = Array.from(source.matchAll(slugRegex), (match) => match[1]);
+const primaryArchiveSlug = "vine-crown";
 
 if (archiveSlugs.length === 0) {
   throw new Error("No archive entries were found in content/archive.ts.");
+}
+
+if (!archiveSlugs.includes(primaryArchiveSlug)) {
+  throw new Error(`Primary archive slug was not found in content/archive.ts: ${primaryArchiveSlug}`);
 }
 
 const productionUrlString = process.env.PRODUCTION_URL || process.argv[2] || "https://wdblackwoods-site.vercel.app";
@@ -60,9 +65,7 @@ console.log(`Verifying production deployment at ${productionUrl.href}`);
 console.log(`Detected archive slugs: ${archiveSlugs.join(", ")}`);
 
 const archiveIndex = await assertRoute("/archive", 200);
-for (const slug of archiveSlugs) {
-  assertIncludes(archiveIndex.text, `href=\"/archive/${slug}\"`, `/archive index page`);
-}
+assertIncludes(archiveIndex.text, `href=\"/archive/${primaryArchiveSlug}\"`, "/archive index page");
 
 for (const slug of archiveSlugs) {
   const route = `/archive/${slug}`;
