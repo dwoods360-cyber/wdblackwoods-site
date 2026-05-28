@@ -19,7 +19,7 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
   }
 
   return (
-    <main>
+    <main className="document-page">
       <nav>
         <Link href="/">Home</Link>
         <Link href="/begin">Begin</Link>

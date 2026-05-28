@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <main>
+    <main className="document-page">
       <nav>
         <Link href="/">Home</Link>
         <Link href="/begin">Begin</Link>

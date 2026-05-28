@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function SystemPage() {
   return (
-    <main className="system-page">
+    <main className="system-page document-page">
       <section className="system-section">
         <p className="system-layer-label">Myth Layer</p>
         <h1>Substack / Volume 1</h1>
