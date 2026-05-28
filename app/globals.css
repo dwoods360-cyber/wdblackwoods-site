@@ -450,12 +450,12 @@ a {
 .gateway-page {
   display: flex;
   flex-direction: column;
-  gap: 2.45rem;
+  gap: 1.85rem;
 }
 
 .gateway-hero {
   text-align: center;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0;
 }
 
 .gateway-hero-text {
@@ -469,7 +469,7 @@ a {
 
 .gateway-primary {
   text-align: center;
-  padding: 0.45rem 0 0.85rem;
+  padding: 0.15rem 0 0.65rem;
 }
 
 .gateway-primary h1 {
@@ -496,7 +496,7 @@ a {
 }
 
 .gateway-secondary {
-  padding-top: 1.6rem;
+  padding-top: 1.15rem;
   border-top: 1px solid var(--border-muted);
 }
 
