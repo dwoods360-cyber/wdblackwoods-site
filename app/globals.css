@@ -251,6 +251,14 @@ dd:last-child {
   margin-bottom: 0.7rem;
 }
 
+.archive-document-page .archive-entry-subline {
+  color: #8d8980;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  margin-bottom: 1.15rem;
+}
+
 .archive-document-page h1 + .meta {
   margin-top: -0.15rem;
 }
@@ -450,7 +458,7 @@ a {
 .gateway-page {
   display: flex;
   flex-direction: column;
-  gap: 1.85rem;
+  gap: 1.95rem;
 }
 
 .gateway-hero {
@@ -469,7 +477,7 @@ a {
 
 .gateway-primary {
   text-align: center;
-  padding: 0.15rem 0 0.65rem;
+  padding: 0.25rem 0 0.65rem;
 }
 
 .gateway-primary h1 {
@@ -496,7 +504,7 @@ a {
 }
 
 .gateway-secondary {
-  padding-top: 1.15rem;
+  padding-top: 0.9rem;
   border-top: 1px solid var(--border-muted);
 }
 

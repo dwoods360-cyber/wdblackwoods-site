@@ -58,7 +58,7 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
       <section>
         <p className="meta">From the Archive of What Coffee Demands</p>
         <h1>{entry.title}</h1>
-        <p className="meta">{entry.subline}</p>
+        <p className="archive-entry-subline">— an excerpt —</p>
         <p>{entry.hook}</p>
         <p className="meta">{entry.context}</p>
         {bodyParagraphs.map((paragraph, index) => (
