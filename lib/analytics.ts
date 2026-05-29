@@ -67,7 +67,7 @@ async function initPostHog() {
       ph.init(posthogKey, {
         api_host: posthogHost,
         autocapture: false,
-        disable_session_recording: true,
+        disable_session_recording: mode !== "full",
         persistence: "localStorage",
         persistence_name: "ph",
       });
