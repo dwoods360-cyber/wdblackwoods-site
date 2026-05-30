@@ -32,6 +32,12 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# private local reader data
+private/early-readers.csv
+private/early-reader-send-log.csv
+private/out/
 
 # vercel
 .vercel

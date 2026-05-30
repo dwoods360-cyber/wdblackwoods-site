@@ -762,6 +762,80 @@ button:hover {
   color: var(--background);
 }
 
+.reader-tool-form {
+  display: grid;
+  gap: var(--space-sm);
+  max-width: 480px;
+}
+
+.reader-tool-form label {
+  color: var(--text-muted);
+  font-size: var(--type-scale-sm);
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+}
+
+.reader-tool-form select {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border-muted);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--type-scale-base);
+  line-height: var(--line-height-normal);
+}
+
+.reader-tool-actions {
+  display: grid;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+}
+
+.reader-tool-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.reader-tool-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-secondary);
+  font-size: var(--type-scale-sm);
+  line-height: var(--line-height-normal);
+}
+
+.reader-tool-table th,
+.reader-tool-table td {
+  padding: var(--space-xs) var(--space-sm);
+  border-bottom: 1px solid var(--border-muted);
+  text-align: left;
+  vertical-align: top;
+}
+
+.reader-tool-table th {
+  color: var(--text-muted);
+  font-variant: small-caps;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.reader-tool-table details {
+  min-width: 220px;
+}
+
+.reader-tool-table summary {
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.reader-tool-history {
+  margin-top: var(--space-xs);
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
 /* =========================
    DIVIDERS / FOOTER
 ========================= */
