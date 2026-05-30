@@ -699,6 +699,35 @@ a {
    FORMS
 ========================= */
 
+.archive-signup {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border-muted);
+}
+
+.archive-signup h2 {
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+  margin-bottom: var(--space-xs);
+}
+
+.archive-signup p:not(.meta) {
+  max-width: 620px;
+  color: var(--text-secondary);
+}
+
+.archive-signup-link {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: border-color 150ms ease;
+}
+
+.archive-signup-link:hover {
+  border-bottom-color: var(--text-secondary);
+}
+
 .form-row {
   display: flex;
   gap: 12px;

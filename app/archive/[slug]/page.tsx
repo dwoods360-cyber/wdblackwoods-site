@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import ArchiveSignup from "@/components/ArchiveSignup"
 import { createPageMetadata } from "@/lib/siteMetadata"
 import { getArchiveEntry, archiveSlugs } from "../../../content/archive"
 
@@ -66,6 +67,7 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
         ))}
         <p className="meta">End of extracted field record</p>
       </section>
+      {slug === "vine-crown" ? <ArchiveSignup /> : null}
     </main>
   )
 }

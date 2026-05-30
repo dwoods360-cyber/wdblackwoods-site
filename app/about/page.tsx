@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ArchiveSignup from "@/components/ArchiveSignup";
 import { createPageMetadata } from "@/lib/siteMetadata";
 
 export const metadata = createPageMetadata({
@@ -41,6 +42,8 @@ export default function AboutPage() {
               </p>
             </article>
       </section>
+
+      <ArchiveSignup />
     </main>
   );
 }
