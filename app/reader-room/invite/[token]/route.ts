@@ -7,6 +7,13 @@ import {
 
 export const dynamic = "force-dynamic"
 
+const inviteRouteHeaders = {
+  "Cache-Control": "no-store, private",
+  Pragma: "no-cache",
+  "Referrer-Policy": "no-referrer",
+  "X-Robots-Tag": "noindex, nofollow, noarchive",
+}
+
 function accessExpiredResponse() {
   return new NextResponse(
     `<!doctype html>
@@ -25,7 +32,7 @@ function accessExpiredResponse() {
       status: 403,
       headers: {
         "Content-Type": "text/html; charset=utf-8",
-        "X-Robots-Tag": "noindex, nofollow",
+        ...inviteRouteHeaders,
       },
     }
   )
@@ -48,7 +55,9 @@ export async function GET(
     return accessExpiredResponse()
   }
 
-  const response = NextResponse.redirect(new URL("/reader-room", request.url))
+  const response = NextResponse.redirect(new URL("/reader-room", request.url), {
+    headers: inviteRouteHeaders,
+  })
   response.cookies.set(earlyReaderCookieName, createAccessCookieValue(reader), {
     httpOnly: true,
     sameSite: "lax",

@@ -2,7 +2,13 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { capture, getAnalyticsMode, initAnalytics } from "@/lib/analytics";
+import {
+  capture,
+  getAnalyticsMode,
+  initAnalytics,
+  startSessionRecording,
+  stopSessionRecording,
+} from "@/lib/analytics";
 
 const archiveSlugNames: Record<string, string> = {
   "vine-crown": "Vine Crown",
@@ -33,6 +39,11 @@ function getArchiveSlug(pathname: string) {
   return pathname.slice(prefix.length) || undefined;
 }
 
+function isPrivateOrInternalPath(pathname: string) {
+  return pathname === "/reader-room" || pathname.startsWith("/reader-room/")
+    || pathname === "/system" || pathname.startsWith("/system/");
+}
+
 function getPageData(pathname: string) {
   const pageView = pageViewMap[pathname];
   const slug = getArchiveSlug(pathname);
@@ -56,6 +67,7 @@ function getScrollDepth(scrollTop: number, totalHeight: number) {
 
 export default function AnalyticsClient() {
   const pathname = usePathname();
+  const safePathname = pathname || "/";
   const analyticsMode = getAnalyticsMode();
   const startTimeRef = useRef(0);
   const lastScrollRef = useRef(0);
@@ -64,16 +76,27 @@ export default function AnalyticsClient() {
   const exitSentRef = useRef(false);
 
   const { pageName, pageSlug, pageViewEvent, enterEvent } = useMemo(
-    () => getPageData(pathname || "/"),
-    [pathname]
+    () => getPageData(safePathname),
+    [safePathname]
   );
+  const isPrivatePath = isPrivateOrInternalPath(safePathname);
 
   useEffect(() => {
+    if (isPrivatePath) {
+      stopSessionRecording();
+      return;
+    }
+
     initAnalytics();
-  }, []);
+
+    if (analyticsMode === "full") {
+      startSessionRecording();
+    }
+  }, [analyticsMode, isPrivatePath]);
 
   useEffect(() => {
-    if (!pathname) {
+    if (!pathname || isPrivatePath) {
+      stopSessionRecording();
       return;
     }
 
@@ -94,10 +117,11 @@ export default function AnalyticsClient() {
     if (enterEvent) {
       capture(enterEvent, props);
     }
-  }, [pathname, pageName, pageSlug, pageViewEvent, enterEvent]);
+  }, [pathname, isPrivatePath, pageName, pageSlug, pageViewEvent, enterEvent]);
 
   useEffect(() => {
-    if (analyticsMode !== "full") {
+    if (analyticsMode !== "full" || isPrivatePath) {
+      stopSessionRecording();
       return;
     }
 
@@ -134,10 +158,11 @@ export default function AnalyticsClient() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [analyticsMode, pageName, pageSlug]);
+  }, [analyticsMode, isPrivatePath, pageName, pageSlug]);
 
   useEffect(() => {
-    if (analyticsMode !== "full") {
+    if (analyticsMode !== "full" || isPrivatePath) {
+      stopSessionRecording();
       return;
     }
 
@@ -157,9 +182,14 @@ export default function AnalyticsClient() {
       timerIdsRef.current.forEach(window.clearTimeout);
       timerIdsRef.current = [];
     };
-  }, [analyticsMode, pageName, pageSlug]);
+  }, [analyticsMode, isPrivatePath, pageName, pageSlug]);
 
   useEffect(() => {
+    if (isPrivatePath) {
+      stopSessionRecording();
+      return;
+    }
+
     const sendExit = () => {
       if (exitSentRef.current) {
         return;
@@ -189,7 +219,7 @@ export default function AnalyticsClient() {
       window.removeEventListener("pagehide", handlePageHide);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [analyticsMode, pageName, pageSlug]);
+  }, [analyticsMode, isPrivatePath, pageName, pageSlug]);
 
   return null;
 }

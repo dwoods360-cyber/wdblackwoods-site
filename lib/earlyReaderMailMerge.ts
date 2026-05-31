@@ -95,6 +95,18 @@ export const privateSendLogBackupPath = path.join(
   "early-reader-send-log.pre-invite-mode-backup.csv"
 )
 
+function getInviteExpirationDays(inviteMode: InviteMode) {
+  if (inviteMode === "live_test") {
+    return 1
+  }
+
+  if (inviteMode === "live_batch") {
+    return 14
+  }
+
+  return 30
+}
+
 export function isEarlyReaderToolEnabled() {
   return (
     process.env.NODE_ENV === "development" &&
@@ -504,7 +516,7 @@ export function generateMailMergeCsv(input: GenerateMailMergeInput) {
   }
 
   const { baseUrl, secret } = getSigningConfig(inviteMode)
-  const exp = createInviteExpiration()
+  const exp = createInviteExpiration(getInviteExpirationDays(inviteMode))
   const batchId = randomBytes(8).toString("hex")
   const preparedAt = new Date().toISOString()
   const expiresAt = new Date(exp)

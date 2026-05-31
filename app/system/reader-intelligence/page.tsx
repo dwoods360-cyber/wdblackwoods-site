@@ -1,5 +1,9 @@
 import { createPageMetadata } from "@/lib/siteMetadata"
 import {
+  hasReaderIntelligenceAccess,
+  isReaderIntelligenceConfigured,
+} from "@/lib/readerIntelligenceAccess"
+import {
   getReaderIntelligenceSummary,
   type ReaderIntelligenceSummary,
 } from "@/lib/posthogReaderIntelligence"
@@ -60,7 +64,62 @@ function MetricList({
   )
 }
 
-export default async function ReaderIntelligencePage() {
+function ReaderIntelligenceAccessForm({ denied }: { denied: boolean }) {
+  return (
+    <main className="system-page document-page">
+      <section className="system-section">
+        <p className="system-layer-label">Internal archive instrument</p>
+        <h1>Reader Intelligence</h1>
+        <p>This instrument is reserved for internal archive review.</p>
+        <form
+          action="/system/reader-intelligence/access"
+          method="post"
+          className="reader-tool-form"
+        >
+          <label htmlFor="passphrase">Access phrase</label>
+          <input id="passphrase" name="passphrase" type="password" required />
+          <button type="submit" className="text-cta">
+            Open instrument
+          </button>
+        </form>
+        {denied ? <p>Access was not granted.</p> : null}
+      </section>
+    </main>
+  )
+}
+
+function ReaderIntelligenceUnconfigured() {
+  return (
+    <main className="system-page document-page">
+      <section className="system-section">
+        <p className="system-layer-label">Configuration</p>
+        <h1>Reader Intelligence is not configured</h1>
+        <p>
+          Add the server-only access secret before this internal instrument can
+          be opened.
+        </p>
+      </section>
+    </main>
+  )
+}
+
+export default async function ReaderIntelligencePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ access?: string }>
+}) {
+  const resolvedSearchParams = await searchParams
+
+  if (!isReaderIntelligenceConfigured()) {
+    return <ReaderIntelligenceUnconfigured />
+  }
+
+  const hasAccess = await hasReaderIntelligenceAccess()
+
+  if (!hasAccess) {
+    return <ReaderIntelligenceAccessForm denied={resolvedSearchParams.access === "denied"} />
+  }
+
   const summary = await getReaderIntelligenceSummary()
   const hasWarnings = summary.warnings.length > 0
 
@@ -78,6 +137,11 @@ export default async function ReaderIntelligencePage() {
           {formatRefreshTime(summary.refreshedAt)} UTC · Mode:{" "}
           {summary.analyticsMode}
         </p>
+        <form action="/system/reader-intelligence/logout" method="post">
+          <button type="submit" className="text-cta">
+            Close instrument
+          </button>
+        </form>
       </section>
 
       {summary.status === "missing_env" ? (

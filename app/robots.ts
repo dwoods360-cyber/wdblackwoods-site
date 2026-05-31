@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/mobile-audit"],
+        disallow: ["/mobile-audit", "/reader-room/", "/system/"],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

@@ -189,6 +189,10 @@ The invite route validates the signed token server-side, sets an HTTP-only cooki
 
 The raw invitation token is never rendered in a client page.
 
+Invitation responses are not cached. Token-bearing invite paths may still appear
+in platform-level request logs; this is accepted temporarily for the small
+trusted early-reader group.
+
 ## Token And Cookie Expiration
 
 Invite tokens use:
@@ -217,7 +221,7 @@ Use placeholder data in `private/early-readers.csv`, enable the local tool, and 
 
 ## Testing Production
 
-Use a secondary email address and a deliberately small test CSV. Confirm the production invite redirects to a clean `/reader-room` URL and that unauthorized chapter slugs return 404.
+Use a secondary email address and a deliberately small test CSV. Confirm the production invite redirects to a clean `/reader-room` URL and that unauthorized chapter slugs return 404. Delayed readers can receive a newly generated invitation if an earlier live link expires.
 
 ## Rotating The Secret
 

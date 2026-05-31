@@ -1,6 +1,10 @@
 import type { PostHog } from "posthog-js";
 
 type AnalyticsMode = "off" | "basic" | "full";
+type PostHogSessionRecordingControls = {
+  startRecording?: () => void;
+  stopRecording?: () => void;
+};
 
 const mode = (process.env.NEXT_PUBLIC_ANALYTICS_MODE ?? "off").toLowerCase() as AnalyticsMode;
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
@@ -39,6 +43,10 @@ function flushQueuedEvents() {
   }
 
   queuedEvents.length = 0;
+}
+
+function getSessionRecordingControls() {
+  return posthog?.sessionRecording as PostHogSessionRecordingControls | undefined;
 }
 
 async function initPostHog() {
@@ -85,6 +93,39 @@ async function initPostHog() {
 
 export function initAnalytics() {
   void initPostHog();
+}
+
+export function stopSessionRecording() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const sessionRecording = getSessionRecordingControls();
+
+  if (sessionRecording?.stopRecording) {
+    sessionRecording.stopRecording();
+  }
+}
+
+export function startSessionRecording() {
+  if (typeof window === "undefined" || mode !== "full") {
+    return;
+  }
+
+  const sessionRecording = getSessionRecordingControls();
+
+  if (sessionRecording?.startRecording) {
+    sessionRecording.startRecording();
+    return;
+  }
+
+  void initPostHog().then(() => {
+    const initializedSessionRecording = getSessionRecordingControls();
+
+    if (initializedSessionRecording?.startRecording) {
+      initializedSessionRecording.startRecording();
+    }
+  });
 }
 
 export function capture(event: string, props: Record<string, unknown> = {}) {
