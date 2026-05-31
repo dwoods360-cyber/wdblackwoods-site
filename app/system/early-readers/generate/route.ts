@@ -13,16 +13,31 @@ export async function POST(request: NextRequest) {
 
   const formData = await request.formData()
   const selection = formData.get("selection")
+  const inviteMode = formData.get("inviteMode")
+  const liveAccessConfirmed = formData.get("liveAccessConfirmed") === "on"
+  const reviewedRecipientsConfirmed = formData.get("reviewedRecipientsConfirmed") === "on"
+  const testRecipientFirstName = formData.get("testRecipientFirstName")
+  const testRecipientEmail = formData.get("testRecipientEmail")
 
   if (typeof selection !== "string") {
     return new NextResponse("Missing selection.", { status: 400 })
   }
 
   try {
-    const generated = generateMailMergeCsv(selection)
+    const generated = generateMailMergeCsv({
+      selection,
+      inviteMode:
+        inviteMode === "live_test" || inviteMode === "live_batch" ? inviteMode : "local_test",
+      liveAccessConfirmed,
+      reviewedRecipientsConfirmed,
+      testRecipientFirstName:
+        typeof testRecipientFirstName === "string" ? testRecipientFirstName : undefined,
+      testRecipientEmail: typeof testRecipientEmail === "string" ? testRecipientEmail : undefined,
+    })
     const redirectUrl = new URL("/system/early-readers", request.url)
     redirectUrl.searchParams.set("generated", "1")
     redirectUrl.searchParams.set("selection", selection)
+    redirectUrl.searchParams.set("mode", generated.inviteMode)
     redirectUrl.searchParams.set("batch", generated.batchId)
     redirectUrl.searchParams.set("expires", generated.expiresAt.toISOString().slice(0, 10))
 

@@ -1,12 +1,19 @@
 import "server-only"
 
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
+import {
+  appendFileSync,
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from "fs"
 import { randomBytes } from "crypto"
 import path from "path"
 import {
   createInviteExpiration,
   createReaderId,
-  signInviteToken,
+  signInviteTokenWithSecret,
 } from "@/lib/earlyReaderAccess"
 import {
   getEnabledReaderChapters,
@@ -34,6 +41,7 @@ export type MailMergeRow = {
 }
 
 export type SendLogStatus = "prepared" | "sent" | "cancelled" | "expired"
+export type InviteMode = "legacy" | "local_test" | "live_test" | "live_batch"
 
 export type SendLogRow = {
   batchId: string
@@ -44,6 +52,7 @@ export type SendLogRow = {
   chapterVersion: string
   packId: string
   packVersion: string
+  inviteMode: InviteMode
   preparedAt: string
   sentAt: string
   inviteExpiresAt: string
@@ -60,6 +69,15 @@ export type ReaderHistorySummary = {
   records: SendLogRow[]
 }
 
+export type GenerateMailMergeInput = {
+  selection: string
+  inviteMode: InviteMode
+  liveAccessConfirmed?: boolean
+  reviewedRecipientsConfirmed?: boolean
+  testRecipientFirstName?: string
+  testRecipientEmail?: string
+}
+
 export const privateReaderCsvPath = path.join(process.cwd(), "private", "early-readers.csv")
 export const privateSendLogCsvPath = path.join(
   process.cwd(),
@@ -70,6 +88,11 @@ export const privateMailMergeOutDir = path.join(process.cwd(), "private", "out")
 export const privateMailMergeCsvPath = path.join(
   privateMailMergeOutDir,
   "early-reader-mail-merge.csv"
+)
+export const privateLiveTestCsvPath = path.join(privateMailMergeOutDir, "early-reader-live-test.csv")
+export const privateSendLogBackupPath = path.join(
+  privateMailMergeOutDir,
+  "early-reader-send-log.pre-invite-mode-backup.csv"
 )
 
 export function isEarlyReaderToolEnabled() {
@@ -147,6 +170,7 @@ function sendLogRowToCsv(row: SendLogRow) {
     row.chapterVersion,
     row.packId,
     row.packVersion,
+    row.inviteMode,
     row.preparedAt,
     row.sentAt,
     row.inviteExpiresAt,
@@ -167,6 +191,7 @@ function sendLogCsvHeader() {
     "ChapterVersion",
     "PackId",
     "PackVersion",
+    "InviteMode",
     "PreparedAt",
     "SentAt",
     "InviteExpiresAt",
@@ -175,9 +200,72 @@ function sendLogCsvHeader() {
   ].join(",")
 }
 
-function ensureSendLogFile() {
+function normalizeSendLogRows(headers: string[], lines: string[]) {
+  return lines.map((line) => {
+    const values = parseCsvLine(line)
+    const record = Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""]))
+
+    return {
+      batchId: record.BatchId ?? "",
+      readerId: record.ReaderId ?? "",
+      email: record.Email ?? "",
+      chapterSlug: record.ChapterSlug ?? "",
+      chapterTitle: record.ChapterTitle ?? "",
+      chapterVersion: record.ChapterVersion ?? "",
+      packId: record.PackId ?? "",
+      packVersion: record.PackVersion ?? "",
+      inviteMode: (record.InviteMode || "legacy") as InviteMode,
+      preparedAt: record.PreparedAt ?? "",
+      sentAt: record.SentAt ?? "",
+      inviteExpiresAt: record.InviteExpiresAt ?? "",
+      status: (record.Status ?? "prepared") as SendLogStatus,
+      notes: record.Notes ?? "",
+    } satisfies SendLogRow
+  })
+}
+
+export function migrateSendLogIfNeeded() {
   if (!existsSync(privateSendLogCsvPath)) {
     writeFileSync(privateSendLogCsvPath, `${sendLogCsvHeader()}\n`, "utf8")
+    return {
+      migrated: false,
+      created: true,
+    }
+  }
+
+  const contents = readFileSync(privateSendLogCsvPath, "utf8")
+  const [headerLine, ...lines] = contents.split(/\r?\n/).filter(Boolean)
+
+  if (!headerLine) {
+    writeFileSync(privateSendLogCsvPath, `${sendLogCsvHeader()}\n`, "utf8")
+    return {
+      migrated: false,
+      created: true,
+    }
+  }
+
+  const headers = parseCsvLine(headerLine)
+
+  if (headers.includes("InviteMode")) {
+    return {
+      migrated: false,
+      created: false,
+    }
+  }
+
+  mkdirSync(privateMailMergeOutDir, { recursive: true })
+  copyFileSync(privateSendLogCsvPath, privateSendLogBackupPath)
+
+  const rows = normalizeSendLogRows(headers, lines)
+  writeFileSync(
+    privateSendLogCsvPath,
+    `${sendLogCsvHeader()}\n${rows.map(sendLogRowToCsv).join("\n")}${rows.length ? "\n" : ""}`,
+    "utf8"
+  )
+
+  return {
+    migrated: true,
+    created: false,
   }
 }
 
@@ -278,17 +366,61 @@ function resolveSelection(selection: string) {
   return undefined
 }
 
-function getBaseUrl() {
-  const baseUrl = process.env.EARLY_READER_BASE_URL
+function getSigningConfig(inviteMode: InviteMode) {
+  if (inviteMode === "live_test" || inviteMode === "live_batch") {
+    const secret = process.env.EARLY_READER_PRODUCTION_INVITE_SECRET
+    const baseUrl = process.env.EARLY_READER_PRODUCTION_BASE_URL
 
-  if (!baseUrl) {
-    throw new Error("EARLY_READER_BASE_URL is required to generate reader invites.")
+    if (!secret || !baseUrl) {
+      throw new Error("Live invitation generation is not configured on this Mac.")
+    }
+
+    return {
+      secret,
+      baseUrl: baseUrl.replace(/\/$/, ""),
+    }
   }
 
-  return baseUrl.replace(/\/$/, "")
+  const secret = process.env.EARLY_READER_INVITE_SECRET
+  const baseUrl = process.env.EARLY_READER_BASE_URL
+
+  if (!secret || !baseUrl) {
+    throw new Error("Local invitation generation is not configured on this Mac.")
+  }
+
+  return {
+    secret,
+    baseUrl: baseUrl.replace(/\/$/, ""),
+  }
+}
+
+function normalizeInviteMode(mode: FormDataEntryValue | string | null) {
+  if (mode === "live_test" || mode === "live_batch") {
+    return mode
+  }
+
+  return "local_test"
+}
+
+export function getInviteModeLabel(inviteMode: InviteMode) {
+  if (inviteMode === "live_test") {
+    return "LIVE TEST — send one production-valid invitation to yourself"
+  }
+
+  if (inviteMode === "live_batch") {
+    return "LIVE BATCH — prepare invitations for early readers"
+  }
+
+  if (inviteMode === "legacy") {
+    return "Legacy"
+  }
+
+  return "LOCAL TEST — localhost only"
 }
 
 export function readSendLog() {
+  migrateSendLogIfNeeded()
+
   if (!existsSync(privateSendLogCsvPath)) {
     return [] as SendLogRow[]
   }
@@ -302,32 +434,12 @@ export function readSendLog() {
   }
 
   const headers = parseCsvLine(headerLine)
-
-  return lines.map((line) => {
-    const values = parseCsvLine(line)
-    const record = Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""]))
-
-    return {
-      batchId: record.BatchId ?? "",
-      readerId: record.ReaderId ?? "",
-      email: record.Email ?? "",
-      chapterSlug: record.ChapterSlug ?? "",
-      chapterTitle: record.ChapterTitle ?? "",
-      chapterVersion: record.ChapterVersion ?? "",
-      packId: record.PackId ?? "",
-      packVersion: record.PackVersion ?? "",
-      preparedAt: record.PreparedAt ?? "",
-      sentAt: record.SentAt ?? "",
-      inviteExpiresAt: record.InviteExpiresAt ?? "",
-      status: (record.Status ?? "prepared") as SendLogStatus,
-      notes: record.Notes ?? "",
-    }
-  })
+  return normalizeSendLogRows(headers, lines)
 }
 
 export function getLatestPreparedBatch() {
   return readSendLog()
-    .filter((row) => row.status === "prepared")
+    .filter((row) => row.status === "prepared" && row.inviteMode !== "live_test")
     .sort((first, second) => second.preparedAt.localeCompare(first.preparedAt))[0]
 }
 
@@ -337,7 +449,11 @@ export function getReaderHistorySummaries() {
 
   return readers.map((reader) => {
     const records = history
-      .filter((row) => row.readerId === reader.readerId || row.email === reader.email)
+      .filter(
+        (row) =>
+          row.inviteMode !== "live_test" &&
+          (row.readerId === reader.readerId || row.email === reader.email)
+      )
       .sort((first, second) => {
         const firstDate = first.sentAt || first.preparedAt
         const secondDate = second.sentAt || second.preparedAt
@@ -347,7 +463,8 @@ export function getReaderHistorySummaries() {
 
     return {
       reader,
-      sendCount: records.filter((row) => row.status === "sent").length,
+      sendCount: records.filter((row) => row.status === "sent" && row.inviteMode !== "live_test")
+        .length,
       lastTitle: last?.chapterTitle || "—",
       lastVersion: last?.chapterVersion || last?.packVersion || "—",
       lastSentDate: last?.sentAt ? last.sentAt.slice(0, 10) : "—",
@@ -356,27 +473,67 @@ export function getReaderHistorySummaries() {
   })
 }
 
-export function generateMailMergeCsv(selection: string) {
-  const resolvedSelection = resolveSelection(selection)
+export function getTestHistory() {
+  return readSendLog()
+    .filter((row) => row.inviteMode === "live_test")
+    .sort((first, second) => {
+      const firstDate = first.sentAt || first.preparedAt
+      const secondDate = second.sentAt || second.preparedAt
+      return secondDate.localeCompare(firstDate)
+    })
+}
+
+export function generateMailMergeCsv(input: GenerateMailMergeInput) {
+  const inviteMode = normalizeInviteMode(input.inviteMode)
+  const resolvedSelection = resolveSelection(input.selection)
 
   if (!resolvedSelection) {
     throw new Error("Selected reader-room chapter or pack is unavailable.")
   }
 
-  const baseUrl = getBaseUrl()
+  if ((inviteMode === "live_test" || inviteMode === "live_batch") && !input.liveAccessConfirmed) {
+    throw new Error("Live invitation generation requires confirmation.")
+  }
+
+  if (inviteMode === "live_batch" && !input.reviewedRecipientsConfirmed) {
+    throw new Error("Live batch generation requires reader and version review.")
+  }
+
+  if (inviteMode === "live_test" && (!input.testRecipientFirstName || !input.testRecipientEmail)) {
+    throw new Error("Live test generation requires a test recipient.")
+  }
+
+  const { baseUrl, secret } = getSigningConfig(inviteMode)
   const exp = createInviteExpiration()
   const batchId = randomBytes(8).toString("hex")
   const preparedAt = new Date().toISOString()
   const expiresAt = new Date(exp)
   const inviteExpiresAt = expiresAt.toISOString()
   const sendLogRows: SendLogRow[] = []
-  const rows = getEligibleEarlyReaders().map((reader) => {
-    const token = signInviteToken({
+  const recipients =
+    inviteMode === "live_test"
+      ? [
+          {
+            readerId: "test-recipient",
+            firstName: input.testRecipientFirstName ?? "",
+            lastName: "",
+            email: input.testRecipientEmail ?? "",
+            notes: "Live test invitation",
+            status: "active",
+          },
+        ]
+      : getEligibleEarlyReaders()
+
+  const rows = recipients.map((reader) => {
+    const token = signInviteTokenWithSecret(
+      {
       readerId: reader.readerId,
       chapters: resolvedSelection.chapters,
       pack: resolvedSelection.pack,
       exp,
-    })
+      },
+      secret
+    )
 
     const row = {
       Email: reader.email,
@@ -399,6 +556,7 @@ export function generateMailMergeCsv(selection: string) {
         chapterVersion: chapter?.version ?? resolvedSelection.version,
         packId: resolvedSelection.pack ?? "",
         packVersion: resolvedSelection.packVersion ?? "",
+        inviteMode,
         preparedAt,
         sentAt: "",
         inviteExpiresAt,
@@ -411,8 +569,9 @@ export function generateMailMergeCsv(selection: string) {
   })
 
   mkdirSync(privateMailMergeOutDir, { recursive: true })
-  writeFileSync(privateMailMergeCsvPath, toCsv(rows), "utf8")
-  ensureSendLogFile()
+  const outputPath = inviteMode === "live_test" ? privateLiveTestCsvPath : privateMailMergeCsvPath
+  writeFileSync(outputPath, toCsv(rows), "utf8")
+  migrateSendLogIfNeeded()
 
   if (sendLogRows.length > 0) {
     appendFileSync(
@@ -424,9 +583,10 @@ export function generateMailMergeCsv(selection: string) {
 
   return {
     batchId,
+    inviteMode,
     rows,
     expiresAt,
-    outputPath: privateMailMergeCsvPath,
+    outputPath,
   }
 }
 
@@ -468,4 +628,8 @@ export function markBatchAsSent(batchId: string) {
 
 export function hasGeneratedMailMergeCsv() {
   return existsSync(privateMailMergeCsvPath)
+}
+
+export function hasGeneratedLiveTestCsv() {
+  return existsSync(privateLiveTestCsvPath)
 }

@@ -112,6 +112,10 @@ export function signInviteToken(payload: EarlyReaderPayload) {
     throw new Error("EARLY_READER_INVITE_SECRET is required to sign invites.")
   }
 
+  return signInviteTokenWithSecret(payload, secret)
+}
+
+export function signInviteTokenWithSecret(payload: EarlyReaderPayload, secret: string) {
   const payloadPart = base64url(JSON.stringify(payload))
   return `${payloadPart}.${sign(payloadPart, secret)}`
 }

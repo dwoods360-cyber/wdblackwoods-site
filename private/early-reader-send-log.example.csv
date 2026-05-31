@@ -1,1 +1,1 @@
-BatchId,ReaderId,Email,ChapterSlug,ChapterTitle,ChapterVersion,PackId,PackVersion,PreparedAt,SentAt,InviteExpiresAt,Status,Notes
+BatchId,ReaderId,Email,ChapterSlug,ChapterTitle,ChapterVersion,PackId,PackVersion,InviteMode,PreparedAt,SentAt,InviteExpiresAt,Status,Notes

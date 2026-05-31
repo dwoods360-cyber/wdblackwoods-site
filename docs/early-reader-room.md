@@ -16,6 +16,8 @@ Set the values locally in `.env.local`:
 EARLY_READER_INVITE_SECRET=
 EARLY_READER_TOOL_ENABLED=true
 EARLY_READER_BASE_URL=http://localhost:3000
+EARLY_READER_PRODUCTION_INVITE_SECRET=
+EARLY_READER_PRODUCTION_BASE_URL=https://www.wdblackwoods.com
 ```
 
 Set these later in Vercel:
@@ -27,6 +29,13 @@ EARLY_READER_BASE_URL=https://www.wdblackwoods.com
 ```
 
 Never commit real secrets.
+
+The `EARLY_READER_PRODUCTION_*` values are local-generator values only. Do not
+add them to Vercel. The local production-generation secret must be entered
+manually into `.env.local`, and it must match the deployed
+`EARLY_READER_INVITE_SECRET` value stored in Vercel. After that one-time setup,
+you do not need to swap `.env.local` values when moving between local and live
+invitation generation.
 
 ## Reader Data
 
@@ -86,10 +95,23 @@ process.env.NODE_ENV === "development"
 process.env.EARLY_READER_TOOL_ENABLED === "true"
 ```
 
-Choose a chapter or chapter pack, then generate the Gmail mail-merge CSV. The tool writes:
+The tool has three invitation destinations:
+
+- `LOCAL TEST` is the default. It creates localhost links that open only on this Mac.
+- `LIVE TEST` creates one production-valid invitation for your own test email address.
+- `LIVE BATCH` creates reviewed production invitations for active early readers.
+
+Choose a chapter or chapter pack, then generate the Gmail mail-merge CSV. LOCAL
+TEST and LIVE BATCH write:
 
 ```text
 private/out/early-reader-mail-merge.csv
+```
+
+LIVE TEST writes:
+
+```text
+private/out/early-reader-live-test.csv
 ```
 
 The generated file is ignored by git. Review every row before using Gmail mail merge.
@@ -106,6 +128,22 @@ means an invitation file was prepared, not that any email was sent.
 After manually sending through Gmail, return to `/system/early-readers` and click
 `Mark batch as sent`. The tool updates that batch's prepared rows to `sent` and
 records `SentAt`.
+
+LIVE TEST requires explicit confirmation because it grants access through the
+deployed website. LIVE BATCH requires both live-access confirmation and a reader
+and version review confirmation.
+
+## Safe Sending Workflow
+
+1. Use LOCAL TEST while developing.
+2. Use LIVE TEST with your own email address before every real reader batch.
+3. Manually send the one-recipient test email through Gmail.
+4. Click the invitation link from an incognito browser.
+5. Confirm the live reader room opens correctly and the token leaves the browser URL.
+6. Generate the LIVE BATCH only after the test succeeds.
+7. Review the batch CSV.
+8. Send through Gmail manually.
+9. Mark the batch as sent.
 
 ## Send History
 
@@ -131,6 +169,9 @@ pack version.
 The local tool shows each reader's latest send, latest version, sent date, send
 count, notes, and expandable prior send-history records. Use this history to tie
 future feedback to the exact draft a reader received.
+
+LIVE TEST rows use `InviteMode=live_test` and appear in a separate Test history
+section. They do not count toward normal early-reader send totals.
 
 ## Invite Redirect
 
@@ -181,3 +222,7 @@ Use a secondary email address and a deliberately small test CSV. Confirm the pro
 ## Rotating The Secret
 
 Change `EARLY_READER_INVITE_SECRET` if links must be invalidated. All existing invite links and reader-room cookies signed with the old secret will stop working.
+
+For live links, rotate both the Vercel `EARLY_READER_INVITE_SECRET` and the local
+`.env.local` `EARLY_READER_PRODUCTION_INVITE_SECRET` to the same new value.
+Existing live links signed with the old secret will stop working.
