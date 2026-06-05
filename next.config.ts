@@ -59,6 +59,21 @@ const inviteRouteHeaders = [
   },
 ];
 
+const privateReaderRoomHeaders = [
+  {
+    key: "Cache-Control",
+    value: "no-store, private",
+  },
+  {
+    key: "Pragma",
+    value: "no-cache",
+  },
+  {
+    key: "X-Robots-Tag",
+    value: "noindex, nofollow, noarchive",
+  },
+];
+
 const nextConfig: NextConfig = {
   async headers() {
     return [
@@ -67,8 +82,20 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
       },
       {
+        source: "/reader-room/:path*",
+        headers: privateReaderRoomHeaders,
+      },
+      {
         source: "/reader-room/invite/:token*",
         headers: inviteRouteHeaders,
+      },
+      {
+        source: "/api/reader-room/:path*",
+        headers: privateReaderRoomHeaders,
+      },
+      {
+        source: "/system/reader-intelligence/reader-room/:path*",
+        headers: privateReaderRoomHeaders,
       },
     ];
   },

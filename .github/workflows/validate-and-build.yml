@@ -29,6 +29,9 @@ jobs:
       - name: Validate archive routes
         run: npm run validate:routes && echo "Archive route validation passed"
 
+      - name: Validate reader room
+        run: npm run reader-room:validate && echo "Reader room validation passed"
+
       - name: Build succeeded
         run: npm run build && echo "Build succeeded"
 

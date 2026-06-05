@@ -38,6 +38,11 @@ yarn-error.log*
 private/early-readers.csv
 private/early-reader-send-log.csv
 private/out/
+private/manuscript/
+private/reader-room-imports/
+private/reader-room-exports/
+reader-room-imports/
+reader-room-exports/
 
 # vercel
 .vercel

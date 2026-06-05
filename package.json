@@ -4,6 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "reader-room:upload": "node --env-file-if-exists=.env.local scripts/reader-room/upload.mjs",
+    "reader-room:create-invite": "node --env-file-if-exists=.env.local scripts/reader-room/create-invite.mjs",
+    "reader-room:list-readers": "node --env-file-if-exists=.env.local scripts/reader-room/list-readers.mjs",
+    "reader-room:revoke-reader": "node --env-file-if-exists=.env.local scripts/reader-room/revoke-reader.mjs",
+    "reader-room:export-feedback": "node --env-file-if-exists=.env.local scripts/reader-room/export-feedback.mjs",
+    "reader-room:validate": "node --test tests/reader-room.test.mjs && node scripts/validate-reader-room.mjs",
     "validate:routes": "node scripts/validate-routes.mjs",
     "verify:production": "node scripts/verify-production-routes.mjs",
     "build": "npm run validate:routes && next build",
@@ -11,7 +17,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@vercel/blob": "^2.4.0",
     "framer-motion": "^12.40.0",
+    "mammoth": "^1.12.0",
     "next": "16.2.6",
     "posthog-js": "^1.376.3",
     "react": "19.2.4",

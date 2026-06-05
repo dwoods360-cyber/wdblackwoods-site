@@ -259,6 +259,180 @@ dd:last-child {
   margin-bottom: 1.15rem;
 }
 
+/* =========================
+   PRIVATE READER ROOM
+========================= */
+
+.reader-room-page {
+  max-width: 760px;
+}
+
+.reader-room-reading-page {
+  max-width: 680px;
+}
+
+.reader-room-panel + .reader-room-panel,
+.reader-room-actions {
+  margin-top: 2.5rem;
+}
+
+.reader-room-kicker {
+  color: var(--text-primary);
+  font-size: var(--type-scale-xl);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-xs);
+}
+
+.reader-room-nav,
+.reader-room-chapter-nav {
+  align-items: center;
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+}
+
+.reader-room-theme-toggle,
+.reader-room-form button,
+.reader-tool-form button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--link-color);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.reader-room-toc {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.reader-room-toc li + li {
+  border-top: 1px solid var(--border-muted);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+}
+
+.reader-room-toc a {
+  display: grid;
+  gap: 0.15rem;
+  text-decoration: none;
+}
+
+.reader-room-toc span {
+  color: var(--text-muted);
+  font-size: var(--type-scale-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reader-room-toc strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.reader-room-prose {
+  margin-top: var(--space-lg);
+}
+
+.reader-room-prose p {
+  color: var(--text-primary);
+  font-size: 1.16rem;
+  line-height: 1.82;
+  margin-bottom: 1.22rem;
+}
+
+.reader-room-form {
+  display: grid;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.reader-room-form label,
+.reader-tool-form label {
+  color: var(--text-secondary);
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.reader-room-form input,
+.reader-room-form textarea,
+.reader-tool-form input,
+.reader-tool-form textarea,
+.reader-room-copy-field input {
+  background: rgba(255, 255, 255, 0.38);
+  border: 1px solid var(--border-muted);
+  color: var(--text-primary);
+  font: inherit;
+  padding: 0.65rem 0.75rem;
+  width: 100%;
+}
+
+.reader-room-watermark {
+  border-top: 1px solid var(--border-muted);
+  color: var(--text-muted);
+  font-size: var(--type-scale-sm);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-sm);
+}
+
+.reader-room-admin-table {
+  display: grid;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.reader-room-admin-row {
+  border-top: 1px solid var(--border-muted);
+  padding-top: var(--space-md);
+}
+
+.reader-room-admin-row dl {
+  display: grid;
+  gap: var(--space-xs);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.reader-room-admin-row dt {
+  color: var(--text-muted);
+  font-size: var(--type-scale-sm);
+}
+
+.reader-room-admin-row dd {
+  color: var(--text-secondary);
+}
+
+.reader-room-feedback-entry {
+  border-top: 1px solid var(--border-muted);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+}
+
+[data-reader-room-theme="dark"] body {
+  background: #171512;
+  color: #eee8df;
+}
+
+[data-reader-room-theme="dark"] .reader-room-page,
+[data-reader-room-theme="dark"] .reader-room-page p,
+[data-reader-room-theme="dark"] .reader-room-page h1,
+[data-reader-room-theme="dark"] .reader-room-page h2,
+[data-reader-room-theme="dark"] .reader-room-page a,
+[data-reader-room-theme="dark"] .reader-room-prose p {
+  color: #eee8df;
+}
+
+[data-reader-room-theme="dark"] .reader-room-page .meta,
+[data-reader-room-theme="dark"] .reader-room-page .system-layer-label,
+[data-reader-room-theme="dark"] .reader-room-watermark {
+  color: #b8b0a4;
+}
+
 .archive-document-page h1 + .meta {
   margin-top: -0.15rem;
 }
