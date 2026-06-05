@@ -25,8 +25,14 @@ export async function POST(request: Request) {
   }
 
   await markReaderRoomChapterComplete(auth.reader, slug)
+  const redirectUrl = new URL(
+    readerRoomRedirectPathForHost(request.headers.get("host"), `/reader-room/read/${slug}`),
+    request.url
+  )
+  redirectUrl.searchParams.set("status", "complete")
+  redirectUrl.hash = "chapter-actions"
 
-  return NextResponse.redirect(new URL(readerRoomRedirectPathForHost(request.headers.get("host"), `/reader-room/read/${slug}`), request.url), {
+  return NextResponse.redirect(redirectUrl, {
     status: 303,
     headers: { "Cache-Control": "no-store, private" },
   })

@@ -1,6 +1,6 @@
 import "server-only"
 
-import { del, list, put } from "@vercel/blob"
+import { del, get, list, put } from "@vercel/blob"
 import { getReaderRoomBlobToken, readerRoomPrefix } from "@/lib/readerRoomConfig"
 import type {
   ReaderRoomBookManifest,
@@ -12,8 +12,13 @@ import type {
 } from "@/lib/readerRoomTypes"
 
 type JsonValue = Record<string, unknown> | unknown[]
+type StoredJson<T> = {
+  value?: T
+  etag?: string
+}
 
 const memoryStore = new Map<string, JsonValue>()
+const memoryEtags = new Map<string, number>()
 
 export class ReaderRoomStorageError extends Error {
   constructor(message: string) {
@@ -36,53 +41,74 @@ function requireBlobToken() {
   return token
 }
 
-async function getBlobDownloadUrl(pathname: string) {
-  const token = requireBlobToken()
-  const result = await list({ prefix: pathname, token, limit: 1000 })
-  const match = result.blobs.find((blob) => blob.pathname === pathname)
+async function readJsonWithEtag<T>(pathname: string): Promise<StoredJson<T>> {
+  if (shouldUseMemoryStore()) {
+    const value = memoryStore.get(pathname) as T | undefined
 
-  return match?.downloadUrl || match?.url
+    return {
+      value,
+      etag: value ? String(memoryEtags.get(pathname) || 0) : undefined,
+    }
+  }
+
+  const token = requireBlobToken()
+  const result = await get(pathname, {
+    access: "private",
+    token,
+    useCache: false,
+  })
+
+  if (!result || result.statusCode !== 200) {
+    return {}
+  }
+
+  const json = await new Response(result.stream).json()
+
+  return {
+    value: json as T,
+    etag: result.blob.etag,
+  }
 }
 
 async function readJson<T>(pathname: string) {
-  if (shouldUseMemoryStore()) {
-    return memoryStore.get(pathname) as T | undefined
-  }
+  const { value } = await readJsonWithEtag<T>(pathname)
 
-  const token = requireBlobToken()
-  const url = await getBlobDownloadUrl(pathname)
-
-  if (!url) {
-    return undefined
-  }
-
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    cache: "no-store",
-  })
-
-  if (!response.ok) {
-    return undefined
-  }
-
-  return response.json() as Promise<T>
+  return value
 }
 
-async function writeJson<T extends JsonValue>(pathname: string, value: T) {
+async function writeJson<T extends JsonValue>(pathname: string, value: T, etag?: string) {
   if (shouldUseMemoryStore()) {
+    const currentEtag = String(memoryEtags.get(pathname) || 0)
+
+    if (etag && etag !== currentEtag) {
+      throw new ReaderRoomStorageError("Reader Room record changed while saving.")
+    }
+
     memoryStore.set(pathname, value)
+    memoryEtags.set(pathname, Number(currentEtag) + 1)
     return
   }
 
   const token = requireBlobToken()
+  const options = etag
+    ? ({
+        access: "private" as const,
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        contentType: "application/json",
+        ifMatch: etag,
+        token,
+      } satisfies Parameters<typeof put>[2])
+    : ({
+        access: "private" as const,
+        addRandomSuffix: false,
+        allowOverwrite: false,
+        contentType: "application/json",
+        token,
+      } satisfies Parameters<typeof put>[2])
+
   await put(pathname, JSON.stringify(value, null, 2), {
-    access: "private",
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    contentType: "application/json",
-    token,
+    ...options,
   })
 }
 
@@ -117,6 +143,33 @@ async function listJson<T>(prefix: string) {
   }
 
   return records
+}
+
+async function updateJsonRecord<T extends JsonValue>(
+  pathname: string,
+  createDefault: () => T,
+  merge: (current: T) => T
+) {
+  let lastError: unknown
+
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const current = await readJsonWithEtag<T>(pathname)
+    const base = current.value || createDefault()
+    const next = merge(base)
+
+    try {
+      await writeJson(pathname, next, current.etag)
+      return next
+    } catch (error) {
+      lastError = error
+    }
+  }
+
+  throw new ReaderRoomStorageError(
+    lastError instanceof Error
+      ? `Reader Room record could not be saved safely: ${lastError.message}`
+      : "Reader Room record could not be saved safely."
+  )
 }
 
 export function readerRoomPaths(version: string) {
@@ -160,6 +213,15 @@ export async function saveReaderRoomReader(reader: ReaderRoomReader) {
   await writeJson(readerRoomPaths(reader.bookVersion).reader(reader.readerId), reader)
 }
 
+export async function updateReaderRoomReader(
+  version: string,
+  readerId: string,
+  createDefault: () => ReaderRoomReader,
+  merge: (reader: ReaderRoomReader) => ReaderRoomReader
+) {
+  return updateJsonRecord(readerRoomPaths(version).reader(readerId), createDefault, merge)
+}
+
 export async function listReaderRoomReaders(version: string) {
   return listJson<ReaderRoomReader>(readerRoomPaths(version).readersPrefix)
 }
@@ -170,6 +232,15 @@ export async function getReaderRoomInvite(version: string, tokenHash: string) {
 
 export async function saveReaderRoomInvite(invite: ReaderRoomInvite) {
   await writeJson(readerRoomPaths(invite.bookVersion).invite(invite.tokenHash), invite)
+}
+
+export async function updateReaderRoomInvite(
+  version: string,
+  tokenHash: string,
+  createDefault: () => ReaderRoomInvite,
+  merge: (invite: ReaderRoomInvite) => ReaderRoomInvite
+) {
+  return updateJsonRecord(readerRoomPaths(version).invite(tokenHash), createDefault, merge)
 }
 
 export async function listReaderRoomInvites(version: string) {
@@ -184,12 +255,30 @@ export async function saveReaderRoomProgress(progress: ReaderRoomProgress) {
   await writeJson(readerRoomPaths(progress.bookVersion).progress(progress.readerId), progress)
 }
 
+export async function updateReaderRoomProgress(
+  version: string,
+  readerId: string,
+  createDefault: () => ReaderRoomProgress,
+  merge: (progress: ReaderRoomProgress) => ReaderRoomProgress
+) {
+  return updateJsonRecord(readerRoomPaths(version).progress(readerId), createDefault, merge)
+}
+
 export async function getReaderRoomFeedback(version: string, readerId: string) {
   return readJson<ReaderRoomFeedbackRecord>(readerRoomPaths(version).feedback(readerId))
 }
 
 export async function saveReaderRoomFeedback(version: string, feedback: ReaderRoomFeedbackRecord) {
   await writeJson(readerRoomPaths(version).feedback(feedback.readerId), feedback)
+}
+
+export async function updateReaderRoomFeedback(
+  version: string,
+  readerId: string,
+  createDefault: () => ReaderRoomFeedbackRecord,
+  merge: (feedback: ReaderRoomFeedbackRecord) => ReaderRoomFeedbackRecord
+) {
+  return updateJsonRecord(readerRoomPaths(version).feedback(readerId), createDefault, merge)
 }
 
 export async function listReaderRoomFeedback(version: string) {
@@ -207,4 +296,5 @@ export async function deleteReaderRoomRecord(pathname: string) {
 
 export function clearReaderRoomMemoryStore() {
   memoryStore.clear()
+  memoryEtags.clear()
 }

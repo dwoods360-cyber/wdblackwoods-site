@@ -347,6 +347,14 @@ dd:last-child {
   margin-bottom: 1.22rem;
 }
 
+.reader-room-state-label,
+.reader-room-confirmation {
+  color: var(--text-secondary);
+  font-size: var(--type-scale-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .reader-room-form {
   display: grid;
   gap: var(--space-sm);
@@ -379,6 +387,37 @@ dd:last-child {
   font-size: var(--type-scale-sm);
   margin-top: var(--space-xl);
   padding-top: var(--space-sm);
+}
+
+.reader-room-saved-notes {
+  margin-top: var(--space-lg);
+}
+
+.reader-room-saved-notes h2 {
+  font-size: var(--type-scale-lg);
+  font-weight: 400;
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-sm);
+}
+
+.reader-room-saved-notes ul {
+  display: grid;
+  gap: var(--space-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.reader-room-saved-notes li {
+  border-top: 1px solid var(--border-muted);
+  padding-top: var(--space-sm);
+}
+
+.reader-room-saved-notes time {
+  color: var(--text-muted);
+  display: block;
+  font-size: var(--type-scale-sm);
+  margin-top: var(--space-xs);
 }
 
 .reader-room-admin-table {

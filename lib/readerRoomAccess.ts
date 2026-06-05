@@ -29,6 +29,10 @@ import {
   saveReaderRoomInvite,
   saveReaderRoomProgress,
   saveReaderRoomReader,
+  updateReaderRoomFeedback,
+  updateReaderRoomInvite,
+  updateReaderRoomProgress,
+  updateReaderRoomReader,
 } from "@/lib/readerRoomStorage"
 import type {
   ReaderRoomFeedbackEntry,
@@ -146,19 +150,18 @@ export async function redeemReaderRoomInvite(token: string) {
   }
 
   const redeemedAt = nowIso()
-  const updatedReader = {
-    ...reader,
-    redeemedAt: reader.redeemedAt || redeemedAt,
-    nonce: createReaderRoomNonce(),
+  const nonce = createReaderRoomNonce()
+  const updatedReader = await updateReaderRoomReader(bookVersion, reader.readerId, () => reader, (current) => ({
+    ...current,
+    redeemedAt: current.redeemedAt || redeemedAt,
+    nonce,
     lastActivityAt: redeemedAt,
-  }
-  const updatedInvite = {
-    ...invite,
-    redeemedAt: invite.redeemedAt || redeemedAt,
-  }
+  }))
 
-  await saveReaderRoomReader(updatedReader)
-  await saveReaderRoomInvite(updatedInvite)
+  await updateReaderRoomInvite(bookVersion, tokenHash, () => invite, (current) => ({
+    ...current,
+    redeemedAt: current.redeemedAt || redeemedAt,
+  }))
 
   return updatedReader
 }
@@ -215,55 +218,86 @@ export async function getReaderRoomSession(): Promise<ReaderRoomAuthResult> {
 }
 
 export async function recordReaderRoomOpen(reader: ReaderRoomReader, slug: string) {
-  const progress = (await getReaderRoomProgress(reader.bookVersion, reader.readerId)) || createEmptyProgress(reader)
-  const openedSlugs = Array.from(new Set([...progress.openedSlugs, slug]))
   const lastActivityAt = nowIso()
+  const updatedProgress = await updateReaderRoomProgress(
+    reader.bookVersion,
+    reader.readerId,
+    () => createEmptyProgress(reader),
+    (progress) => ({
+      ...progress,
+      openedSlugs: Array.from(new Set([...progress.openedSlugs, slug])),
+      completedSlugs: Array.from(new Set(progress.completedSlugs)),
+      lastOpenedSlug: slug,
+      lastActivityAt,
+    })
+  )
 
-  await saveReaderRoomProgress({
-    ...progress,
-    openedSlugs,
+  await updateReaderRoomReader(reader.bookVersion, reader.readerId, () => reader, (current) => ({
+    ...current,
     lastOpenedSlug: slug,
     lastActivityAt,
-  })
-  await saveReaderRoomReader({
-    ...reader,
-    lastOpenedSlug: slug,
-    lastActivityAt,
-  })
+  }))
+
+  return updatedProgress
 }
 
 export async function markReaderRoomChapterComplete(reader: ReaderRoomReader, slug: string) {
-  const progress = (await getReaderRoomProgress(reader.bookVersion, reader.readerId)) || createEmptyProgress(reader)
-  const openedSlugs = Array.from(new Set([...progress.openedSlugs, slug]))
-  const completedSlugs = Array.from(new Set([...progress.completedSlugs, slug]))
   const lastActivityAt = nowIso()
+  const updatedProgress = await updateReaderRoomProgress(
+    reader.bookVersion,
+    reader.readerId,
+    () => createEmptyProgress(reader),
+    (progress) => ({
+      ...progress,
+      openedSlugs: Array.from(new Set([...progress.openedSlugs, slug])),
+      completedSlugs: Array.from(new Set([...progress.completedSlugs, slug])),
+      lastOpenedSlug: slug,
+      lastActivityAt,
+    })
+  )
 
-  await saveReaderRoomProgress({
-    ...progress,
-    openedSlugs,
-    completedSlugs,
+  await updateReaderRoomReader(reader.bookVersion, reader.readerId, () => reader, (current) => ({
+    ...current,
     lastOpenedSlug: slug,
     lastActivityAt,
-  })
+  }))
+
+  return updatedProgress
 }
 
 export async function saveReaderRoomNote(
   reader: ReaderRoomReader,
   entry: Omit<ReaderRoomFeedbackEntry, "id" | "readerId" | "bookVersion" | "createdAt">
 ) {
-  const current =
-    (await getReaderRoomFeedback(reader.bookVersion, reader.readerId)) ||
-    ({ readerId: reader.readerId, entries: [] } satisfies ReaderRoomFeedbackRecord)
-
-  current.entries.push({
+  const savedEntry = {
     ...entry,
     id: randomUUID(),
     readerId: reader.readerId,
     bookVersion: reader.bookVersion,
     createdAt: nowIso(),
-  })
+  }
 
-  await saveReaderRoomFeedback(reader.bookVersion, current)
+  await updateReaderRoomFeedback(
+    reader.bookVersion,
+    reader.readerId,
+    () => ({ readerId: reader.readerId, entries: [] }),
+    (current) => ({
+      ...current,
+      entries: [...current.entries, savedEntry],
+    })
+  )
+
+  return savedEntry
+}
+
+export async function getReaderRoomChapterNotes(reader: ReaderRoomReader, slug: string) {
+  const feedback =
+    (await getReaderRoomFeedback(reader.bookVersion, reader.readerId)) ||
+    ({ readerId: reader.readerId, entries: [] } satisfies ReaderRoomFeedbackRecord)
+
+  return feedback.entries
+    .filter((entry) => entry.slug === slug && entry.note)
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
 }
 
 export async function getReaderRoomProgressSummary(reader: ReaderRoomReader) {
@@ -286,17 +320,22 @@ export async function revokeReaderRoomReader(readerId: string) {
     return false
   }
 
-  await saveReaderRoomReader({
-    ...reader,
+  await updateReaderRoomReader(bookVersion, readerId, () => reader, (current) => ({
+    ...current,
     revoked: true,
     nonce: createReaderRoomNonce(),
-  })
+  }))
 
   const invites = await listReaderRoomInvites(bookVersion)
   await Promise.all(
     invites
       .filter((invite) => invite.readerId === readerId)
-      .map((invite) => saveReaderRoomInvite({ ...invite, revoked: true }))
+      .map((invite) =>
+        updateReaderRoomInvite(bookVersion, invite.tokenHash, () => invite, (current) => ({
+          ...current,
+          revoked: true,
+        }))
+      )
   )
 
   return true

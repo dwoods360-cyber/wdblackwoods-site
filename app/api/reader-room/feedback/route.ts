@@ -18,6 +18,7 @@ export async function POST(request: Request) {
   const slug = formData.get("slug")
   const checkpoint = formData.get("checkpoint")
   const note = formData.get("note")
+  const trimmedNote = typeof note === "string" ? note.trim() : ""
   const answers: Record<string, string> = {}
 
   for (const [key, value] of formData.entries()) {
@@ -26,17 +27,38 @@ export async function POST(request: Request) {
     }
   }
 
+  if (!trimmedNote && Object.keys(answers).length === 0) {
+    return new NextResponse("Private note cannot be empty.", {
+      status: 400,
+      headers: { "Cache-Control": "no-store, private" },
+    })
+  }
+
+  const chapterSlug = typeof slug === "string" && slug ? slug : undefined
+
   await saveReaderRoomNote(auth.reader, {
-    slug: typeof slug === "string" ? slug : undefined,
+    slug: chapterSlug,
     checkpoint:
       checkpoint === "chapter-03" || checkpoint === "chapter-07" || checkpoint === "chapter-20"
         ? checkpoint
         : undefined,
-    note: typeof note === "string" && note.trim() ? note.trim() : undefined,
+    note: trimmedNote || undefined,
     answers: Object.keys(answers).length > 0 ? answers : undefined,
   })
+  const redirectUrl = new URL(
+    readerRoomRedirectPathForHost(
+      request.headers.get("host"),
+      chapterSlug ? `/reader-room/read/${chapterSlug}` : "/reader-room"
+    ),
+    request.url
+  )
 
-  return NextResponse.redirect(new URL(readerRoomRedirectPathForHost(request.headers.get("host"), "/reader-room"), request.url), {
+  if (chapterSlug) {
+    redirectUrl.searchParams.set("note", "saved")
+    redirectUrl.hash = "private-notes"
+  }
+
+  return NextResponse.redirect(redirectUrl, {
     status: 303,
     headers: { "Cache-Control": "no-store, private" },
   })

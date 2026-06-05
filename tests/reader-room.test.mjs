@@ -74,14 +74,87 @@ test("no direct private Blob URL appears in browser responses", () => {
   assert.doesNotMatch(files.invitePage, /downloadUrl|blob\.url|url:/)
 })
 
+test("mutable reader-room records use private direct reads and optimistic concurrency", () => {
+  assert.match(files.storage, /get\(pathname/)
+  assert.match(files.storage, /access: "private"/)
+  assert.match(files.storage, /useCache: false/)
+  assert.match(files.storage, /ifMatch: etag/)
+  assert.match(files.storage, /updateJsonRecord/)
+  assert.match(files.storage, /for \(let attempt = 0; attempt < 5/)
+})
+
 test("progress update requires valid session", () => {
   assert.match(files.progressRoute, /getReaderRoomSession/)
   assert.match(files.progressRoute, /!auth\.ok/)
 })
 
+test("marking a chapter complete redirects to the chapter action anchor", () => {
+  assert.match(files.progressRoute, /searchParams\.set\("status", "complete"\)/)
+  assert.match(files.progressRoute, /hash = "chapter-actions"/)
+})
+
+test("chapter page shows updated completion state after redirect", () => {
+  assert.match(files.readPage, /query\.status === "complete"/)
+  assert.match(files.readPage, /Chapter marked complete\./)
+  assert.match(files.readPage, /progress\.completedSlugs\.includes\(slug\)/)
+  assert.match(files.readPage, /Completed/)
+  assert.match(files.readPage, /id="chapter-actions"/)
+})
+
+test("progress writes merge opened and completed slugs without duplicates", () => {
+  assert.match(files.access, /updateReaderRoomProgress/)
+  assert.match(files.access, /openedSlugs: Array\.from\(new Set\(\[\.\.\.progress\.openedSlugs, slug\]\)\)/)
+  assert.match(files.access, /completedSlugs: Array\.from\(new Set\(\[\.\.\.progress\.completedSlugs, slug\]\)\)/)
+})
+
+test("duplicate completion requests do not duplicate completed slugs", () => {
+  assert.match(files.access, /completedSlugs: Array\.from\(new Set\(\[\.\.\.progress\.completedSlugs, slug\]\)\)/)
+})
+
+test("chapter opens preserve existing completed slugs", () => {
+  assert.match(files.access, /completedSlugs: Array\.from\(new Set\(progress\.completedSlugs\)\)/)
+})
+
+test("concurrent open and completion updates retry and merge safely", () => {
+  assert.match(files.storage, /updateJsonRecord/)
+  assert.match(files.storage, /readJsonWithEtag/)
+  assert.match(files.storage, /writeJson\(pathname, next, current\.etag\)/)
+  assert.match(files.storage, /lastError = error/)
+})
+
 test("feedback submission requires valid session", () => {
   assert.match(files.feedbackRoute, /getReaderRoomSession/)
   assert.match(files.feedbackRoute, /!auth\.ok/)
+})
+
+test("empty chapter notes are rejected unless checkpoint answers exist", () => {
+  assert.match(files.feedbackRoute, /!trimmedNote && Object\.keys\(answers\)\.length === 0/)
+  assert.match(files.feedbackRoute, /Private note cannot be empty\./)
+})
+
+test("saved private notes redirect to and render the notes anchor", () => {
+  assert.match(files.feedbackRoute, /searchParams\.set\("note", "saved"\)/)
+  assert.match(files.feedbackRoute, /hash = "private-notes"/)
+  assert.match(files.readPage, /query\.note === "saved"/)
+  assert.match(files.readPage, /Private note saved\./)
+  assert.match(files.readPage, /id="private-notes"/)
+})
+
+test("chapter page renders only the current reader's notes for the current slug", () => {
+  assert.match(files.readPage, /getReaderRoomChapterNotes\(auth\.reader, slug\)/)
+  assert.match(files.access, /entry\.slug === slug && entry\.note/)
+  assert.match(files.access, /getReaderRoomFeedback\(reader\.bookVersion, reader\.readerId\)/)
+  assert.match(files.readPage, /Saved private notes for this chapter/)
+})
+
+test("feedback writes append entries without replacing existing notes", () => {
+  assert.match(files.access, /updateReaderRoomFeedback/)
+  assert.match(files.access, /entries: \[\.\.\.current\.entries, savedEntry\]/)
+})
+
+test("multiple notes are preserved and notes for other chapters do not appear", () => {
+  assert.match(files.access, /entries: \[\.\.\.current\.entries, savedEntry\]/)
+  assert.match(files.access, /entry\.slug === slug && entry\.note/)
 })
 
 test("admin dashboard requires administrative access", () => {
