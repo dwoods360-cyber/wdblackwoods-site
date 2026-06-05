@@ -93,8 +93,12 @@ export default async function ReaderRoomReadPage({
 
       <section id="chapter-actions" className="reader-room-actions">
         {query.status === "complete" ? (
-          <p className="reader-room-confirmation">Chapter marked complete.</p>
+          <div className="reader-room-action-status">
+            <p className="reader-room-confirmation">Chapter marked complete.</p>
+            <p className="meta">{percentComplete}% complete</p>
+          </div>
         ) : null}
+        {isComplete ? <p className="reader-room-state-label">Completed</p> : null}
         <form action={progressAction} method="post">
           <input type="hidden" name="slug" value={slug} />
           <input type="hidden" name="status" value="complete" />
