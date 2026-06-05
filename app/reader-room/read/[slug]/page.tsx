@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import ReaderRoomThemeToggle from "@/components/ReaderRoomThemeToggle"
 import { createPageMetadata } from "@/lib/siteMetadata"
 import {
@@ -36,7 +36,7 @@ export default async function ReaderRoomReadPage({
   const auth = await getReaderRoomSession()
 
   if (!auth.ok) {
-    return notFound()
+    redirect(await readerRoomHref("/reader-room"))
   }
 
   const { slug } = await params

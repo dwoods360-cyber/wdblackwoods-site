@@ -16,7 +16,10 @@ const files = {
   storage: await readFile("lib/readerRoomStorage.ts", "utf8"),
   invitePage: await readFile("app/reader-room/invite/[token]/page.tsx", "utf8"),
   redeemRoute: await readFile("app/api/reader-room/redeem/route.ts", "utf8"),
+  chapterApiRoute: await readFile("app/api/reader-room/chapter/[slug]/route.ts", "utf8"),
   readPage: await readFile("app/reader-room/read/[slug]/page.tsx", "utf8"),
+  legacyChapterPage: await readFile("app/reader-room/chapter/[slug]/page.tsx", "utf8"),
+  checkpointPage: await readFile("app/reader-room/checkpoint/[checkpoint]/page.tsx", "utf8"),
   progressRoute: await readFile("app/api/reader-room/progress/route.ts", "utf8"),
   feedbackRoute: await readFile("app/api/reader-room/feedback/route.ts", "utf8"),
   adminPage: await readFile("app/system/reader-intelligence/page.tsx", "utf8"),
@@ -64,9 +67,34 @@ test("revoked reader session rejected", () => {
   assert.match(files.access, /reader\.revoked/)
 })
 
-test("protected chapter content unavailable without valid session", () => {
+test("protected chapter page redirects missing or invalid sessions to Reader Room", () => {
   assert.match(files.readPage, /getReaderRoomSession/)
-  assert.match(files.readPage, /notFound\(\)/)
+  assert.match(files.readPage, /!auth\.ok/)
+  assert.match(files.readPage, /redirect\(await readerRoomHref\("\/reader-room"\)\)/)
+})
+
+test("protected chapter page redirects revoked and expired sessions generically", () => {
+  assert.match(files.access, /reason: "revoked"/)
+  assert.match(files.access, /reason: "expired"/)
+  assert.match(files.readPage, /redirect\(await readerRoomHref\("\/reader-room"\)\)/)
+})
+
+test("legacy chapter page redirects unauthorized readers to Reader Room", () => {
+  assert.match(files.legacyChapterPage, /getReaderRoomSession/)
+  assert.match(files.legacyChapterPage, /!auth\.ok/)
+  assert.match(files.legacyChapterPage, /redirect\(await readerRoomHref\("\/reader-room"\)\)/)
+})
+
+test("missing session on checkpoint page redirects to Reader Room", () => {
+  assert.match(files.checkpointPage, /getReaderRoomSession/)
+  assert.match(files.checkpointPage, /!auth\.ok/)
+  assert.match(files.checkpointPage, /redirect\(await readerRoomHref\("\/reader-room"\)\)/)
+})
+
+test("authenticated readers can still access chapters normally", () => {
+  assert.match(files.readPage, /getReaderRoomChapter/)
+  assert.match(files.readPage, /recordReaderRoomOpen/)
+  assert.match(files.readPage, /dangerouslySetInnerHTML/)
 })
 
 test("no direct private Blob URL appears in browser responses", () => {
@@ -86,6 +114,11 @@ test("mutable reader-room records use private direct reads and optimistic concur
 test("progress update requires valid session", () => {
   assert.match(files.progressRoute, /getReaderRoomSession/)
   assert.match(files.progressRoute, /!auth\.ok/)
+})
+
+test("unauthorized API progress POST remains non-successful and does not redirect to HTML", () => {
+  assert.match(files.progressRoute, /status: 404/)
+  assert.doesNotMatch(files.progressRoute, /NextResponse\.redirect\(.*!auth\.ok/s)
 })
 
 test("marking a chapter complete redirects to the chapter action anchor", () => {
@@ -125,6 +158,16 @@ test("concurrent open and completion updates retry and merge safely", () => {
 test("feedback submission requires valid session", () => {
   assert.match(files.feedbackRoute, /getReaderRoomSession/)
   assert.match(files.feedbackRoute, /!auth\.ok/)
+})
+
+test("unauthorized API feedback POST remains non-successful and does not redirect to HTML", () => {
+  assert.match(files.feedbackRoute, /status: 404/)
+  assert.doesNotMatch(files.feedbackRoute, /NextResponse\.redirect\(.*!auth\.ok/s)
+})
+
+test("unauthorized chapter API remains non-successful and does not redirect to HTML", () => {
+  assert.match(files.chapterApiRoute, /status: 404/)
+  assert.doesNotMatch(files.chapterApiRoute, /NextResponse\.redirect/)
 })
 
 test("empty chapter notes are rejected unless checkpoint answers exist", () => {

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { createPageMetadata } from "@/lib/siteMetadata"
 import { getReaderRoomSession } from "@/lib/readerRoomAccess"
 import { readerRoomHref } from "@/lib/readerRoomLinks"
@@ -55,7 +55,7 @@ export default async function ReaderRoomCheckpointPage({
   const auth = await getReaderRoomSession()
 
   if (!auth.ok) {
-    return notFound()
+    redirect(await readerRoomHref("/reader-room"))
   }
 
   const { checkpoint } = await params
