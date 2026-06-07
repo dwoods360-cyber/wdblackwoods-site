@@ -99,6 +99,39 @@ npm run reader-room:create-invite -- --name "Reader One" --email "reader@example
 
 The invitation URL is printed once. The raw token is not stored; only its SHA-256 hash is saved.
 
+## Invitation Email Merge Template
+
+Use the generated invitation URL only for the intended reader. Do not store raw
+invitation tokens in Git, and do not log the token separately from the one-time
+URL shown after invitation creation.
+
+Merge fields:
+
+```text
+{{READER_NAME}}
+{{PRIVATE_READING_LINK}}
+```
+
+Suggested message:
+
+```text
+Dear {{READER_NAME}},
+
+I have prepared your private browser-based reading link for What Coffee Demands,
+Volume One: Hold the Earth.
+
+{{PRIVATE_READING_LINK}}
+
+This link is unique to you. Please do not forward it or distribute the text.
+
+Thank you for reading.
+
+— W.D. Blackwoods
+```
+
+The website does not send this email automatically. Review and send each
+invitation manually unless a separate explicit sending workflow is requested.
+
 Reader-facing URLs are clean on the custom subdomain:
 
 ```text

@@ -340,6 +340,28 @@ dd:last-child {
   margin-top: var(--space-lg);
 }
 
+.reader-room-manuscript-notice,
+.reader-room-entry-notice {
+  color: var(--text-muted);
+  font-size: var(--type-scale-sm);
+  line-height: 1.55;
+}
+
+.reader-room-manuscript-notice {
+  margin-bottom: var(--space-lg);
+  text-align: left;
+}
+
+.reader-room-entry-notice {
+  margin: var(--space-md) 0;
+}
+
+.reader-room-manuscript-notice p,
+.reader-room-entry-notice p,
+.reader-room-watermark p {
+  margin-bottom: 0.18rem;
+}
+
 .reader-room-prose p {
   color: var(--text-primary);
   font-size: 1.16rem;

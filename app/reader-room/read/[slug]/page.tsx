@@ -81,6 +81,14 @@ export default async function ReaderRoomReadPage({
       </nav>
 
       <article className="reader-room-chapter">
+        <aside className="reader-room-manuscript-notice" aria-label="Private reader notice">
+          <p>© 2026, Wilford Dereck Woods. All rights reserved.</p>
+          <p>Writing as W.D. Blackwoods.</p>
+          <p>Private beta-reader edition. Not for distribution.</p>
+          <p>
+            · {auth.reader.displayName} · {auth.reader.bookVersion} ·
+          </p>
+        </aside>
         <p className="system-layer-label">{chapter.label}</p>
         <h1>{chapter.title}</h1>
         <p className="meta">{percentComplete}% complete</p>
@@ -155,7 +163,9 @@ export default async function ReaderRoomReadPage({
       </nav>
 
       <footer className="reader-room-watermark">
-        Private reader copy · {auth.reader.displayName} · {auth.reader.bookVersion}
+        <p>© 2026 Wilford Dereck Woods. All rights reserved.</p>
+        <p>Private beta-reader edition. Not for distribution.</p>
+        <p>Private reader copy · {auth.reader.displayName} · {auth.reader.bookVersion}</p>
       </footer>
     </main>
   )

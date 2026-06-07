@@ -81,6 +81,11 @@ export default async function ReaderRoomPage() {
         <h1>{readerRoomBookTitle}</h1>
         <p className="reader-room-kicker">{readerRoomVolumeTitle}</p>
         <p className="meta">by {readerRoomAuthor}</p>
+        <div className="reader-room-entry-notice">
+          <p>© 2026 Wilford Dereck Woods. All rights reserved.</p>
+          <p>Private beta-reader edition. Not for distribution.</p>
+          <p>Private reader copy · {auth.reader.displayName} · {auth.reader.bookVersion}</p>
+        </div>
         <p>
           Thank you for reading this early edition. Please read at your natural
           pace. I am looking for your honest reactions as a reader, not

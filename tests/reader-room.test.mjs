@@ -28,6 +28,7 @@ const files = {
   hostRouting: await readFile("lib/readerRoomHost.ts", "utf8"),
   proxy: await readFile("proxy.ts", "utf8"),
   readerRoomPage: await readFile("app/reader-room/page.tsx", "utf8"),
+  docsReaderRoomSetup: await readFile("docs/reader-room-setup.md", "utf8"),
 }
 
 test("invalid invite token rejected", () => {
@@ -95,6 +96,49 @@ test("authenticated readers can still access chapters normally", () => {
   assert.match(files.readPage, /getReaderRoomChapter/)
   assert.match(files.readPage, /recordReaderRoomOpen/)
   assert.match(files.readPage, /dangerouslySetInnerHTML/)
+})
+
+test("authenticated reader sees their own name and version in manuscript notice", () => {
+  assert.match(files.readPage, /reader-room-manuscript-notice/)
+  assert.match(files.readPage, /© 2026, Wilford Dereck Woods\. All rights reserved\./)
+  assert.match(files.readPage, /Writing as W\.D\. Blackwoods\./)
+  assert.match(files.readPage, /Private beta-reader edition\. Not for distribution\./)
+  assert.match(files.readPage, /auth\.reader\.displayName/)
+  assert.match(files.readPage, /auth\.reader\.bookVersion/)
+})
+
+test("reader-specific notice is rendered from the authenticated session only", () => {
+  assert.match(files.readPage, /auth\.reader\.displayName/)
+  assert.doesNotMatch(files.readPage, /Reader One|Dana Gau|reader@example\.com/)
+  assert.doesNotMatch(files.readerRoomPage, /Reader One|Dana Gau|reader@example\.com/)
+})
+
+test("Reader Room footer shows the shorter copyright watermark", () => {
+  assert.match(files.readPage, /© 2026 Wilford Dereck Woods\. All rights reserved\./)
+  assert.match(files.readPage, /Private reader copy · \{auth\.reader\.displayName\} · \{auth\.reader\.bookVersion\}/)
+})
+
+test("authenticated table of contents shows a shorter personalized notice", () => {
+  assert.match(files.readerRoomPage, /reader-room-entry-notice/)
+  assert.match(files.readerRoomPage, /© 2026 Wilford Dereck Woods\. All rights reserved\./)
+  assert.match(files.readerRoomPage, /Private reader copy · \{auth\.reader\.displayName\} · \{auth\.reader\.bookVersion\}/)
+})
+
+test("unauthenticated and invitation pages do not reveal reader-specific watermark text", () => {
+  assert.doesNotMatch(files.invitePage, /reader-room-manuscript-notice|Private reader copy/)
+  assert.doesNotMatch(files.invitePage, /auth\.reader\.displayName|auth\.reader\.bookVersion/)
+})
+
+test("reader names are not embedded in public pages or client bundles", () => {
+  assert.doesNotMatch(files.readPage, /"use client"/)
+  assert.doesNotMatch(files.readerRoomPage, /"use client"/)
+  assert.doesNotMatch(files.readPage, /Dana Gau|Reader One/)
+  assert.doesNotMatch(files.readerRoomPage, /Dana Gau|Reader One/)
+})
+
+test("shared Blob manuscript records are not personalized per reader", () => {
+  assert.doesNotMatch(files.storage, /displayName.*chapter|readerId.*chapter/)
+  assert.doesNotMatch(files.uploadScript, /displayName|readerId|Private reader copy/)
 })
 
 test("no direct private Blob URL appears in browser responses", () => {
@@ -373,6 +417,13 @@ test("reader-room terminal scripts load .env.local when present", () => {
   ]) {
     assert.match(packageJson.scripts[scriptName], /node --env-file-if-exists=\.env\.local/)
   }
+})
+
+test("reader invitation email merge template uses reader name and private link placeholders", () => {
+  assert.match(files.docsReaderRoomSetup, /\{\{READER_NAME\}\}/)
+  assert.match(files.docsReaderRoomSetup, /\{\{PRIVATE_READING_LINK\}\}/)
+  assert.match(files.docsReaderRoomSetup, /Dear \{\{READER_NAME\}\},/)
+  assert.match(files.docsReaderRoomSetup, /does not send this email automatically/)
 })
 
 test("dry-run succeeds without Blob token and performs no storage write", async () => {
