@@ -259,53 +259,126 @@ dd:last-child {
   margin-bottom: 1.15rem;
 }
 
-.archive-parchment-surface {
-  background-image:
-    linear-gradient(
-      rgba(255, 248, 228, 0.91),
-      rgba(255, 248, 228, 0.91)
-    ),
-    url("/images/archive/parchment-map.png");
-  background-position: center, bottom right;
+.public-archive-page,
+.archive-parchment-page {
+  --link-color: #4c2b17;
+  --text-muted: #624636;
+  --text-primary: #24170f;
+  --text-secondary: #493224;
+  isolation: isolate;
+  position: relative;
+}
+
+body:has(.public-archive-page),
+body:has(.archive-parchment-page) {
+  background-attachment: fixed;
+  background-image: url("/images/archive/parchment-map.png");
+  background-position: bottom right;
   background-repeat: no-repeat;
-  background-size: cover, cover;
-  color: #1f1a14;
+  background-size: cover;
+}
+
+.public-archive-page::before,
+.archive-parchment-page::before {
+  background-attachment: fixed;
+  background-image: url("/images/archive/parchment-map.png");
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+
+.public-archive-page > * {
+  position: relative;
+  z-index: 2;
+}
+
+.public-archive-page a:hover {
+  color: #6b3d20;
+}
+
+.archive-parchment-surface {
+  color: #24170f;
+  max-width: 620px;
+}
+
+@media (min-width: 1100px) {
+  .archive-parchment-surface {
+    margin-left: max(2rem, calc((100vw - 980px) / 2));
+    margin-right: auto;
+  }
 }
 
 .archive-parchment-surface p,
 .archive-parchment-surface li,
 .archive-parchment-surface dd {
-  color: #2f281f;
+  color: #24170f;
 }
 
 .archive-parchment-surface .meta,
 .archive-parchment-surface .archive-entry-subline {
-  color: #635a4d;
+  color: #624636;
+}
+
+.archive-parchment-surface .archive-entry-ending {
+  color: #493224;
+  opacity: 0.88;
+}
+
+.archive-parchment-surface nav,
+.archive-parchment-surface > section,
+.archive-parchment-surface .archive-signup,
+.archive-parchment-panel {
+  background: rgba(255, 248, 228, 0.18);
+}
+
+.archive-parchment-surface nav,
+.archive-parchment-surface > section,
+.archive-parchment-surface .archive-signup {
+  padding: var(--space-lg);
 }
 
 .archive-parchment-panel {
-  background-image:
-    linear-gradient(
-      rgba(255, 250, 236, 0.96),
-      rgba(255, 250, 236, 0.96)
-    ),
-    url("/images/archive/parchment-map.png");
-  background-position: center, bottom right;
-  background-repeat: no-repeat;
-  background-size: cover, cover;
-  border: 1px solid rgba(221, 214, 204, 0.75);
+  background: rgba(255, 248, 228, 0.18);
   padding: var(--space-xl);
 }
 
+.archive-parchment-panel.gateway-hero,
+.archive-parchment-panel.gateway-primary,
+.archive-parchment-panel.gateway-secondary,
+.archive-parchment-panel.threshold {
+  padding: var(--space-xl);
+}
+
+.archive-parchment-panel .secondary-links {
+  margin-top: 0;
+}
+
 @media (max-width: 640px) {
-  .archive-parchment-surface {
-    background-position: center, bottom right;
-    background-size: cover, cover;
+  body:has(.public-archive-page),
+  body:has(.archive-parchment-page) {
+    background-attachment: scroll;
+    background-position: center top;
   }
 
-  .archive-parchment-panel {
-    background-position: center, bottom right;
-    background-size: cover, cover;
+  .public-archive-page::before,
+  .archive-parchment-page::before {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+
+  .archive-parchment-surface nav,
+  .archive-parchment-surface > section,
+  .archive-parchment-surface .archive-signup,
+  .archive-parchment-panel,
+  .archive-parchment-panel.gateway-hero,
+  .archive-parchment-panel.gateway-primary,
+  .archive-parchment-panel.gateway-secondary,
+  .archive-parchment-panel.threshold {
     padding: var(--space-lg) var(--space-sm);
   }
 }
@@ -329,6 +402,86 @@ dd:last-child {
 
 .archive-landing-kicker {
   letter-spacing: 0;
+}
+
+.archive-coffee-beans {
+  position: relative;
+}
+
+.archive-coffee-beans::after {
+  background-image: url("/images/archive/coffee-beans-sepia.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: block;
+  height: auto;
+  aspect-ratio: 1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  position: absolute;
+  user-select: none;
+  z-index: 1;
+}
+
+.archive-coffee-beans > * {
+  position: relative;
+  z-index: 2;
+}
+
+.archive-home-beans-image {
+  height: auto;
+  mix-blend-mode: multiply;
+  opacity: 0.44;
+  pointer-events: none;
+  position: absolute;
+  right: 48px;
+  bottom: 42px;
+  user-select: none;
+  width: 132px;
+  z-index: 1;
+}
+
+.archive-coffee-plant-image {
+  height: auto;
+  mix-blend-mode: multiply;
+  opacity: 0.48;
+  pointer-events: none;
+  position: absolute;
+  right: 56px;
+  top: 88px;
+  user-select: none;
+  width: 230px;
+  z-index: 1;
+}
+
+.archive-coffee-beans--about::after {
+  bottom: 1.5rem;
+  left: max(-6rem, calc((100vw - 900px) / -2));
+  opacity: 0.46;
+  width: 165px;
+}
+
+@media (max-width: 640px) {
+  .archive-coffee-beans--about::after {
+    bottom: 0.75rem;
+    left: 0.5rem;
+    opacity: 0.34;
+    width: 110px;
+  }
+
+  .archive-home-beans-image {
+    bottom: 24px;
+    opacity: 0.3;
+    right: 18px;
+    width: 74px;
+  }
+
+  .archive-coffee-plant-image {
+    opacity: 0.3;
+    right: 20px;
+    top: 64px;
+    width: 128px;
+  }
 }
 
 /* =========================
@@ -611,19 +764,34 @@ a {
 .read-more,
 .system-link,
 .primary-entry-link,
+.archive-entry-title-link,
 .gateway-secondary-link {
   text-decoration: none;
   color: var(--link-color);
-  border-bottom: 1px solid transparent;
-  transition: border-color 150ms ease;
+  border-bottom: 1px solid currentColor;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease;
 }
 
 .story-link:hover,
 .read-more:hover,
 .system-link:hover,
 .primary-entry-link:hover,
+.archive-entry-title-link:hover,
 .gateway-secondary-link:hover {
   border-bottom-color: currentColor;
+  color: #6b3d20;
+}
+
+.story-link:focus-visible,
+.read-more:focus-visible,
+.system-link:focus-visible,
+.primary-entry-link:focus-visible,
+.archive-entry-title-link:focus-visible,
+.gateway-secondary-link:focus-visible {
+  outline: 2px solid #6b3d20;
+  outline-offset: 0.2em;
 }
 
 /* =========================
@@ -671,11 +839,21 @@ a {
   max-width: 700px;
 }
 
+.archive-coffee-plant .archive-entry-framing {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
 .archive-entry-framing {
   margin: 0 auto 1.5rem auto;
   color: var(--text-secondary);
   font-size: var(--type-scale-lg);
   line-height: var(--line-height-relaxed);
+}
+
+.archive-coffee-plant .archive-featured-entry {
+  border-top: 0;
 }
 
 .archive-featured-entry {
@@ -698,7 +876,8 @@ a {
 .primary-entry-link {
   display: inline-block;
   margin-top: var(--space-md);
-  color: var(--text-primary);
+  color: var(--link-color);
+  font-weight: 600;
 }
 
 .archive-descent-section {
@@ -726,6 +905,10 @@ a {
   font-size: clamp(1.45rem, 3vw, 1.8rem);
   margin-bottom: var(--space-xs);
   color: var(--text-primary);
+}
+
+.archive-entry-title-link {
+  color: var(--link-color);
 }
 
 .secondary-entry .story-description,
@@ -765,7 +948,16 @@ a {
 .gateway-page {
   display: flex;
   flex-direction: column;
-  gap: 1.95rem;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.archive-begin-page {
+  gap: 36px;
+  min-height: auto;
+}
+
+.gateway-page > section + section {
+  margin-top: 0;
 }
 
 .gateway-hero {
@@ -785,6 +977,19 @@ a {
 .gateway-primary {
   text-align: center;
   padding: 0.25rem 0 0.65rem;
+}
+
+.archive-begin-page .archive-parchment-panel {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.archive-begin-page .gateway-hero {
+  padding-bottom: 0;
+}
+
+.archive-begin-page .gateway-primary {
+  padding-top: 0;
 }
 
 .gateway-primary h1 {
@@ -839,6 +1044,17 @@ a {
   font-size: var(--type-scale-base);
   font-style: italic;
   line-height: var(--line-height-relaxed);
+}
+
+@media (max-width: 640px) {
+  .archive-begin-page {
+    gap: 24px;
+  }
+
+  .archive-begin-page .archive-parchment-panel {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
 }
 
 /* =========================
