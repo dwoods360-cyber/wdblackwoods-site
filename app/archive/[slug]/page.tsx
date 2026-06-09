@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   const rawSlug = resolvedParams?.slug
   const slug = typeof rawSlug === "string" ? decodeURIComponent(rawSlug) : undefined
   const entry = slug ? getArchiveEntry(slug) : undefined
+  const isVineCrown = slug === "vine-crown"
 
   if (!entry || !slug) {
     return createPageMetadata({
@@ -27,8 +28,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   }
 
   return createPageMetadata({
-    title: `${entry.title} — What Coffee Demands Archive`,
-    description: entry.hook,
+    title: isVineCrown
+      ? "The Vine Crown — An Excerpt from What Coffee Demands"
+      : `${entry.title} — What Coffee Demands Archive`,
+    description: isVineCrown
+      ? "A hidden box, a carved elephant, and a vine crown wait at the edge of a family’s unfinished journey."
+      : entry.hook,
     path: `/archive/${slug}`,
     type: "article",
   })
@@ -46,11 +51,15 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
 
   const bodyParagraphs =
     entry.body[0] === entry.hook ? entry.body.slice(1) : entry.body
+  const isVineCrown = slug === "vine-crown"
   const excerptLabel =
-    slug === "vine-crown" ? "— an archive excerpt —" : "— an excerpt —"
+    isVineCrown ? "— an archive excerpt —" : "— an excerpt —"
+  const pageClassName = `document-page archive-document-page${
+    isVineCrown ? " archive-parchment-surface" : ""
+  }`
 
   return (
-    <main className="document-page archive-document-page">
+    <main className={pageClassName}>
       <nav>
         <Link href="/">Home</Link>
         <Link href="/begin">Begin</Link>
@@ -58,9 +67,27 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
         <Link href="/about">About</Link>
       </nav>
 
+      {isVineCrown ? (
+        <section className="archive-landing-intro">
+          <h1>THE VINE CROWN</h1>
+          <p className="archive-landing-kicker">
+            An excerpt from
+            <br />
+            WHAT COFFEE DEMANDS
+            <br />
+            Volume One — Hold the Earth
+          </p>
+          <p className="archive-landing-byline">by W.D. Blackwoods</p>
+          <p>
+            A hidden box, a carved elephant, and a vine crown wait at the edge of
+            a family’s unfinished journey.
+          </p>
+        </section>
+      ) : null}
+
       <section>
         <p className="meta">From the Archive of What Coffee Demands</p>
-        <h1>{entry.title}</h1>
+        {isVineCrown ? null : <h1>{entry.title}</h1>}
         <p className="archive-entry-subline">{excerptLabel}</p>
         <p>{entry.hook}</p>
         <p className="meta">{entry.context}</p>

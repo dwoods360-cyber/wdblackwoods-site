@@ -259,6 +259,78 @@ dd:last-child {
   margin-bottom: 1.15rem;
 }
 
+.archive-parchment-surface {
+  background-image:
+    linear-gradient(
+      rgba(255, 248, 228, 0.91),
+      rgba(255, 248, 228, 0.91)
+    ),
+    url("/images/archive/parchment-map.png");
+  background-position: center, bottom right;
+  background-repeat: no-repeat;
+  background-size: cover, cover;
+  color: #1f1a14;
+}
+
+.archive-parchment-surface p,
+.archive-parchment-surface li,
+.archive-parchment-surface dd {
+  color: #2f281f;
+}
+
+.archive-parchment-surface .meta,
+.archive-parchment-surface .archive-entry-subline {
+  color: #635a4d;
+}
+
+.archive-parchment-panel {
+  background-image:
+    linear-gradient(
+      rgba(255, 250, 236, 0.96),
+      rgba(255, 250, 236, 0.96)
+    ),
+    url("/images/archive/parchment-map.png");
+  background-position: center, bottom right;
+  background-repeat: no-repeat;
+  background-size: cover, cover;
+  border: 1px solid rgba(221, 214, 204, 0.75);
+  padding: var(--space-xl);
+}
+
+@media (max-width: 640px) {
+  .archive-parchment-surface {
+    background-position: center, bottom right;
+    background-size: cover, cover;
+  }
+
+  .archive-parchment-panel {
+    background-position: center, bottom right;
+    background-size: cover, cover;
+    padding: var(--space-lg) var(--space-sm);
+  }
+}
+
+.archive-landing-intro {
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.archive-landing-intro h1 {
+  font-size: var(--type-scale-3xl);
+  letter-spacing: 0;
+  margin-bottom: var(--space-md);
+}
+
+.archive-landing-kicker,
+.archive-landing-byline {
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.archive-landing-kicker {
+  letter-spacing: 0;
+}
+
 /* =========================
    PRIVATE READER ROOM
 ========================= */

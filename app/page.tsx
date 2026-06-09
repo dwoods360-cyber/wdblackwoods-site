@@ -16,7 +16,7 @@ export default function Home() {
         <p className="meta">From the archive of What Coffee Demands.</p>
       </section>
 
-      <section className="threshold">
+      <section className="threshold archive-parchment-panel">
         <p>
           Not a blog.
           <br />

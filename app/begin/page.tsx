@@ -17,7 +17,7 @@ export default function BeginPage() {
         </p>
       </section>
 
-      <section className="gateway-primary">
+      <section className="gateway-primary archive-parchment-panel">
         <p className="gateway-subtext">
           The archive is not a menu. It is a passage. Begin with the entry that
           invites you into the emotional architecture of the story.

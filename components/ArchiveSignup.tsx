@@ -1,16 +1,13 @@
 export default function ArchiveSignup() {
   return (
     <section className="archive-signup">
-      <p className="meta">Archive correspondence</p>
-      <h2>
-        If this scene left you curious about the larger story, join the archive list.
-      </h2>
+      <p className="meta">INTERESTED IN READING MORE?</p>
       <p>
-        Receive future excerpts, extracted field notes, and new records from
-        What Coffee Demands.
+        Join the early-reader list for private updates, future excerpts, and
+        release news.
       </p>
       <a href="https://wdblackwoods.substack.com/subscribe" className="archive-signup-link">
-        Join the archive list →
+        Join the Early-Reader List →
       </a>
     </section>
   )
