@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createPageMetadata } from "@/lib/siteMetadata";
 
 export const metadata = createPageMetadata({
@@ -10,7 +11,15 @@ export const metadata = createPageMetadata({
 
 export default function Home() {
   return (
-    <main className="home public-archive-page archive-coffee-beans archive-coffee-beans--home">
+    <main className="home public-archive-page archive-home-page">
+      <Image
+        src="/images/archive/coffee-beans-sepia-transparent.png"
+        alt=""
+        aria-hidden="true"
+        width={1254}
+        height={1254}
+        className="archive-home-beans-image"
+      />
       <section className="archive-parchment-panel">
         <h1>W.D. BLACKWOODS</h1>
         <p className="meta">From the archive of What Coffee Demands.</p>
