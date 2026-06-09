@@ -94,7 +94,7 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
         {bodyParagraphs.map((paragraph, index) => (
           <p key={`${index}-${paragraph}`}>{paragraph}</p>
         ))}
-        <p className="meta">End of extracted field record</p>
+        <p className="meta archive-entry-ending">End of extracted field record</p>
       </section>
       {slug === "vine-crown" ? <ArchiveSignup /> : null}
     </main>

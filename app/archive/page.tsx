@@ -18,7 +18,7 @@ export default function ArchivePage() {
   }
 
   return (
-    <main className="public-archive-page archive-coffee-beans archive-coffee-beans--archive">
+    <main className="public-archive-page archive-coffee-beans archive-coffee-beans--archive archive-coffee-plant">
       <nav>
         <Link href="/">Home</Link>
         <Link href="/begin">Begin</Link>
@@ -39,7 +39,7 @@ export default function ArchivePage() {
             <p className="story-description">{featuredEntry.description}</p>
             <p className="story-excerpt">{featuredEntry.excerpt}</p>
             <Link href={`/archive/${featuredEntry.slug}`} className="primary-entry-link">
-              Enter the archive
+              Enter the archive →
             </Link>
           </article>
         </section>
@@ -51,7 +51,11 @@ export default function ArchivePage() {
 
           {secondaryEntries.map((item) => (
             <article key={item.slug} className="secondary-entry">
-              <h2>{item.title}</h2>
+              <h2>
+                <Link href={`/archive/${item.slug}`} className="archive-entry-title-link">
+                  {item.title} →
+                </Link>
+              </h2>
               <p className="story-description">{item.description}</p>
               <p className="story-excerpt">{item.excerpt}</p>
             </article>
