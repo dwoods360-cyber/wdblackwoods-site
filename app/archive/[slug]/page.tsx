@@ -46,6 +46,8 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
 
   const bodyParagraphs =
     entry.body[0] === entry.hook ? entry.body.slice(1) : entry.body
+  const excerptLabel =
+    slug === "vine-crown" ? "— an archive excerpt —" : "— an excerpt —"
 
   return (
     <main className="document-page archive-document-page">
@@ -59,7 +61,7 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
       <section>
         <p className="meta">From the Archive of What Coffee Demands</p>
         <h1>{entry.title}</h1>
-        <p className="archive-entry-subline">— an excerpt —</p>
+        <p className="archive-entry-subline">{excerptLabel}</p>
         <p>{entry.hook}</p>
         <p className="meta">{entry.context}</p>
         {bodyParagraphs.map((paragraph, index) => (
