@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { createPageMetadata } from "@/lib/siteMetadata"
 import { archiveCardMeta } from "../../content/archive"
 
@@ -19,6 +20,14 @@ export default function ArchivePage() {
 
   return (
     <main className="public-archive-page archive-coffee-plant">
+      <Image
+        src="/images/archive/coffee-plant-branch-sepia-transparent.png"
+        alt=""
+        aria-hidden="true"
+        width={1448}
+        height={1086}
+        className="archive-coffee-plant-image"
+      />
       <nav>
         <Link href="/">Home</Link>
         <Link href="/begin">Begin</Link>

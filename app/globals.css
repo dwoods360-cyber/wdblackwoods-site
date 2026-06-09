@@ -428,21 +428,16 @@ body:has(.archive-parchment-page) {
   z-index: 2;
 }
 
-.archive-coffee-plant::before {
-  aspect-ratio: 1448 / 1086;
-  background-image: url("/images/archive/coffee-plant-branch-sepia.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: block;
+.archive-coffee-plant-image {
+  height: auto;
   mix-blend-mode: multiply;
-  opacity: 0.34;
+  opacity: 0.48;
   pointer-events: none;
   position: absolute;
-  right: max(-5.5rem, calc((100vw - 900px) / -2));
-  top: 5rem;
+  right: 56px;
+  top: 88px;
   user-select: none;
-  width: 210px;
+  width: 230px;
   z-index: 1;
 }
 
@@ -476,11 +471,11 @@ body:has(.archive-parchment-page) {
     width: 58px;
   }
 
-  .archive-coffee-plant::before {
-    opacity: 0.24;
-    right: 0.25rem;
-    top: 5.5rem;
-    width: 132px;
+  .archive-coffee-plant-image {
+    opacity: 0.3;
+    right: 20px;
+    top: 64px;
+    width: 128px;
   }
 }
 
@@ -839,11 +834,21 @@ a {
   max-width: 700px;
 }
 
+.archive-coffee-plant .archive-entry-framing {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
 .archive-entry-framing {
   margin: 0 auto 1.5rem auto;
   color: var(--text-secondary);
   font-size: var(--type-scale-lg);
   line-height: var(--line-height-relaxed);
+}
+
+.archive-coffee-plant .archive-featured-entry {
+  border-top: 0;
 }
 
 .archive-featured-entry {
