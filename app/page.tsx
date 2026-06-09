@@ -12,24 +12,24 @@ export default function Home() {
   return (
     <main className="home">
       <section>
-        <h1>W.D. Blackwoods</h1>
+        <h1>W.D. BLACKWOODS</h1>
         <p className="meta">From the archive of What Coffee Demands.</p>
       </section>
 
       <section className="threshold">
         <p>
-          This is not a blog.
+          Not a blog.
           <br />
-          It is a structured record of a world under construction.
+          A structured record of a world under construction.
         </p>
-        <Link href="/begin" className="primary-cta">
-          Enter the Archive →
+        <Link href="/archive/vine-crown" className="primary-cta">
+          Read “The Vine Crown” →
         </Link>
       </section>
 
       <section>
         <div className="secondary-links">
-          <Link href="/archive">Archive</Link>
+          <Link href="/begin">Enter the Archive →</Link>
           <Link href="/about">About</Link>
         </div>
       </section>

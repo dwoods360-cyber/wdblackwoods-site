@@ -30,7 +30,7 @@ export default function BeginPage() {
           Katherine found the vine crown on a Tuesday.
         </p>
         <Link href="/archive/vine-crown" className="primary-cta">
-          Continue into the archive →
+          Read “The Vine Crown” →
         </Link>
       </section>
 
