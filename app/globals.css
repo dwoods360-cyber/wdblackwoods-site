@@ -409,13 +409,14 @@ body:has(.archive-parchment-page) {
 }
 
 .archive-coffee-beans::after {
-  background-image: url("/images/archive/coffee-beans-sketch.svg");
+  background-image: url("/images/archive/coffee-beans-sepia.png");
   background-repeat: no-repeat;
   background-size: contain;
   content: "";
   display: block;
   height: auto;
-  aspect-ratio: 180 / 140;
+  aspect-ratio: 1;
+  mix-blend-mode: multiply;
   pointer-events: none;
   position: absolute;
   user-select: none;
@@ -428,19 +429,20 @@ body:has(.archive-parchment-page) {
 }
 
 .archive-coffee-plant::before {
-  aspect-ratio: 220 / 180;
-  background-image: url("/images/archive/coffee-plant-sketch.svg");
+  aspect-ratio: 1448 / 1086;
+  background-image: url("/images/archive/coffee-plant-branch-sepia.png");
   background-repeat: no-repeat;
   background-size: contain;
   content: "";
   display: block;
+  mix-blend-mode: multiply;
   opacity: 0.34;
   pointer-events: none;
   position: absolute;
   right: max(-5.5rem, calc((100vw - 900px) / -2));
   top: 5rem;
   user-select: none;
-  width: 200px;
+  width: 210px;
   z-index: 1;
 }
 
@@ -451,19 +453,12 @@ body:has(.archive-parchment-page) {
   width: 165px;
 }
 
-.archive-coffee-beans--archive::after {
-  bottom: 1.25rem;
-  left: max(-5rem, calc((100vw - 880px) / -2));
-  opacity: 0.3;
-  width: 115px;
-}
-
 .archive-coffee-beans--home::after {
   background-position: left top;
   bottom: 1rem;
-  opacity: 0.34;
+  opacity: 0.32;
   right: 0.75rem;
-  width: 90px;
+  width: 104px;
 }
 
 @media (max-width: 640px) {
@@ -481,18 +476,11 @@ body:has(.archive-parchment-page) {
     width: 58px;
   }
 
-  .archive-coffee-beans--archive::after {
-    bottom: 0.5rem;
-    left: 0.25rem;
-    opacity: 0.2;
-    width: 72px;
-  }
-
   .archive-coffee-plant::before {
     opacity: 0.24;
     right: 0.25rem;
     top: 5.5rem;
-    width: 124px;
+    width: 132px;
   }
 }
 

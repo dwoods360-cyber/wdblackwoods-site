@@ -18,7 +18,7 @@ export default function ArchivePage() {
   }
 
   return (
-    <main className="public-archive-page archive-coffee-beans archive-coffee-beans--archive archive-coffee-plant">
+    <main className="public-archive-page archive-coffee-plant">
       <nav>
         <Link href="/">Home</Link>
         <Link href="/begin">Begin</Link>
