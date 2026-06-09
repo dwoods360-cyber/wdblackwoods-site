@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140" fill="none">
+  <g stroke="rgba(96, 62, 34, 0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="rgba(126, 84, 47, 0.08)">
+    <g transform="translate(27 29) rotate(-18)">
+      <path d="M3 19C5 6 14 -2 25 2c11 4 16 17 12 29-4 12-16 20-26 15C2 41 0 31 3 19Z"/>
+      <path d="M18 3c-5 9-5 17 0 25 3 5 3 10-1 17"/>
+      <path d="M8 25c3 2 6 2 10 0"/>
+    </g>
+    <g transform="translate(74 18) rotate(12)">
+      <path d="M2 20C3 8 12 0 23 2c12 3 18 14 15 27-3 13-14 22-25 19C4 45 0 33 2 20Z"/>
+      <path d="M20 3c-4 8-4 15 1 23 4 7 3 13-2 20"/>
+      <path d="M9 30c4 1 7 0 11-2"/>
+    </g>
+    <g transform="translate(121 45) rotate(-7)">
+      <path d="M4 17C7 5 16 -1 27 3c10 4 15 15 11 27-4 11-15 18-25 14C5 41 1 29 4 17Z"/>
+      <path d="M21 4c-6 8-7 15-2 24 3 5 2 10-3 15"/>
+      <path d="M10 25c4 2 7 2 11 0"/>
+    </g>
+    <g transform="translate(51 85) rotate(20)">
+      <path d="M3 18C5 7 14 0 24 3c11 3 17 14 14 26-3 12-14 20-25 17C4 44 1 31 3 18Z"/>
+      <path d="M19 4c-4 8-4 15 1 23 3 6 2 12-2 17"/>
+      <path d="M9 27c4 1 7 0 10-2"/>
+    </g>
+    <g transform="translate(105 95) rotate(-22)">
+      <path d="M2 18C5 6 14 0 25 3c10 3 16 14 13 26-3 12-14 20-24 17C5 44 0 31 2 18Z"/>
+      <path d="M20 4c-5 8-5 16 0 24 3 5 2 11-2 16"/>
+      <path d="M8 27c4 2 8 2 12 0"/>
+    </g>
+  </g>
+</svg>

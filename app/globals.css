@@ -259,17 +259,42 @@ dd:last-child {
   margin-bottom: 1.15rem;
 }
 
-.archive-parchment-surface {
-  background-image:
-    linear-gradient(
-      rgba(255, 248, 228, 0.91),
-      rgba(255, 248, 228, 0.91)
-    ),
-    url("/images/archive/parchment-map.png");
-  background-position: center, bottom right;
+.archive-parchment-page {
+  isolation: isolate;
+  position: relative;
+}
+
+body:has(.archive-parchment-page) {
+  background-attachment: fixed;
+  background-image: url("/images/archive/parchment-map.png");
+  background-position: bottom right;
   background-repeat: no-repeat;
-  background-size: cover, cover;
+  background-size: cover;
+}
+
+.archive-parchment-page::before {
+  background-attachment: fixed;
+  background-image: url("/images/archive/parchment-map.png");
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+
+.archive-parchment-surface {
   color: #1f1a14;
+  max-width: 660px;
+}
+
+@media (min-width: 1100px) {
+  .archive-parchment-surface {
+    margin-left: max(2rem, calc((100vw - 980px) / 2));
+    margin-right: auto;
+  }
 }
 
 .archive-parchment-surface p,
@@ -283,29 +308,55 @@ dd:last-child {
   color: #635a4d;
 }
 
+.archive-parchment-surface nav,
+.archive-parchment-surface > section,
+.archive-parchment-surface .archive-signup,
 .archive-parchment-panel {
-  background-image:
-    linear-gradient(
-      rgba(255, 250, 236, 0.96),
-      rgba(255, 250, 236, 0.96)
-    ),
-    url("/images/archive/parchment-map.png");
-  background-position: center, bottom right;
-  background-repeat: no-repeat;
-  background-size: cover, cover;
+  background: rgba(255, 248, 228, 0.84);
   border: 1px solid rgba(221, 214, 204, 0.75);
+}
+
+.archive-parchment-surface nav,
+.archive-parchment-surface > section,
+.archive-parchment-surface .archive-signup {
+  padding: var(--space-lg);
+}
+
+.archive-parchment-panel {
+  background: rgba(255, 250, 236, 0.91);
   padding: var(--space-xl);
 }
 
+.archive-parchment-panel.gateway-hero,
+.archive-parchment-panel.gateway-primary,
+.archive-parchment-panel.gateway-secondary,
+.archive-parchment-panel.threshold {
+  padding: var(--space-xl);
+}
+
+.archive-parchment-panel .secondary-links {
+  margin-top: 0;
+}
+
 @media (max-width: 640px) {
-  .archive-parchment-surface {
-    background-position: center, bottom right;
-    background-size: cover, cover;
+  body:has(.archive-parchment-page) {
+    background-attachment: scroll;
+    background-position: center top;
   }
 
-  .archive-parchment-panel {
-    background-position: center, bottom right;
-    background-size: cover, cover;
+  .archive-parchment-page::before {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+
+  .archive-parchment-surface nav,
+  .archive-parchment-surface > section,
+  .archive-parchment-surface .archive-signup,
+  .archive-parchment-panel,
+  .archive-parchment-panel.gateway-hero,
+  .archive-parchment-panel.gateway-primary,
+  .archive-parchment-panel.gateway-secondary,
+  .archive-parchment-panel.threshold {
     padding: var(--space-lg) var(--space-sm);
   }
 }
@@ -329,6 +380,61 @@ dd:last-child {
 
 .archive-landing-kicker {
   letter-spacing: 0;
+}
+
+.archive-coffee-beans {
+  position: relative;
+}
+
+.archive-coffee-beans::after {
+  background-image: url("/images/archive/coffee-beans-sketch.svg");
+  background-repeat: no-repeat;
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  user-select: none;
+  z-index: -1;
+}
+
+.archive-coffee-beans--about {
+  isolation: isolate;
+}
+
+.archive-coffee-beans--about::after {
+  background-size: contain;
+  bottom: 1.5rem;
+  height: 130px;
+  left: max(-6rem, calc((100vw - 900px) / -2));
+  opacity: 0.36;
+  width: 155px;
+}
+
+.archive-coffee-beans--home::after {
+  background-position: left top;
+  background-size: 155px auto;
+  height: 66px;
+  opacity: 0.22;
+  right: 0.5rem;
+  top: 1.25rem;
+  width: 74px;
+}
+
+@media (max-width: 640px) {
+  .archive-coffee-beans--about::after {
+    bottom: 0.75rem;
+    height: 92px;
+    left: 0.5rem;
+    opacity: 0.24;
+    width: 110px;
+  }
+
+  .archive-coffee-beans--home::after {
+    height: 52px;
+    opacity: 0.16;
+    right: 0.25rem;
+    top: 0.75rem;
+    width: 58px;
+  }
 }
 
 /* =========================

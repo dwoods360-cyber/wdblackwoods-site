@@ -11,7 +11,7 @@ export const metadata = createPageMetadata({
 
 export default function AboutPage() {
   return (
-    <main className="document-page">
+    <main className="document-page archive-coffee-beans archive-coffee-beans--about">
       <nav>
         <Link href="/">Home</Link>
         <Link href="/begin">Begin</Link>
