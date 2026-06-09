@@ -261,6 +261,10 @@ dd:last-child {
 
 .public-archive-page,
 .archive-parchment-page {
+  --link-color: #4c2b17;
+  --text-muted: #624636;
+  --text-primary: #24170f;
+  --text-secondary: #493224;
   isolation: isolate;
   position: relative;
 }
@@ -293,8 +297,12 @@ body:has(.archive-parchment-page) {
   z-index: 2;
 }
 
+.public-archive-page a:hover {
+  color: #6b3d20;
+}
+
 .archive-parchment-surface {
-  color: #1f1a14;
+  color: #24170f;
   max-width: 620px;
 }
 
@@ -308,12 +316,12 @@ body:has(.archive-parchment-page) {
 .archive-parchment-surface p,
 .archive-parchment-surface li,
 .archive-parchment-surface dd {
-  color: #2f281f;
+  color: #24170f;
 }
 
 .archive-parchment-surface .meta,
 .archive-parchment-surface .archive-entry-subline {
-  color: #635a4d;
+  color: #624636;
 }
 
 .archive-parchment-surface nav,
@@ -398,7 +406,11 @@ body:has(.archive-parchment-page) {
 .archive-coffee-beans::after {
   background-image: url("/images/archive/coffee-beans-sketch.svg");
   background-repeat: no-repeat;
+  background-size: contain;
   content: "";
+  display: block;
+  height: auto;
+  aspect-ratio: 180 / 140;
   pointer-events: none;
   position: absolute;
   user-select: none;
@@ -411,55 +423,46 @@ body:has(.archive-parchment-page) {
 }
 
 .archive-coffee-beans--about::after {
-  background-size: contain;
   bottom: 1.5rem;
-  height: 130px;
   left: max(-6rem, calc((100vw - 900px) / -2));
-  opacity: 0.36;
-  width: 155px;
+  opacity: 0.46;
+  width: 165px;
 }
 
 .archive-coffee-beans--archive::after {
-  background-size: contain;
   bottom: 2rem;
-  height: 86px;
-  opacity: 0.2;
+  opacity: 0.3;
   right: 1rem;
-  width: 104px;
+  width: 115px;
 }
 
 .archive-coffee-beans--home::after {
   background-position: left top;
-  background-size: 155px auto;
-  height: 66px;
-  opacity: 0.22;
+  opacity: 0.34;
   right: 0.5rem;
   top: 1.25rem;
-  width: 74px;
+  width: 90px;
 }
 
 @media (max-width: 640px) {
   .archive-coffee-beans--about::after {
     bottom: 0.75rem;
-    height: 92px;
     left: 0.5rem;
-    opacity: 0.24;
+    opacity: 0.34;
     width: 110px;
   }
 
   .archive-coffee-beans--home::after {
-    height: 52px;
-    opacity: 0.16;
+    opacity: 0.24;
     right: 0.25rem;
     top: 0.75rem;
     width: 58px;
   }
 
   .archive-coffee-beans--archive::after {
-    height: 68px;
-    opacity: 0.14;
+    opacity: 0.2;
     right: 0.25rem;
-    width: 82px;
+    width: 72px;
   }
 }
 
