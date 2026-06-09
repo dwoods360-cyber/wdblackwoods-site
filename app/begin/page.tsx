@@ -10,7 +10,7 @@ export const metadata = createPageMetadata({
 
 export default function BeginPage() {
   return (
-    <main className="gateway-page archive-parchment-page">
+    <main className="gateway-page public-archive-page">
       <section className="gateway-hero archive-parchment-panel">
         <p className="gateway-hero-text">
           You are no longer reading about this work. You are inside its structure.

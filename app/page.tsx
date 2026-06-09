@@ -10,7 +10,7 @@ export const metadata = createPageMetadata({
 
 export default function Home() {
   return (
-    <main className="home archive-parchment-page archive-coffee-beans archive-coffee-beans--home">
+    <main className="home public-archive-page archive-coffee-beans archive-coffee-beans--home">
       <section className="archive-parchment-panel">
         <h1>W.D. BLACKWOODS</h1>
         <p className="meta">From the archive of What Coffee Demands.</p>

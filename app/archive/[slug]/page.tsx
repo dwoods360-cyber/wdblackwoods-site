@@ -54,8 +54,8 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
   const isVineCrown = slug === "vine-crown"
   const excerptLabel =
     isVineCrown ? "— an archive excerpt —" : "— an excerpt —"
-  const pageClassName = `document-page archive-document-page${
-    isVineCrown ? " archive-parchment-page archive-parchment-surface" : ""
+  const pageClassName = `document-page archive-document-page public-archive-page${
+    isVineCrown ? " archive-parchment-surface" : ""
   }`
 
   return (
