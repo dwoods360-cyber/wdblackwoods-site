@@ -39,6 +39,7 @@ private/early-readers.csv
 private/early-reader-send-log.csv
 private/out/
 private/manuscript/
+private/artifact-source/
 private/reader-room-imports/
 private/reader-room-exports/
 reader-room-imports/
