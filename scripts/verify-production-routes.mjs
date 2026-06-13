@@ -6,15 +6,25 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const archivePath = path.resolve(root, "../content/archive.ts");
 
 const source = await readFile(archivePath, "utf8");
-const slugRegex = /^\s*"([^\"]+)":\s*\{/gm;
-const archiveSlugs = Array.from(source.matchAll(slugRegex), (match) => match[1]);
+const entryRegex = /^\s*"([^\"]+)":\s*\{([\s\S]*?^\s*\},?)/gm;
+const archiveEntries = Array.from(source.matchAll(entryRegex), (match) => {
+  const publishedAtMatch = match[2].match(/publishedAt:\s*"([^"]+)"/);
+
+  return {
+    slug: match[1],
+    publishedAt: publishedAtMatch?.[1],
+  };
+});
+const archiveSlugs = archiveEntries
+  .filter((entry) => !entry.publishedAt || new Date(entry.publishedAt).getTime() <= Date.now())
+  .map((entry) => entry.slug);
 const primaryArchiveSlug = "vine-crown";
 
-if (archiveSlugs.length === 0) {
+if (archiveEntries.length === 0) {
   throw new Error("No archive entries were found in content/archive.ts.");
 }
 
-if (!archiveSlugs.includes(primaryArchiveSlug)) {
+if (!archiveEntries.some((entry) => entry.slug === primaryArchiveSlug)) {
   throw new Error(`Primary archive slug was not found in content/archive.ts: ${primaryArchiveSlug}`);
 }
 

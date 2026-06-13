@@ -10,7 +10,7 @@
     "reader-room:revoke-reader": "node --env-file-if-exists=.env.local scripts/reader-room/revoke-reader.mjs",
     "reader-room:export-feedback": "node --env-file-if-exists=.env.local scripts/reader-room/export-feedback.mjs",
     "reader-room:validate": "node --test tests/reader-room.test.mjs && node scripts/validate-reader-room.mjs",
-    "validate:routes": "node scripts/validate-routes.mjs",
+    "validate:routes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test tests/archive-scheduling.test.mjs && node scripts/validate-routes.mjs",
     "verify:production": "node scripts/verify-production-routes.mjs",
     "build": "npm run validate:routes && next build",
     "start": "next start",

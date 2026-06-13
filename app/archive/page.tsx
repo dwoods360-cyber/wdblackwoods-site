@@ -1,7 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
 import { createPageMetadata } from "@/lib/siteMetadata"
-import { archiveCardMeta } from "../../content/archive"
+import { getPublishedArchiveCardMeta } from "../../content/archive"
+
+export const dynamic = "force-dynamic"
+export const revalidate = 0
 
 export const metadata = createPageMetadata({
   title: "Archive — What Coffee Demands",
@@ -11,6 +14,7 @@ export const metadata = createPageMetadata({
 })
 
 export default function ArchivePage() {
+  const archiveCardMeta = getPublishedArchiveCardMeta()
   const featuredEntry = archiveCardMeta.find((item) => item.slug === "vine-crown")
   const secondaryEntries = archiveCardMeta.filter((item) => item.slug !== "vine-crown")
 

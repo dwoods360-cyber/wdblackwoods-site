@@ -4,6 +4,10 @@ export type ArchiveEntry = {
   hook: string;
   context: string;
   body: string[];
+  publishedAt?: string;
+  descriptor?: string;
+  openingLine?: string;
+  bookLine?: string;
 };
 
 export type ArchiveCardMeta = {
@@ -11,6 +15,7 @@ export type ArchiveCardMeta = {
   title: string;
   description: string;
   excerpt: string;
+  publishedAt?: string;
 };
 
 export const archiveEntries: Record<string, {
@@ -19,6 +24,10 @@ export const archiveEntries: Record<string, {
   hook: string;
   context: string;
   body: string[];
+  publishedAt?: string;
+  descriptor?: string;
+  openingLine?: string;
+  bookLine?: string;
 }> = {
   "vine-crown": {
     title: "The Vine Crown",
@@ -226,13 +235,149 @@ export const archiveEntries: Record<string, {
       "This is the record of What Coffee Demands.",
     ],
   },
+  "the-compass": {
+    title: "The Compass",
+    subline: "From the Archive of What Coffee Demands — an archive excerpt",
+    hook: "Irwin stood alone in the dimly lit library, the document folder feeling impossibly heavy in his hands.",
+    context:
+      "Thread: Private reckoning / Inheritance — Temporal Layer: Pre-departure",
+    publishedAt: "2026-06-15T13:00:00Z",
+    descriptor:
+      "A private reckoning, where a man discovers his father’s final measure of worth.",
+    openingLine:
+      "Irwin stood alone in the dimly lit library, the document folder feeling impossibly heavy in his hands.",
+    bookLine: "What Coffee Demands — Book 1: Hold the Earth.",
+    body: [
+      "Irwin stood alone in the dimly lit library, the document folder feeling impossibly heavy in his hands. Thousands of unread books loomed around him, silent witnesses to the unraveling of his carefully constructed facade.",
+      "His gaze drifted, unbidden, to the tall mahogany display case standing sentinel beside the library’s fireplace. He’d passed it a thousand times without a second glance. But now, among the donated curiosities of former members — a Peninsular War medal, a fragment of Roman tile, a surgeon’s brass telescope — his eye caught and held on a small, battered compass. A brass Dollond pocket compass, its face yellowed with age, its needle long since stilled. The engraved plate on the shelf beneath it read:",
+      "Donated by Sir Edmund Cartier, 1871. “Navigation is not the art of finding safe harbor. It is the discipline of holding course.”",
+      "His father’s compass. In a club full of inherited relics, his father had donated the one instrument that measured whether a man knew where he was going.",
+      "Irwin looked away.",
+      "He stared at the folder. Abyssinia. Highlands. Coffee plantations. The kind of audacious, ill-conceived scheme that had brought ruin to countless desperate men.",
+      "But coffee merchants, when successful, amassed wealth beyond imagination. If he succeeded — when he succeeded — he would return vindicated, triumphant.",
+      "A grim smile flickered across his face.",
+      "He straightened his shoulders, smoothed the creases from his waistcoat, tucked the folder securely under his arm with the practiced bearing of a man who had made a deliberate choice, rather than had one brutally forced upon him.",
+      "The late afternoon sun caught the brass nameplate affixed to the folder tucked beneath his arm, and for a fleeting moment, the refracted light created the illusion of gold.",
+      "It wasn’t.",
+    ],
+  },
+  "alice-and-the-spear": {
+    title: "Alice and the Spear",
+    subline: "From the Archive of What Coffee Demands — an archive excerpt",
+    hook: "Sarah’s cries tore through the air.",
+    context:
+      "Thread: Protection / Combat memory — Temporal Layer: Massawa crossing",
+    publishedAt: "2026-06-22T13:00:00Z",
+    descriptor:
+      "A transformation measured in the space between heartbeats.",
+    openingLine: "Sarah’s cries tore through the air.",
+    bookLine: "What Coffee Demands — Book 1: Hold the Earth.",
+    body: [
+      "Sarah’s cries tore through the air.",
+      "Alice didn’t wait. As she passed a merchant’s stand, her hand closed around the shaft of a hunting spear without breaking stride — the way a cavalry trooper draws a saber from its scabbard, without thought, without hesitation, a motion burned into the muscle and bone by years of drill in the Bristol mud and worse.",
+      "The weight of it was different from her Pattern 1853 — lighter, the balance forward of the grip — but her body adjusted in the space between heartbeats. She was no longer Alice Clover, household manager. She was the girl who had fired a twelve-pounder into a charging line and met the survivors with cold steel. The transformation was instantaneous and absolute, as if the domestic woman had been a costume she could shrug off like a shawl.",
+      "She saw the kidnappers ahead, two men dragging Katherine’s limp form toward a darkened alley. She calculated distance, angle, the wobble of the unfamiliar shaft in her grip. Her breath steadied. The screaming market fell silent in her ears — the old, familiar tunnel vision of combat.",
+      "Just before the kidnappers reached the safety of the dark alley, Alice hurled the weapon with terrifying precision.",
+    ],
+  },
+  "berihuns-terms": {
+    title: "Berihun’s Terms",
+    subline: "From the Archive of What Coffee Demands — an archive excerpt",
+    hook: "Berihun looked toward the men behind him, then toward the fields.",
+    context:
+      "Thread: Labor / Agreement — Temporal Layer: Plantation formation",
+    publishedAt: "2026-06-29T13:00:00Z",
+    descriptor:
+      "An agreement sealed without hospitality, where the coffee is left to grow cold.",
+    openingLine:
+      "Berihun looked toward the men behind him, then toward the fields.",
+    bookLine: "What Coffee Demands — Book 1: Hold the Earth.",
+    body: [
+      "Berihun looked toward the men behind him, then toward the fields. He remained silent long enough for one elder to shift his weight and another to lower his eyes.",
+      "At last, Berihun straightened and agreed to move forward.",
+      "“Understand this,” he said, stepping closer, ensuring Irwin saw the fire that still burned beneath the capitulation. “They work for the coin, to feed their families. Do not mistake their labor for loyalty.”",
+      "The woman at the low table began to pour the first round of coffee into the small ceramic cups, the steam rising in thin, fragrant plumes. An elder reached out, his fingers trembling with the anticipation of the ritual — and the relief of the deal.",
+      "But Berihun did not reach for a cup. He didn’t even look at it.",
+      "“We start at dawn,” he said, his voice flat and final.",
+      "Before the first sip could be taken, before the hospitality was sealed, Berihun turned his back and walked into the shadows of his home. He dismissed Irwin before Irwin could dismiss him, leaving the coffee to grow cold on the table.",
+    ],
+  },
+  "the-hoe": {
+    title: "The Hoe",
+    subline: "From the Archive of What Coffee Demands — an archive excerpt",
+    hook: "“Why did you come here?”",
+    context:
+      "Thread: Confession / Repair — Temporal Layer: Book 2",
+    publishedAt: "2026-07-06T13:00:00Z",
+    descriptor:
+      "A midnight confession between a man who did something wrong and a boy who asks the only question that matters.",
+    openingLine: "“Why did you come here?”",
+    bookLine: "What Coffee Demands — Book 2: The Crown and the Bean.",
+    body: [
+      "“Why did you come here?”",
+      "The old instinct surged: deflect, redirect, offer a useful lie. But the boy’s face was open, expecting honesty.",
+      "“Because I did something wrong,” Ezra said. “And I needed a place where I could try to do something right.”",
+      "Adathun considered this with the gravity of a ten-year-old who understood more than adults credited.",
+      "“Did it work?”",
+      "Ezra looked at the freshly sharpened hoe in the boy’s hands — a tool that would cut clean furrows tomorrow, that would help feed the village, that existed because he had stopped walking and knelt in the dirt.",
+      "“I think it is starting to,” he said.",
+      "He walked back to his hut. Yashoda was awake, waiting in the doorway. She saw something in his face she hadn’t seen before — not the anxiety of a fugitive, but the quiet steadiness of a man who had, for one small moment, been exactly where he was supposed to be.",
+      "She said nothing. She simply took his hand and led him inside.",
+    ],
+  },
+  "the-waterfall": {
+    title: "The Waterfall",
+    subline: "From the Archive of What Coffee Demands — an archive excerpt",
+    hook: "Adathun knelt dramatically, holding up the box as if it were a priceless gift.",
+    context:
+      "Thread: Childhood / Hidden object — Temporal Layer: Highland settlement",
+    publishedAt: "2026-07-13T13:00:00Z",
+    descriptor:
+      "Two children crown themselves rulers of a kingdom that exists behind falling water and will not survive the decade.",
+    openingLine:
+      "Adathun knelt dramatically, holding up the box as if it were a priceless gift.",
+    bookLine: "What Coffee Demands — Book 1: Hold the Earth.",
+    body: [
+      "Adathun knelt dramatically, holding up the box as if it were a priceless gift.",
+      "“Since we were talking about the royals, maybe I should present this to you, Your Majesty. A treasure fit for a queen.”",
+      "Sarah raised an eyebrow, adopting a regal tone. “Oh? And what exactly am I supposed to do with it?”",
+      "“Hold it for me, of course. A queen must protect her kingdom’s riches.”",
+      "The object wasn’t gold or jewels, but the dull, dark grey of iron that had seen too many seasons. A strongbox, its surface etched with faint, scrolling patterns — ancient, geometric Serk’ motifs that looked like the tilet on her mother’s dress, but older, almost architectural. The metal felt bitingly cold against her skin. A sharp, unnatural chill that seemed to defy the humid mist of the alcove.",
+      "Three distinct openings for keys. No keys.",
+      "It didn’t rattle. Whatever was inside was packed tight, or perhaps it was lined with velvet.",
+      "Sarah saw the importance he placed on the find and nodded, carefully taking the metallic weight into her hands. “Very well. I shall safeguard this treasure… for now.”",
+      "“Then our kingdom is safe,” Adathun beamed.",
+      "The light filtering through the waterfall began to dim as the sun set. A cool breeze drifted into the alcove. She sighed, tucking the cold box under her arm. “We should head back before Alice starts a search party.”",
+      "As they neared the compound, they spotted May gathering wash from the clothesline. They froze in unison, clutching their crowns. For a heartbeat, the order of the house hung in the balance.",
+      "May paused, a damp sheet draped over her arm, taking in their disheveled hair and the red dust on their shins. But then she offered a knowing, silent smile — the look of a fellow survivor who still remembered the grit of the road — and returned to her baskets.",
+      "She would not be the one to break their perimeter.",
+    ],
+  },
 };
 
 
 export const archiveSlugs = Object.keys(archiveEntries);
 
+export function isArchiveEntryPublished(entry: ArchiveEntry, now = new Date()) {
+  return !entry.publishedAt || new Date(entry.publishedAt).getTime() <= now.getTime();
+}
+
+export function getPublishedArchiveSlugs(now = new Date()) {
+  return archiveSlugs.filter((slug) => isArchiveEntryPublished(archiveEntries[slug], now));
+}
+
 export function getArchiveEntry(slug: string) {
   return archiveEntries[slug];
+}
+
+export function getPublishedArchiveEntry(slug: string, now = new Date()) {
+  const entry = getArchiveEntry(slug);
+
+  if (!entry || !isArchiveEntryPublished(entry, now)) {
+    return undefined;
+  }
+
+  return entry;
 }
 
 export const archiveCardMeta: ArchiveCardMeta[] = [
@@ -264,4 +409,52 @@ export const archiveCardMeta: ArchiveCardMeta[] = [
       'A meta framing of the archive, setting the worldview and the forces that shape it.',
     excerpt: 'This publication begins as an archive, not an announcement.',
   },
+  {
+    slug: 'the-compass',
+    title: 'The Compass',
+    description:
+      'A private reckoning, where a man discovers his father’s final measure of worth.',
+    excerpt: 'Irwin stood alone in the dimly lit library, the document folder feeling impossibly heavy in his hands.',
+    publishedAt: '2026-06-15T13:00:00Z',
+  },
+  {
+    slug: 'alice-and-the-spear',
+    title: 'Alice and the Spear',
+    description:
+      'A transformation measured in the space between heartbeats.',
+    excerpt: 'Sarah’s cries tore through the air.',
+    publishedAt: '2026-06-22T13:00:00Z',
+  },
+  {
+    slug: 'berihuns-terms',
+    title: 'Berihun’s Terms',
+    description:
+      'An agreement sealed without hospitality, where the coffee is left to grow cold.',
+    excerpt: 'Berihun looked toward the men behind him, then toward the fields.',
+    publishedAt: '2026-06-29T13:00:00Z',
+  },
+  {
+    slug: 'the-hoe',
+    title: 'The Hoe',
+    description:
+      'A midnight confession between a man who did something wrong and a boy who asks the only question that matters.',
+    excerpt: '“Why did you come here?”',
+    publishedAt: '2026-07-06T13:00:00Z',
+  },
+  {
+    slug: 'the-waterfall',
+    title: 'The Waterfall',
+    description:
+      'Two children crown themselves rulers of a kingdom that exists behind falling water and will not survive the decade.',
+    excerpt: 'Adathun knelt dramatically, holding up the box as if it were a priceless gift.',
+    publishedAt: '2026-07-13T13:00:00Z',
+  },
 ];
+
+export function getPublishedArchiveCardMeta(now = new Date()) {
+  return archiveCardMeta.filter((item) => {
+    const entry = archiveEntries[item.slug];
+
+    return entry ? isArchiveEntryPublished(entry, now) : false;
+  });
+}

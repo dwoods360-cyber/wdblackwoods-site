@@ -14,6 +14,10 @@ const requiredExports = [
   /export const archiveSlugs\b/,
   /export const archiveCardMeta\b/,
   /export function getArchiveEntry\b/,
+  /export function getPublishedArchiveEntry\b/,
+  /export function getPublishedArchiveSlugs\b/,
+  /export function getPublishedArchiveCardMeta\b/,
+  /export function isArchiveEntryPublished\b/,
 ];
 
 for (const regex of requiredExports) {
@@ -55,11 +59,14 @@ if (missingEntrySlugs.length > 0) {
 }
 
 const slugPageSource = await readFile(slugPagePath, "utf8");
-if (!/export const dynamicParams = false/.test(slugPageSource)) {
-  throw new Error("app/archive/[slug]/page.tsx must export dynamicParams = false.");
+if (!/export const dynamic = "force-dynamic"/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must force dynamic rendering for scheduled archive entries.");
 }
-if (!/export function generateStaticParams\(/.test(slugPageSource)) {
-  throw new Error("app/archive/[slug]/page.tsx must export generateStaticParams().");
+if (!/export const revalidate = 0/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must disable route revalidation for scheduled archive entries.");
+}
+if (!/export const dynamicParams = true/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must allow dynamic params for scheduled archive entries.");
 }
 if (!/export default async function/.test(slugPageSource)) {
   throw new Error("app/archive/[slug]/page.tsx must export a default async function.");
@@ -70,16 +77,25 @@ if (!/await params/.test(slugPageSource)) {
 if (!/import \{\s*notFound\s*\} from ['"]next\/navigation['"]/.test(slugPageSource)) {
   throw new Error("app/archive/[slug]/page.tsx must import notFound from next/navigation.");
 }
-if (!/import \{\s*getArchiveEntry\s*,\s*archiveSlugs\s*\} from ['"](?:\.\.\/){3}content\/archive['"]/.test(slugPageSource)) {
-  throw new Error("app/archive/[slug]/page.tsx must import getArchiveEntry and archiveSlugs from ../../../content/archive.");
+if (!/import \{\s*getPublishedArchiveEntry\s*\} from ['"](?:\.\.\/){3}content\/archive['"]/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must import getPublishedArchiveEntry from ../../../content/archive.");
+}
+if (!/getPublishedArchiveEntry\(/.test(slugPageSource) || !/return notFound\(\)/.test(slugPageSource)) {
+  throw new Error("app/archive/[slug]/page.tsx must block unpublished direct archive routes with notFound().");
 }
 
 const archiveIndexSource = await readFile(archiveIndexPath, "utf8");
-if (!/import \{\s*archiveCardMeta\s*\} from ['"](?:\.\.\/){2}content\/archive['"]/.test(archiveIndexSource)) {
-  throw new Error("app/archive/page.tsx must import archiveCardMeta from ../../content/archive.");
+if (!/export const dynamic = "force-dynamic"/.test(archiveIndexSource)) {
+  throw new Error("app/archive/page.tsx must force dynamic rendering for scheduled archive entries.");
 }
-if (!/archiveCardMeta\s*\.\s*(?:map|filter)\(/.test(archiveIndexSource)) {
-  throw new Error("app/archive/page.tsx must derive archive links from archiveCardMeta only.");
+if (!/export const revalidate = 0/.test(archiveIndexSource)) {
+  throw new Error("app/archive/page.tsx must disable route revalidation for scheduled archive entries.");
+}
+if (!/import \{\s*getPublishedArchiveCardMeta\s*\} from ['"](?:\.\.\/){2}content\/archive['"]/.test(archiveIndexSource)) {
+  throw new Error("app/archive/page.tsx must import getPublishedArchiveCardMeta from ../../content/archive.");
+}
+if (!/getPublishedArchiveCardMeta\(\)/.test(archiveIndexSource)) {
+  throw new Error("app/archive/page.tsx must derive archive links from published archive card metadata.");
 }
 
 console.log("✅ Archive route validation passed.");

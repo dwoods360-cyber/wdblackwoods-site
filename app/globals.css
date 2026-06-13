@@ -259,6 +259,13 @@ dd:last-child {
   margin-bottom: 1.15rem;
 }
 
+.archive-document-page .archive-entry-descriptor {
+  color: var(--text-secondary);
+  font-size: var(--type-scale-lg);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-sm);
+}
+
 .public-archive-page,
 .archive-parchment-page {
   --link-color: #4c2b17;

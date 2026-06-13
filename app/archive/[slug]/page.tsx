@@ -3,19 +3,17 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import ArchiveSignup from "@/components/ArchiveSignup"
 import { createPageMetadata } from "@/lib/siteMetadata"
-import { getArchiveEntry, archiveSlugs } from "../../../content/archive"
+import { getPublishedArchiveEntry } from "../../../content/archive"
 
-export const dynamicParams = false
-
-export function generateStaticParams() {
-  return archiveSlugs.map((slug) => ({ slug }))
-}
+export const dynamic = "force-dynamic"
+export const dynamicParams = true
+export const revalidate = 0
 
 export async function generateMetadata({ params }: { params: Promise<{ slug?: string }> }): Promise<Metadata> {
   const resolvedParams = await params
   const rawSlug = resolvedParams?.slug
   const slug = typeof rawSlug === "string" ? decodeURIComponent(rawSlug) : undefined
-  const entry = slug ? getArchiveEntry(slug) : undefined
+  const entry = slug ? getPublishedArchiveEntry(slug) : undefined
   const isVineCrown = slug === "vine-crown"
 
   if (!entry || !slug) {
@@ -30,10 +28,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   return createPageMetadata({
     title: isVineCrown
       ? "The Vine Crown — An Excerpt from What Coffee Demands"
-      : `${entry.title} — What Coffee Demands Archive`,
+      : `${entry.title} — W.D. Blackwoods`,
     description: isVineCrown
       ? "A hidden box, a carved elephant, and a vine crown wait at the edge of a family’s unfinished journey."
-      : entry.hook,
+      : entry.descriptor || entry.hook,
     path: `/archive/${slug}`,
     type: "article",
   })
@@ -43,17 +41,17 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
   const resolvedParams = await params
   const rawSlug = resolvedParams?.slug
   const slug = typeof rawSlug === "string" ? decodeURIComponent(rawSlug) : undefined
-  const entry = slug ? getArchiveEntry(slug) : undefined
+  const entry = slug ? getPublishedArchiveEntry(slug) : undefined
 
   if (!entry) {
     return notFound()
   }
 
+  const openingLine = entry.openingLine || entry.hook
   const bodyParagraphs =
-    entry.body[0] === entry.hook ? entry.body.slice(1) : entry.body
+    entry.body[0] === openingLine ? entry.body.slice(1) : entry.body
   const isVineCrown = slug === "vine-crown"
-  const excerptLabel =
-    isVineCrown ? "— an archive excerpt —" : "— an excerpt —"
+  const excerptLabel = "— an archive excerpt —"
   const pageClassName = `document-page archive-document-page public-archive-page${
     isVineCrown ? " archive-parchment-surface" : ""
   }`
@@ -87,16 +85,20 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
 
       <section>
         <p className="meta">From the Archive of What Coffee Demands</p>
-        {isVineCrown ? null : <h1>{entry.title}</h1>}
         <p className="archive-entry-subline">{excerptLabel}</p>
-        <p>{entry.hook}</p>
-        <p className="meta">{entry.context}</p>
+        {isVineCrown ? null : <h1>{entry.title}</h1>}
+        {entry.descriptor ? (
+          <p className="archive-entry-descriptor">{entry.descriptor}</p>
+        ) : null}
+        <p>{openingLine}</p>
+        {entry.descriptor ? null : <p className="meta">{entry.context}</p>}
         {bodyParagraphs.map((paragraph, index) => (
           <p key={`${index}-${paragraph}`}>{paragraph}</p>
         ))}
+        {entry.bookLine ? <p className="meta">{entry.bookLine}</p> : null}
         <p className="meta archive-entry-ending">End of extracted field record</p>
       </section>
-      {slug === "vine-crown" ? <ArchiveSignup /> : null}
+      <ArchiveSignup />
     </main>
   )
 }
