@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { createPageMetadata } from "@/lib/siteMetadata"
 import { getPublishedArchiveCardMeta } from "../../content/archive"
+import { getPublishedArchiveArtifactPages } from "../../content/archiveArtifacts"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -15,6 +16,7 @@ export const metadata = createPageMetadata({
 
 export default function ArchivePage() {
   const archiveCardMeta = getPublishedArchiveCardMeta()
+  const artifactPages = getPublishedArchiveArtifactPages()
   const featuredEntry = archiveCardMeta.find((item) => item.slug === "vine-crown")
   const secondaryEntries = archiveCardMeta.filter((item) => item.slug !== "vine-crown")
 
@@ -79,6 +81,13 @@ export default function ArchivePage() {
           <p>
             The page closes not with another choice, but with a sense of completion. The archive is shaped here as a single current, not a menu of equal passages.
           </p>
+          {artifactPages.length > 0 ? (
+            <p>
+              <Link href="/archive/artifacts" className="archive-entry-title-link">
+                View archive artifacts →
+              </Link>
+            </p>
+          ) : null}
         </section>
       </div>
     </main>

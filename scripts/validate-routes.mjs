@@ -4,10 +4,14 @@ import { fileURLToPath } from "url";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const archivePath = path.resolve(root, "../content/archive.ts");
+const archiveArtifactsPath = path.resolve(root, "../content/archiveArtifacts.ts");
 const slugPagePath = path.resolve(root, "../app/archive/[slug]/page.tsx");
 const archiveIndexPath = path.resolve(root, "../app/archive/page.tsx");
+const artifactIndexPath = path.resolve(root, "../app/archive/artifacts/page.tsx");
+const artifactSlugPath = path.resolve(root, "../app/archive/artifacts/[slug]/page.tsx");
 
 const source = await readFile(archivePath, "utf8");
+const artifactSource = await readFile(archiveArtifactsPath, "utf8");
 
 const requiredExports = [
   /export const archiveEntries\b/,
@@ -23,6 +27,19 @@ const requiredExports = [
 for (const regex of requiredExports) {
   if (!regex.test(source)) {
     throw new Error(`content/archive.ts must export ${regex.source.replace(/export const |export function |\\b/g, "").trim()}.`);
+  }
+}
+
+const requiredArtifactExports = [
+  /export const archiveArtifactPages\b/,
+  /export function getPublishedArchiveArtifactPage\b/,
+  /export function getPublishedArchiveArtifactPages\b/,
+  /export function getPublishedArchiveArtifactSlugs\b/,
+];
+
+for (const regex of requiredArtifactExports) {
+  if (!regex.test(artifactSource)) {
+    throw new Error(`content/archiveArtifacts.ts must export ${regex.source.replace(/export const |export function |\\b/g, "").trim()}.`);
   }
 }
 
@@ -96,6 +113,28 @@ if (!/import \{\s*getPublishedArchiveCardMeta\s*\} from ['"](?:\.\.\/){2}content
 }
 if (!/getPublishedArchiveCardMeta\(\)/.test(archiveIndexSource)) {
   throw new Error("app/archive/page.tsx must derive archive links from published archive card metadata.");
+}
+
+const artifactIndexSource = await readFile(artifactIndexPath, "utf8");
+if (!/export const dynamic = "force-dynamic"/.test(artifactIndexSource)) {
+  throw new Error("app/archive/artifacts/page.tsx must force dynamic rendering for scheduled artifact pages.");
+}
+if (!/export const revalidate = 0/.test(artifactIndexSource)) {
+  throw new Error("app/archive/artifacts/page.tsx must disable route revalidation for scheduled artifact pages.");
+}
+if (!/getPublishedArchiveArtifactPages\(\)/.test(artifactIndexSource)) {
+  throw new Error("app/archive/artifacts/page.tsx must derive artifact links from published artifact pages.");
+}
+
+const artifactSlugSource = await readFile(artifactSlugPath, "utf8");
+if (!/export const dynamic = "force-dynamic"/.test(artifactSlugSource)) {
+  throw new Error("app/archive/artifacts/[slug]/page.tsx must force dynamic rendering for scheduled artifact pages.");
+}
+if (!/export const revalidate = 0/.test(artifactSlugSource)) {
+  throw new Error("app/archive/artifacts/[slug]/page.tsx must disable route revalidation for scheduled artifact pages.");
+}
+if (!/getPublishedArchiveArtifactPage\(/.test(artifactSlugSource) || !/return notFound\(\)/.test(artifactSlugSource)) {
+  throw new Error("app/archive/artifacts/[slug]/page.tsx must block unpublished artifact routes with notFound().");
 }
 
 console.log("✅ Archive route validation passed.");

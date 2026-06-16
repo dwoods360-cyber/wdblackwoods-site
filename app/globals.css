@@ -932,6 +932,60 @@ a {
   line-height: var(--line-height-relaxed);
 }
 
+.archive-artifacts-page h1,
+.archive-artifact-detail-page h1 {
+  font-size: clamp(2.1rem, 4vw, 2.7rem);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-sm);
+}
+
+.archive-artifact-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.archive-artifact-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-muted);
+}
+
+.archive-artifact-image-link {
+  display: block;
+  border: 0;
+}
+
+.archive-artifact-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid rgba(76, 43, 23, 0.22);
+  background: rgba(255, 248, 228, 0.18);
+}
+
+.archive-artifact-card h2 {
+  font-size: clamp(1.35rem, 2.6vw, 1.65rem);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-xs);
+}
+
+.archive-artifact-card p {
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+@media (max-width: 640px) {
+  .archive-artifact-card {
+    grid-template-columns: 1fr;
+  }
+}
+
 .threshold {
   display: flex;
   flex-direction: column;

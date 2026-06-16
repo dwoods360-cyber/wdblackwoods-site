@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import ArchiveSignup from "@/components/ArchiveSignup"
 import { createPageMetadata } from "@/lib/siteMetadata"
 import { getPublishedArchiveEntry } from "../../../content/archive"
+import { getPublishedArchiveArtifactPage } from "../../../content/archiveArtifacts"
 
 export const dynamic = "force-dynamic"
 export const dynamicParams = true
@@ -42,6 +43,7 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
   const rawSlug = resolvedParams?.slug
   const slug = typeof rawSlug === "string" ? decodeURIComponent(rawSlug) : undefined
   const entry = slug ? getPublishedArchiveEntry(slug) : undefined
+  const artifactPage = slug ? getPublishedArchiveArtifactPage(slug) : undefined
 
   if (!entry) {
     return notFound()
@@ -96,6 +98,13 @@ export default async function ArchiveEntryPage({ params }: { params: Promise<{ s
           <p key={`${index}-${paragraph}`}>{paragraph}</p>
         ))}
         {entry.bookLine ? <p className="meta">{entry.bookLine}</p> : null}
+        {artifactPage ? (
+          <p>
+            <Link href={`/archive/artifacts/${slug}`} className="archive-signup-link">
+              View related artifacts →
+            </Link>
+          </p>
+        ) : null}
         <p className="meta archive-entry-ending">End of extracted field record</p>
       </section>
       <ArchiveSignup />
